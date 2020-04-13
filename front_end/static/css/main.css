@@ -1,0 +1,7 @@
+@font-face{
+    font-family: Papyrus;
+    src: url('../fonts/PAPYRUS.TTF');
+}
+body{
+    font-family: Papyrus;
+}
