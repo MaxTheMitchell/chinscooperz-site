@@ -14,7 +14,7 @@ class dialogueGenerator:
             <table class="textbox" style="background-color: aqua;">
             <tr>
                 <td>
-                    <img src="{}{}.png">
+                    <img src="{}/{}.png">
                 <td>
                 <td>   
                     <p>{}</p>
