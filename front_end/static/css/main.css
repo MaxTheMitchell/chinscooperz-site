@@ -1,7 +1,21 @@
 @font-face{
     font-family: Papyrus;
     src: url('../fonts/PAPYRUS.TTF');
+    font-family: Ferrum;
+    src: url('../fonts/Ferrum.otf');
 }
 body{
     font-family: Papyrus;
+}
+
+.textbox{
+    font-family: Ferrum;
+    font-size: large;
+    padding: 1%;
+    border-style: double;
+    border-spacing: 150px;
+    
+}
+.textbox_container{
+    
 }

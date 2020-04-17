@@ -5,10 +5,10 @@ class dialogueGenerator:
         self.img_path = img_path
 
     def get_html(self,text):
-        return reduce(
+        return '<div class="textbox_container">'+reduce(
             lambda total,new: total + self.make_text_box(*new.strip().split('{')),
             text.split('}')[0:-1],''
-        )
+            )+'</div>'
             
     def make_text_box(self,name,text):
         return """
