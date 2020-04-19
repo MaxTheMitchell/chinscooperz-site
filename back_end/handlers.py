@@ -1,6 +1,6 @@
 import http.server,re
 from back_end import dialogueGenerator,htmlFactory
-from back_end.game.board import GameBoard
+from back_end.game import workflow
 
 class MyHandlers(http.server.SimpleHTTPRequestHandler):
 
@@ -46,12 +46,9 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
         return path == "/game"
 
     def _game_resp(self):
-        game = GameBoard()
-        game.add_to_map("foo",5,2)
-        game.add_to_map('<img src="/front_end/static/imgs/faces/magic_rat.jpg"',3,2)
         return self._custom_get_resp(
             self.HTML_FAC.get_html_bytes(
-                game.get_html_rep()
+                workflow.GameWorkflow().run()
             )
         )
 
