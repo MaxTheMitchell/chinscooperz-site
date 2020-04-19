@@ -12,6 +12,7 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
         open(HTML_PATH + "/footer.html").read()
     )
     DIALOG_GEN = dialogueGenerator.dialogueGenerator("/front_end/static/imgs/faces")
+    GAME = workflow.GameWorkflow()
 
     def do_GET(self):
         if self._is_root(self.path):
@@ -48,9 +49,16 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
     def _game_resp(self):
         return self._custom_get_resp(
             self.HTML_FAC.get_html_bytes(
-                workflow.GameWorkflow().run()
+                self.GAME.run()
             )
         )
+        
+
+    def _is_move(self,path):
+        return path == "game/move"
+
+    # def _move_resp(self):
+    #     return 
 
     def _get_resp_file(self,path):
         return self._custom_get_resp(open(path,'rb').read())

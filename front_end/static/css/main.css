@@ -29,6 +29,10 @@ body{
     width: 10%;
     height: 10%;
 }
+.game_board img{
+    max-width: 90%;
+    max-height: 90%;
+}
 
 .game_board td:hover{
     background-color: aquamarine;
