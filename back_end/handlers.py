@@ -49,7 +49,8 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
     def _game_resp(self):
         return self._custom_get_resp(
             self.HTML_FAC.get_html_bytes(
-                self.GAME.run()
+                body=self.GAME.run(),
+                head=open(self.HTML_PATH + "/game_head.html").read()
             )
         )
         

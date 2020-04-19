@@ -8,7 +8,7 @@ class GameBoard:
         for collum in self.cells:
             html += "<tr>\n"
             for row in collum:
-                html += "<td>{}</td>\n".format(row)
+                html += "<td onclick='gridClicked();'>{}</td>\n".format(row)
             html += "</tr>\n"
         return html + "</table>\n<div>\n"
 

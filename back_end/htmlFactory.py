@@ -4,8 +4,10 @@ class htmlFac:
         self.header = header
         self.footer = footer
 
-    def get_html_bytes(self,body,formating='utf-8'):
-        return bytes(self.get_html_sting(body),formating)
+    def get_html_bytes(self,body,formating='utf-8',head=None):
+        return bytes(self.get_html_sting(body,head),formating)
 
-    def get_html_sting(self,body):
-        return self.head + self.header + body + self.footer
+    def get_html_sting(self,body,head=None):
+        if head == None:
+            head = self.head
+        return head + self.header + body + self.footer
