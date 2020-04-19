@@ -16,6 +16,20 @@ body{
     border-spacing: 150px;
     
 }
-.textbox_container{
-    
+
+.game_board {
+    width: 100%;
+    height: 1000px;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.game_board td{
+    border: 1px solid black;
+    width: 10%;
+    height: 10%;
+}
+
+.game_board td:hover{
+    background-color: aquamarine;
 }

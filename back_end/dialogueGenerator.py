@@ -16,7 +16,7 @@ class dialogueGenerator:
                 <table>
                 <tr>
                     <td>
-                        <img src="{}/{}.png">
+                        <img src="{}/{}.jpg">
                     <td>
                     <td>   
                         <p>{}</p>
