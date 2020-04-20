@@ -1,13 +1,9 @@
 from PIL import Image
 class CharacterSheetDisplay:
 
-    id_count = 0
-
     def __init__(self,img_path,save_path=""):
         self.save_path = save_path
         self.img = Image.open(img_path)
-        self.id = self.id_count
-        self.id_count += 1
 
     def __str__(self):
         return self.get_save_path()[1:]
@@ -21,7 +17,7 @@ class CharacterSheetDisplay:
         return self.get_save_path()
 
     def get_save_path(self):
-        return "{}/{}.png".format(self.save_path,self.id)
+        return "{}/{}.png".format(self.save_path,self._get_id())
 
     def _save(self,img,save_path):
         img.save(save_path,"PNG")
@@ -37,4 +33,6 @@ class CharacterSheetDisplay:
     def _get_character_height(self):
         return self.img.height//4
         
+    def _get_id(self):
+        return id(self)
         

@@ -1,6 +1,10 @@
 function gridClicked(id){
-    var xmlHttp = new XMLHttpRequest;
+    let xmlHttp = new XMLHttpRequest;
     xmlHttp.open("GET","/game/move",true);
     xmlHttp.send();
-    document.getElementById(id).innerHTML ="<img height='100' width='100' src='/front_end/static/imgs/game/tmp/0.png?"+ new Date().getTime()+"'>";
+    console.log("<img height='100' width='100' src='/front_end/static/imgs/game/tmp/0.png?"+ new Date().getTime()+"'>");
+    console.log(xmlHttp.responseText);
+    xmlHttp.onload = function() {
+        document.getElementById(id).innerHTML = xmlHttp.responseText;
+      };
 }

@@ -10,7 +10,7 @@ class GameBoard:
             for row in collum:
                 html += str(row)
             html += "</tr>\n"
-        return html + "</table>\n<div>\n"
+        return html + "</table>\n</div>\n"
 
     def add_to_map(self,content,x,y):
         self.cells[y][x].set_content(content)

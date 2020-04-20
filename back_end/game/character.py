@@ -1,3 +1,4 @@
+from time import time
 class Character:
 
     def __init__(self,display):
@@ -6,7 +7,7 @@ class Character:
         self.move_down()
 
     def __str__(self):
-        return "<img  height='100' width='100' src={}>".format(self.display)
+        return "<img  height='100' width='100' src='{}?{}'>".format(self.display,int(time()*1000))
 
     def move_left(self):
         return self._move(1)

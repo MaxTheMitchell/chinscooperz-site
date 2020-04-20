@@ -17,4 +17,4 @@ class GameWorkflow:
 
     def move(self):
         self.rat.move_right()
-        return str(self.rat.display)
+        return str(self.rat)
