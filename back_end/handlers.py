@@ -1,4 +1,4 @@
-import http.server,re
+import http.server,re,urllib.parse
 from back_end import dialogueGenerator,htmlFactory
 from back_end.game import game_handlers
 
@@ -15,28 +15,34 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
     GAME = game_handlers.GameHandler()
 
     def do_GET(self):
-        if self._is_root(self.path):
-            return self._root_resp()
-        elif self._is_dialogue(self.path):
-            return self._dialogue_resp(self.path)
-        elif self._is_game(self.path):
-            return self._game_resp(self.path)
+        resp_str = self._get_get_str(self.path)
+        if resp_str != None:
+            return self._custom_get_resp(bytes(resp_str,'utf-8'))
         return super().do_GET()
+
+    def _get_get_str(self,path):
+        if self._is_root(path):
+            return self._root_resp()
+        elif self._is_dialogue(path):
+            return self._dialogue_resp(path)
+        elif self._is_game(path):
+            return self.GAME.handle_req(path,self._get_query_vals(path))
+
+    def _get_query_vals(self,path):
+        return urllib.parse.parse_qs(urllib.parse.urlparse(path).query)
 
     def _is_root(self,path):
         return path == "/"
 
     def _root_resp(self):
-        return self._custom_get_resp(
-            self.HTML_FAC.get_html_bytes(open(self.HTML_PATH+"/index.html").read())
-        )
+        return self.HTML_FAC.get_html_sting(open(self.HTML_PATH+"/index.html").read())
 
     def _is_dialogue(self,path):
         return re.match('^/dialogue/.*',path)
 
     def _dialogue_resp(self,path):
         return self._custom_get_resp(
-            self.HTML_FAC.get_html_bytes(
+            self.HTML_FAC.get_html_sting(
                 self.DIALOG_GEN.get_html(
                     open(self.ROOT_PATH+self.path+".dialogue").read()
                 )
@@ -45,15 +51,6 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
 
     def _is_game(self,path):
         return re.match("^/game.*",path)
-
-    def _game_resp(self,path):
-        return self._custom_get_resp(self.GAME.handle_req(path))
-
-    def _is_move(self,path):
-        return path == "/game/move"
-
-    def _move_resp(self):
-        return self._custom_get_resp(self.GAME.move())
 
     def _get_resp_file(self,path):
         return self._custom_get_resp(open(path,'rb').read())

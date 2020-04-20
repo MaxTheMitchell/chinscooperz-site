@@ -1,5 +1,5 @@
 function gridClicked(id){
-    make_get_req("/game/move");
+    make_get_req("/game/move?cell_id="+id);
     update_board();
 }
 
