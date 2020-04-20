@@ -9,6 +9,9 @@ class CharacterSheetDisplay:
         self.id = self.id_count
         self.id_count += 1
 
+    def __str__(self):
+        return self.get_save_path()[1:]
+
     def save_section(self,x,y):
         self._save(
             self._crop(x*self._get_character_width(),y*self._get_character_height(),

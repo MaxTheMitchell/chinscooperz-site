@@ -1,16 +1,30 @@
 class GameBoard:
 
     def __init__(self,width=10,height=10):
-        self.cells = [['']*width for _ in range(height)]
+        self.cells = [[Cell() for _ in range(width)] for _ in range(height)]
         
-    def get_html_rep(self):
+    def __str__(self):
         html = "<div class='game_board'>\n<table>\n"
         for collum in self.cells:
             html += "<tr>\n"
             for row in collum:
-                html += "<td onclick='gridClicked();'>{}</td>\n".format(row)
+                html += str(row)
             html += "</tr>\n"
         return html + "</table>\n<div>\n"
 
     def add_to_map(self,content,x,y):
-        self.cells[y][x] = content
+        self.cells[y][x].set_content(content)
+
+class Cell:
+
+    def __init__(self,content=''):
+        self.content = content
+
+    def __repr__(self):
+        return self.content
+
+    def __str__(self):
+        return "<td id = '{}'; onclick='gridClicked(this.id);'>{}</td>\n".format(id(self),self.content)
+
+    def set_content(self,content):
+        self.content = content

@@ -19,6 +19,8 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
             return self._root_resp()
         elif self._is_dialogue(self.path):
             return self._dialogue_resp(self.path)
+        elif self._is_move(self.path):
+            return self._move_resp()
         elif self._is_game(self.path):
             return self._game_resp()
         return super().do_GET()
@@ -56,15 +58,17 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
         
 
     def _is_move(self,path):
-        return path == "game/move"
+        return path == "/game/move"
 
-    # def _move_resp(self):
-    #     return 
+    def _move_resp(self):
+        return self._custom_get_resp(
+            bytes(self.GAME.move(),'utf-8'
+        ))
 
     def _get_resp_file(self,path):
         return self._custom_get_resp(open(path,'rb').read())
     
-    def _custom_get_resp(self,bytes):
+    def _custom_get_resp(self,bytes=bytes("",'utf-8')):
         self.send_response(200)
         self.send_header("Content-type","text/html")
         self.end_headers()

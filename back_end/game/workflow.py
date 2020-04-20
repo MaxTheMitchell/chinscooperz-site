@@ -10,8 +10,11 @@ class GameWorkflow:
         self.rat = character.Character(
             characterSheetDisplay.CharacterSheetDisplay(self.CHARACTER_SHEET_PATH+"/magic_rat.png",self.SAVE_PATH)
             )
-        self.game_board.add_to_map(self.rat.move_left(),2,2)
+        self.game_board.add_to_map(self.rat,2,2)
 
     def run(self):
-        self.game_board.add_to_map(self.rat.move_left(),2,2)
-        return self.game_board.get_html_rep()
+        return str(self.game_board)
+
+    def move(self):
+        self.rat.move_right()
+        return str(self.rat.display)
