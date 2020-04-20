@@ -12,8 +12,17 @@ class GameBoard:
             html += "</tr>"
         return html + "</table>"
 
-    def add_to_map(self,content,x,y):
-        self.cells[y][x].set_content(content)
+    def move(self,old_x,old_y,new_x,new_y):
+        self.add(self.pop(old_x,old_y),new_x,new_y)
+
+    def add(self,content,x,y):
+        self._access_cell(x,y).set(content)
+
+    def pop(self,x,y):
+        return self._access_cell(x,y).pop()
+
+    def _access_cell(self,x,y):
+        return self.cells[y][x]
 
 class Cell:
 
@@ -26,5 +35,13 @@ class Cell:
     def __str__(self):
         return "<td id = '{}'; onclick='gridClicked(this.id);'>{}</td>".format(id(self),self.content)
 
-    def set_content(self,content):
+    def set(self,content):
         self.content = content
+
+    def pop(self):
+        old_content = self.content
+        self.content = ''
+        return old_content
+
+    def get(self):
+        return self.content

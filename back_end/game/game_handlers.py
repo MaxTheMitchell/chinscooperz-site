@@ -17,7 +17,7 @@ class GameHandler:
         self.rat = character.Character(
             characterSheetDisplay.CharacterSheetDisplay(self.CHARACTER_SHEET_PATH+"/magic_rat.png",self.SAVE_PATH)
             )
-        self.game_board.add_to_map(self.rat,2,2)
+        self.game_board.add(self.rat,2,2)
 
     def handle_req(self,path):
         return bytes(self._get_response_str(path),self.byte_format)
@@ -34,7 +34,7 @@ class GameHandler:
         return self.HTML_FAC.get_html_sting("<div id='game_board' class='game_board'>{}</div>".format(self.game_board))
 
     def _move(self):
-        self.rat.move_right()
+        self.game_board.move(2,2,5,7)
         return " "
 
     def _update(self):
