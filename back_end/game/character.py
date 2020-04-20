@@ -7,7 +7,7 @@ class Character:
         self.move_down()
 
     def __str__(self):
-        return "<img  height='100' width='100' src='{}?{}'>".format(self.display,int(time()*1000))
+        return "<img  height='100' width='100' src='{}?{}'>".format(self.display,self._current_time_in_ms())
 
     def move_left(self):
         return self._move(1)
@@ -27,3 +27,6 @@ class Character:
             self.move_tile = 0
         self.display.save_section(self.move_tile,direction)
         return str(self)
+
+    def _current_time_in_ms(self):
+        return int(time()*1000)
