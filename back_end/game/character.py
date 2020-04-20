@@ -7,7 +7,7 @@ class Character:
         self.move_down()
 
     def __str__(self):
-        return "<img  height='100' width='100' src='{}?{}'>".format(self.display,self._current_time_in_ms())
+        return "<img height='100' width='100' src='{}?{}'>".format(self.display,self._current_time_in_ms())
 
     def move_left(self):
         return self._move(1)

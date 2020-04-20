@@ -1,10 +1,23 @@
 function gridClicked(id){
-    let xmlHttp = new XMLHttpRequest;
-    xmlHttp.open("GET","/game/move",true);
-    xmlHttp.send();
-    console.log("<img height='100' width='100' src='/front_end/static/imgs/game/tmp/0.png?"+ new Date().getTime()+"'>");
-    console.log(xmlHttp.responseText);
-    xmlHttp.onload = function() {
-        document.getElementById(id).innerHTML = xmlHttp.responseText;
-      };
+    make_get_req("/game/move");
+    update_board();
 }
+
+function update_board(){
+    make_get_req('/game/update',set_board);
+}
+
+function set_board(content){
+    document.getElementById('game_board').innerHTML = content;
+}
+
+function make_get_req(url,func=do_nothing){
+    let xmlHttp = new XMLHttpRequest;
+    xmlHttp.open("GET",url,true);
+    xmlHttp.send();
+    xmlHttp.onload = function(){
+        func(xmlHttp.responseText);
+    }
+}
+
+function do_nothing(foo){}

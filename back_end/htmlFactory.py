@@ -1,4 +1,4 @@
-class htmlFac:
+class HtmlFac:
     def __init__(self,head="",header="",footer=""):
         self.head = head
         self.header = header
