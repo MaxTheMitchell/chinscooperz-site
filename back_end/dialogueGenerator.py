@@ -13,7 +13,7 @@ class dialogueGenerator:
             
     def make_text_box(self,name,text):
         return """
-            <div class="textbox" style="background-color: {};">
+            <div class="textbox" style="background-color: {}; op">
                 <table>
                 <tr>
                     <td>

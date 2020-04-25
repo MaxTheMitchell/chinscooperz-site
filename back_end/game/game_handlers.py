@@ -15,19 +15,21 @@ class GameHandler:
     def __init__(self,byte_format='utf-8'):
         self.byte_format = byte_format
         self.controller = game_controller.GameContoller(
-            board.GameBoard(),character.Character(
-            characterSheetDisplay.CharacterSheetDisplay(
-                self.CHARACTER_SHEET_PATH+"/magic_rat.png",self.SAVE_PATH)
+            board.GameBoard(),
+            character.Character(
+                characterSheetDisplay.CharacterSheetDisplay(
+                    self.CHARACTER_SHEET_PATH+"/magic_rat.png",self.SAVE_PATH
                 )
             )
+        )
         
     def handle_req(self,path,query_vals):
-        return self.HTML_FAC.get_html_sting(self._get_resp_str(path,query_vals))
+        return self._get_resp_str(path,query_vals)
 
     def _get_resp_str(self,path,query_vals):
         if path == "/game":
-            return self.controller.display()
+            return self.HTML_FAC.get_html_sting(self.controller.display())
         elif re.match("/game/move.*",path):
-            return self.controller.select(*query_vals["cell_id"])
+            return self.controller.cell_clicked(*query_vals["cell_id"])
         elif path == "/game/update":
             return self.controller.display()

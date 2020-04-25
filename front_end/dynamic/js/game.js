@@ -4,7 +4,7 @@ function gridClicked(id){
 }
 
 function update_board(){
-    make_get_req('/game',set_board);
+    make_get_req('/game/update',set_board);
 }
 
 function set_board(content){
@@ -15,7 +15,7 @@ function make_get_req(url,func=do_nothing){
     let xmlHttp = new XMLHttpRequest;
     xmlHttp.open("GET",url,true);
     xmlHttp.send();
-    xmlHttp.onload = function(){
+    xmlHttp.onprogress = function(){
         func(xmlHttp.responseText);
     }
 }
