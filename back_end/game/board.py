@@ -12,6 +12,9 @@ class GameBoard:
             html += "</tr>"
         return html + "</table>"
 
+    def get_cell_value(self,cell_id):
+        return self._access_cell(*self._parse_cell_id(cell_id)).get()
+
     def move(self,old_x,old_y,new_x,new_y):
         self.add(self.pop(old_x,old_y),new_x,new_y)
 
@@ -52,6 +55,3 @@ class Cell:
 
     def get(self):
         return self.content
-
-    def _get_id(self):
-        return self.ids

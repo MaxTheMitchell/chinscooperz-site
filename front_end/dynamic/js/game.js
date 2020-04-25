@@ -4,7 +4,7 @@ function gridClicked(id){
 }
 
 function update_board(){
-    make_get_req('/game/update',set_board);
+    make_get_req('/game',set_board);
 }
 
 function set_board(content){
