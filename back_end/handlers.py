@@ -11,7 +11,14 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
         open(HTML_PATH + "/header.html").read(),
         open(HTML_PATH + "/footer.html").read()
     )
-    DIALOG_GEN = dialogueGenerator.dialogueGenerator("/front_end/static/imgs/faces")
+    DIALOG_GEN = dialogueGenerator.dialogueGenerator(
+        "/front_end/static/imgs/faces",
+        {
+            'magic_rat' : '#cc33ff',
+            'nico' : '#ff4d4d',
+            'danny' : '#6666cc'
+        }
+        )
     GAME = game_handlers.GameHandler()
 
     def do_GET(self):
@@ -41,11 +48,9 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
         return re.match('^/dialogue/.*',path)
 
     def _dialogue_resp(self,path):
-        return self._custom_get_resp(
-            self.HTML_FAC.get_html_sting(
-                self.DIALOG_GEN.get_html(
-                    open(self.ROOT_PATH+self.path+".dialogue").read()
-                )
+        return self.HTML_FAC.get_html_sting(
+            self.DIALOG_GEN.get_html(
+                open(self.ROOT_PATH+self.path+".dialogue").read()
             )
         )
 

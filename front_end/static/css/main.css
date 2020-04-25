@@ -14,7 +14,7 @@ body{
     padding: 1%;
     border-style: double;
     border-spacing: 150px;
-    
+    margin-bottom: 5px;
 }
 
 .game_board{

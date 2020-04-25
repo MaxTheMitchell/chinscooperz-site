@@ -1,8 +1,9 @@
 from functools import reduce
 class dialogueGenerator:
 
-    def __init__(self,img_path=''):
+    def __init__(self,img_path='',color_finder={}):
         self.img_path = img_path
+        self.color_finder = color_finder
 
     def get_html(self,text):
         return '<div class="textbox_container">'+reduce(
@@ -12,7 +13,7 @@ class dialogueGenerator:
             
     def make_text_box(self,name,text):
         return """
-            <div class="textbox" style="background-color: aqua;">
+            <div class="textbox" style="background-color: {};">
                 <table>
                 <tr>
                     <td>
@@ -24,4 +25,4 @@ class dialogueGenerator:
                 </tr>
             </table>
             </div>
-            """.format(self.img_path,name,text)
+            """.format(self.color_finder[name],self.img_path,name,text)
