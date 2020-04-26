@@ -16,11 +16,18 @@ class GameHandler:
         self.byte_format = byte_format
         self.controller = game_controller.GameContoller(
             board.GameBoard(),
-            character.Character(
-                characterSheetDisplay.CharacterSheetDisplay(
-                    self.CHARACTER_SHEET_PATH+"/magic_rat.png",self.SAVE_PATH
+            [
+                character.Character(
+                    characterSheetDisplay.CharacterSheetDisplay(
+                        self.CHARACTER_SHEET_PATH+"/magic_rat.png",self.SAVE_PATH
+                    )
+                ),
+                character.Character(
+                    characterSheetDisplay.CharacterSheetDisplay(
+                        self.CHARACTER_SHEET_PATH+"/niko.png",self.SAVE_PATH
+                    )
                 )
-            )
+            ]
         )
         
     def handle_req(self,path,query_vals):

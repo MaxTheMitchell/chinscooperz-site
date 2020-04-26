@@ -18,7 +18,7 @@ class GameBoard:
 
     def get_cells_in_range_of(self,x,y,cell_range):
         return list(filter(
-            lambda cell : self._cell_is_in_range_of_other_cell(
+            lambda cell : self.cell_is_in_range_of_other_cell(
                 self._access_cell(x,y),cell,cell_range),
             self._get_all_cells()
             )
@@ -46,7 +46,7 @@ class GameBoard:
     def get_cell(self,x,y):
         return self._access_cell(x,y)
 
-    def _cell_is_in_range_of_other_cell(self,cell,other_cell,cell_range):
+    def cell_is_in_range_of_other_cell(self,cell,other_cell,cell_range):
         return (abs(cell.x - other_cell.x) + abs(cell.y - other_cell.y)) <= cell_range
 
     def _access_cell(self,x,y):

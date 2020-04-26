@@ -8,7 +8,7 @@ class Character:
         self.move_points = move_points
 
     def __str__(self):
-        return "<img height='100' width='100' src='{}?{}'>".format(self.display,self._current_time_in_ms())
+        return self._static_img_str()
 
     def move_left(self):
         return self._move(1)
@@ -31,3 +31,9 @@ class Character:
 
     def _current_time_in_ms(self):
         return int(time()*1000)
+
+    def _dynamic_img_str(self):
+        return "<img height='100' width='100' src='{}?{}'>".format(self.display,self._current_time_in_ms())
+
+    def _static_img_str(self):
+        return "<img height='100' width='100' src='{}'>".format(self.display)
