@@ -1,10 +1,11 @@
 from time import time
 class Character:
 
-    def __init__(self,display):
+    def __init__(self,display,move_points=1):
         self.display = display
         self.move_tile = 0
         self.move_down()
+        self.move_points = move_points
 
     def __str__(self):
         return "<img height='100' width='100' src='{}?{}'>".format(self.display,self._current_time_in_ms())
