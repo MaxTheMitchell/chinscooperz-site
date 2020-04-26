@@ -15,10 +15,11 @@ class GameBoard:
             html += "</tr>"
         return html + "</table>"
 
-    def get_cells_in_range_of(self,cell_id,cell_range):
+
+    def get_cells_in_range_of(self,x,y,cell_range):
         return list(filter(
             lambda cell : self._cell_is_in_range_of_other_cell(
-                self._access_cell_with_id(cell_id),cell,cell_range),
+                self._access_cell(x,y),cell,cell_range),
             self._get_all_cells()
             )
         )
@@ -27,35 +28,29 @@ class GameBoard:
         for cell in self._get_all_cells():
             cell.clear_highting() 
     
-    def highlight_cell_with_id(self,cell_id,color):
-        self._access_cell_with_id(cell_id).highlight(color)
+    def highlight_cell(self,x,y,color):
+        self._access_cell(x,y).highlight(color)
 
-    def get_cell_value(self,cell_id):
-        return self._access_cell(*self._parse_cell_id(cell_id)).get()
+    def get_cell_value(self,x,y):
+        return self._access_cell(x,y).get()
 
     def move(self,old_x,old_y,new_x,new_y):
         self.add(self.pop(old_x,old_y),new_x,new_y)
-
-    def move_cell_with_id(self,old_id,new_id):
-        self.move(*self._parse_cell_id(old_id),*self._parse_cell_id(new_id))
 
     def add(self,content,x,y):
         self._access_cell(x,y).fill(content)
 
     def pop(self,x,y):
         return self._access_cell(x,y).pop()
+    
+    def get_cell(self,x,y):
+        return self._access_cell(x,y)
 
     def _cell_is_in_range_of_other_cell(self,cell,other_cell,cell_range):
         return (abs(cell.x - other_cell.x) + abs(cell.y - other_cell.y)) <= cell_range
 
-    def _access_cell_with_id(self,cell_id):
-        return self._access_cell(*self._parse_cell_id(cell_id))
-
     def _access_cell(self,x,y):
         return self.cell_grid[y][x]
-
-    def _parse_cell_id(self,cell_id):
-        return [int(axis) for axis in cell_id.split(',')]
 
     def _get_all_cells(self):
         return [cell for row in self.cell_grid for cell in row]
@@ -94,4 +89,4 @@ class Cell:
         return self.content
     
     def _get_id_str(self):
-        return '{},{}'.format(self.x,self.y)
+        return 'x={}&y={}'.format(self.x,self.y)

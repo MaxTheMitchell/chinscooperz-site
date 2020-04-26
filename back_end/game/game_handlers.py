@@ -29,7 +29,10 @@ class GameHandler:
     def _get_resp_str(self,path,query_vals):
         if path == "/game":
             return self.HTML_FAC.get_html_sting(self.controller.display())
-        elif re.match("/game/move.*",path):
-            return self.controller.cell_clicked(*query_vals["cell_id"])
+        elif self._is_movement_path(path): 
+            return self.controller.cell_clicked(int(*query_vals["x"]),int(*query_vals["y"]))
         elif path == "/game/update":
             return self.controller.display()
+
+    def _is_movement_path(self,path):
+        return re.match("^\/game\/move\?x=\d+&y=\d+$",path)
