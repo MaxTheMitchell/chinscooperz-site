@@ -1,56 +1,67 @@
-from back_end.game import board,characterSheetDisplay,character
+class GameController{
 
-class GameContoller:
+    DESELECT_VAL = "";
+    CHARACTER_HIGHLIGHT_COLOR = "red";
+    MOVEMENT_COLOR = "orange";
+    TMP_CHARACTER_MOV = 2;
 
-    DESLECT_VAL = ""
-    CHARACTER_HIGHLIGHT_COLOR = "red"
-    MOVEMENT_COLOR = "orange"
-    TMP_CHARACTER_MOV = 2
+    constructor(board=board.GameBoard(),characters=[],currently_selected=""){
+        this.board = board;
+        this.characters = characters;
+        this.board.add(characters[0],2,5);
+        this.board.add(characters[1],5,5);
+        this.currently_selected = currently_selected;
+    }
 
-    def __init__(self,board=board.GameBoard(),charactors=[],currently_selected=""):
-        self.board = board
-        self.charactors = charactors
-        self.board.add(self.charactors[0],2,5)
-        self.board.add(self.charactors[1],5,2)
-        self.currently_selected = currently_selected
+    display(){
+        return this.board.display();
+    }
 
-    def display(self):
-        return "<div id='game_board' class='game_board'>{}</div>".format(self.board)
+    cell_clicked(x,y){
+        if (this._anything_selected() && this._can_move_to(x,y)){
+            this._move_character(x,y);
+        }else if (this._is_selectable(x,y)){
+            this._select_character(x,y);
+        }
+    }
 
-    def cell_clicked(self,x,y):
-        if self._anything_selected() and self._can_move_to(x,y):
-            self._move_character(x,y)
-        elif self._is_selectable(x,y):
-            self._select_character(x,y)
-        return " "
+    _move_character(x,y){
+        this.board.move(this.currently_selected.x,this.currently_selected.y,x,y);
+        this.board.clear_highting();
+        this._deselect();
+    }
 
-    def _move_character(self,x,y):
-        self.board.move(self.currently_selected.x,self.currently_selected.y,x,y)
-        self.board.clear_highting()
-        self._deselect()
+    _select_character(x,y){
+        this.currently_selected = this.board.get_cell(x,y);
+        this.board.clear_highting();
+        this._highlight_in_movement_range(x,y);
+        this.board.highlight_cell(x,y,this.CHARACTER_HIGHLIGHT_COLOR);
+    }
 
-    def _select_character(self,x,y):
-        self.currently_selected = self.board.get_cell(x,y)
-        self.board.clear_highting()
-        self._highlight_in_movement_range(x,y)
-        self.board.highlight_cell(x,y,self.CHARACTER_HIGHLIGHT_COLOR)  
+    _highlight_in_movement_range(x,y){
+       this.board.get_cells_in_range_of(x,y,this.TMP_CHARACTER_MOV).forEach(cell => {
+           cell.highlight(this.MOVEMENT_COLOR);
+       });
+    }
+            
 
-    def _highlight_in_movement_range(self,x,y):
-        for cell in self.board.get_cells_in_range_of(x,y,self.TMP_CHARACTER_MOV):
-            cell.highlight(self.MOVEMENT_COLOR)
+    _is_selectable(x,y){
+        return this.board.get_cell_value(x,y) instanceof Character;
+    }
 
-    def _is_selectable(self,x,y):
-        return isinstance(self.board.get_cell_value(x,y),character.Character)
+    _can_move_to(x,y){
+        return (!this._is_selectable(x,y) && this.board.cell_is_in_range_of_other_cell(
+            this.currently_selected,
+            this.board.get_cell(x,y),
+            this.TMP_CHARACTER_MOV
+        ));
+    }
 
-    def _can_move_to(self,x,y):
-        return not self._is_selectable(x,y) and self.board.cell_is_in_range_of_other_cell(
-            self.currently_selected,
-            self.board.get_cell(x,y),
-            self.TMP_CHARACTER_MOV
-        )
+    _anything_selected(){
+        return this.currently_selected != this.DESELECT_VAL;
+    }
 
-    def _anything_selected(self):
-        return self.currently_selected != self.DESLECT_VAL
-
-    def _deselect(self):
-        self.currently_selected = self.DESLECT_VAL
+    _deselect(){
+        this.currently_selected = this.DESELECT_VAL;
+    }
+}

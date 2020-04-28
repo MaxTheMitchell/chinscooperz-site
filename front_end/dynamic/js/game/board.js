@@ -23,13 +23,15 @@ class GameBoard {
     }
 
     get_cells_in_range_of(x,y,cell_range){
-        return this.cell_grid.filter(function(cell){
+        return this._get_all_cells().filter(cell =>{
             return this.cell_is_in_range_of_other_cell(this.get_cell(x,y),cell,cell_range);
         });
     }
 
     clear_highting(){
-        this._get_all_cells().array.forEach(this.clear_highting());
+        this._get_all_cells().forEach(cell =>{
+            cell.clear_highting();
+        });
     }
     
     highlight_cell(x,y,color){
@@ -60,13 +62,13 @@ class GameBoard {
         return (Math.abs(cell.x - other_cell.x) + Math.abs(cell.y - other_cell.y)) <= cell_range;
     }
 
-     _access_cell(x,y){
+    _access_cell(x,y){
         return this.cell_grid[x][y];
-     }
+    }
 
-     _get_all_cells(){
+    _get_all_cells(){
         return [].concat.apply([], this.cell_grid);
-     }
+    }
 
 }
 
@@ -80,7 +82,7 @@ class Cell{
     }
 
     display(){
-        return `<td id = '${this._get_id_str()}'; onclick='gridClicked(this.id);' style='background-color:${this.highlight_color};'>${this.content}</td>`;
+        return `<td id = '${this._get_id_str()}'; onclick='gridClicked(${this.x},${this.y});' style='background-color:${this.highlight_color};'>${this.content}</td>`;
     }
 
     clear_highting(){
@@ -96,7 +98,7 @@ class Cell{
     }
 
     pop(){
-        old_content = this.content;
+        var old_content = this.content;
         this.content = '';
         return old_content;
     }
