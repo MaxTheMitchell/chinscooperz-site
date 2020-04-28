@@ -3,7 +3,8 @@ function gridClicked(id){
 }
 
 function setup(){
-    board = new GameBoard();   
+    board = new GameBoard();
+    board.add(new Character("front_end/static/imgs/character_sheets/sam"),2,2)   
     update_board();
 }
 

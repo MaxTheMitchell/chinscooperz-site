@@ -16,8 +16,8 @@ class GameBoard {
             html += "<tr>\n";
             colum.forEach(cell => {
                 html += cell.display();
-                html += "</tr>";
             });
+            html += "</tr>"
         });
         return html + "</table>";
     }
