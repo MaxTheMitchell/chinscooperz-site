@@ -15,7 +15,6 @@ class GameBoard {
         this.cell_grid.forEach( colum => {
             html += "<tr>\n";
             colum.forEach(cell => {
-                console.log(this.cell_grid)
                 html += cell.display();
                 html += "</tr>";
             });

@@ -1,6 +1,5 @@
 import http.server,re,urllib.parse
-from back_end import dialogueGenerator,htmlFactory
-from back_end.game import game_handlers
+from back_end import dialogueGenerator,htmlFactory,gameHandlers
 
 class MyHandlers(http.server.SimpleHTTPRequestHandler):
 
@@ -19,7 +18,7 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
             'danny' : '#6666cc'
         }
         )
-    GAME = game_handlers.GameHandler()
+    GAME = gameHandlers.GameHandler()
 
     def do_GET(self):
         resp_str = self._get_get_str(self.path)

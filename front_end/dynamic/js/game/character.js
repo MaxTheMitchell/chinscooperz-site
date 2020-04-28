@@ -1,39 +1,49 @@
-from time import time
-class Character:
+class Character{
 
-    def __init__(self,display,move_points=1):
-        self.display = display
-        self.move_tile = 0
-        self.move_down()
-        self.move_points = move_points
+    constructor(character_sheet,move_points=1){
+        this.character_sheet = character_sheet;
+        this.move_tile = 0;
+        this.move_down();
+        this.move_points = move_points;
+    }
 
-    def __str__(self):
-        return self._static_img_str()
+    display(){
+        return this._static_img_str();
+    }
 
-    def move_left(self):
-        return self._move(1)
+    move_left(){
+        return this._move(1);
+    }
 
-    def move_right(self):
-        return self._move(2)
+    move_right(){
+        return this._move(2);
+    }
 
-    def move_up(self):
-        return self._move(3)
+    move_up(){
+        return this._move(3);
+    }
 
-    def move_down(self):
-        return self._move(0)
+    move_down(){
+        return this._move(0);
+    }
 
-    def _move(self,direction):
-        self.move_tile += 1
-        if self.move_tile > 2:
-            self.move_tile = 0
-        self.display.save_section(self.move_tile,direction)
-        return str(self)
+    _move(direction){
+        this.move_tile += 1;
+        if (this.move_tile > 2){
+            this.move_tile = 0;
+        }
+        this.this.character_sheet.show_section()
+    }
 
-    def _current_time_in_ms(self):
-        return int(time()*1000)
+    _current_time_in_ms(this){
+        return Date.now()
+    }
 
-    def _dynamic_img_str(self):
-        return "<img height='100' width='100' src='{}?{}'>".format(self.display,self._current_time_in_ms())
+    _dynamic_img_str(this){
+        return "<img height='100' width='100' src='{}?{}'>".format(this.character_sheet.display(),this._current_time_in_ms())
+    }
 
-    def _static_img_str(self):
-        return "<img height='100' width='100' src='{}'>".format(self.display)
+    _static_img_str(this){
+        return "<img height='100' width='100' src='{}'>".format(this.character_sheet.display())
+    }
+}
