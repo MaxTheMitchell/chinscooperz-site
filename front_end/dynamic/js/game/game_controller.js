@@ -15,7 +15,7 @@ class GameContoller:
         self.currently_selected = currently_selected
 
     def display(self):
-        return "<div id='game_board' onload='setup()' class='game_board'><script type='text/javascript'>setup();</script></div>"
+        return "<div id='game_board' class='game_board'>{}</div>".format(self.board)
 
     def cell_clicked(self,x,y):
         if self._anything_selected() and self._can_move_to(x,y):
