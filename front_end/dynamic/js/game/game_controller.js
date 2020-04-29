@@ -5,16 +5,20 @@ class GameController{
     MOVEMENT_COLOR = "orange";
     TMP_CHARACTER_MOV = 2;
 
-    constructor(board=board.GameBoard(),characters=[],currently_selected=""){
+    constructor(board=board.GameBoard(),characters=[],myTurn=true,currently_selected=""){
         this.board = board;
         this.characters = characters;
         this.board.add(characters[0],2,5);
         this.board.add(characters[1],5,5);
         this.currently_selected = currently_selected;
+        this.myTurn = myTurn;
     }
 
     display(){
-        return this.board.display();
+        if (this.myTurn){
+            return this.board.display();
+        }
+        return this.board.display() + "<div class='opponent_turn'><h1>Opponent's turn</h1></div>"
     }
 
     cell_clicked(x,y){
@@ -24,6 +28,12 @@ class GameController{
             this._select_character(x,y);
         }
     }
+
+    endTurn(){
+        this.myTurn = false
+    }
+
+    
 
     _move_character(x,y){
         this.board.move(this.currently_selected.x,this.currently_selected.y,x,y);

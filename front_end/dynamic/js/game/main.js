@@ -18,3 +18,8 @@ function update_board(){
     document.getElementById('game_board').innerHTML = gameController.display();
 }
 
+function endTurn(){
+    gameController.endTurn()
+    update_board()
+}
+
