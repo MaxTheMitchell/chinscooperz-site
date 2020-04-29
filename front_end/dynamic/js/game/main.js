@@ -1,6 +1,6 @@
 function setup(){
     gameController = new GameController(
-        board = new GameBoard(),
+        board = new GameBoard(30,20),
         [
             new Character("front_end/static/imgs/character_sheets/sam"),
             new Character("front_end/static/imgs/character_sheets/niko")

@@ -26,14 +26,17 @@ body{
 .game_board{
     position: relative;
     margin: auto;
-    width: 40%;
+    width: 60%;
     padding-top: 40%;
+    background-size: 100% 100%;
+    background-image: url('http://www.dl-digital.com/images/Astronomy/Galaxies/M31-34CalibrateFramesWeb2.jpg');
 }
 
 .game_cell {
     position:absolute;
     border-style: solid;
-    border-color: black;
+    border-width: 1px;
+    border-color: rgba(255, 0, 0, 0.5);
 }
 
 .game_cell img{
