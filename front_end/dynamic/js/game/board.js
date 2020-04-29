@@ -5,21 +5,17 @@ class GameBoard {
         for(var x=0;x<width;x++){
             this.cell_grid.push([]);
             for(var y=0;y<height;y++){
-                this.cell_grid[x].push(new Cell(x,y));
+                this.cell_grid[x].push(new Cell(x,y,100/width,100/height));
             }
         }
     }
 
     display() {
-        var html = "<table>";
-        this.cell_grid.forEach( colum => {
-            html += "<tr>\n";
-            colum.forEach(cell => {
-                html += cell.display();
-            });
-            html += "</tr>"
+        var html = "";
+        this._get_all_cells().forEach(cell =>{
+            html += cell.display()
         });
-        return html + "</table>";
+        return html;
     }
 
     get_cells_in_range_of(x,y,cell_range){
@@ -74,15 +70,19 @@ class GameBoard {
 
 class Cell{
 
-    constructor(x,y,content='',highlight_color=''){
+    constructor(x,y,width_percent,height_percent,content='',highlight_color=''){
         this.content = content;
         this.x = x;
         this.y = y;
         this.highlight_color = highlight_color;
+        this.width_percent = width_percent;
+        this.height_percent = height_percent;
     }
 
     display(){
-        return `<td id = '${this._get_id_str()}'; onclick='gridClicked(${this.x},${this.y});' style='background-color:${this.highlight_color};'>${this.content}</td>`;
+        return `<div class="game_cell"onclick='gridClicked(${this.x},${this.y});' 
+            style='background-color:${this.highlight_color};width:${this.width_percent}%;height:${this.height_percent}%;
+            left:${this._get_left_percent()}%;top:${this._get_top_percent()}%;'>${this.content}</div>`;
     }
 
     clear_highting(){
@@ -107,7 +107,11 @@ class Cell{
         return this.content;
     }
 
-    _get_id_str(){
-        return `x=${this.x}&y=${this.y}`
+    _get_left_percent(){
+        return this.x*this.width_percent;
+    }
+
+    _get_top_percent(){
+        return this.y*this.height_percent;
     }
 }
