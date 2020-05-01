@@ -29,6 +29,10 @@ class GameController{
         }
     }
 
+    startTurn(){
+        this.myTurn = true
+    }
+
     endTurn(){
         this.myTurn = false
     }

@@ -13,6 +13,7 @@ class GameHandler:
 
     def __init__(self,byte_format='utf-8'):
         self.byte_format = byte_format
+        self.turn = ""
         
     def handle_req(self,path,query_vals):
         return self._get_resp_str(path,query_vals)
@@ -20,3 +21,8 @@ class GameHandler:
     def _get_resp_str(self,path,query_vals):
         if path == "/game":
             return self.HTML_FAC.get_html_sting(open("./front_end/static/html/game_body.html").read())
+        elif path == "/game/turn":
+            return self.turn
+        elif path == "/game/turn/test":
+            self.turn = "myTurn"
+            return self.turn

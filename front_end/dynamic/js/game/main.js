@@ -18,8 +18,28 @@ function update_board(){
     document.getElementById('game_board').innerHTML = gameController.display();
 }
 
-function endTurn(){
-    gameController.endTurn()
+function startTurn(){
+    gameController.startTurn()
     update_board()
 }
 
+function endTurn(){
+    gameController.endTurn()
+    update_board()
+    waitForMyTurn()
+}
+
+function waitForMyTurn(){
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText == "myTurn"){
+                startTurn();
+            }else{
+                setTimeout(waitForMyTurn,3000)
+            }
+        }
+      };
+      request.open("GET", "/game/turn", true);
+      request.send();
+}
