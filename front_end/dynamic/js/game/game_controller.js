@@ -3,7 +3,7 @@ class GameController{
     DESELECT_VAL = "";
     CHARACTER_HIGHLIGHT_COLOR = "red";
     MOVEMENT_COLOR = "orange";
-    TMP_CHARACTER_MOV = 2;
+    TMP_CHARACTER_MOV = 10;
 
     constructor(board=board.GameBoard(),characters=[],myTurn=true,currently_selected=""){
         this.board = board;
@@ -19,6 +19,10 @@ class GameController{
             return this.board.display();
         }
         return this.board.display() + "<div class='opponent_turn'><h1>Opponent's turn</h1></div>"
+    }
+
+    _update(){
+        document.getElementById('game_board').innerHTML = this.display();
     }
 
     cell_clicked(x,y){
@@ -37,30 +41,42 @@ class GameController{
         this.myTurn = false
     }
 
-    
-
     _move_character(x,y){
-        this.board.move(this.currently_selected.x,this.currently_selected.y,x,y);
+        this._move_along_path(this._generate_path([this.currently_selected.position()],x,y));
         this.board.clear_highting();
         this._deselect();
+        this._update();
+    }
+
+    _move_along_path(path,speed=300){
+        var interval = setInterval(move_a_space,speed)
+        var self = this;
+        function move_a_space(){
+            this.board.move(path[0][0],path[0][1],path[1][0],path[1][1]);
+            self._update();
+            path.shift();
+            if (path.length <2){
+                clearInterval(interval);
+            }
+        }
     }
 
     _generate_path(moves,end_x,end_y){
-        var last_move = moves[moves.length-1];
-        if (last_move[0] == end_x && last_move[1] == end_y){
+        var [start_x,start_y] = moves[moves.length-1];
+        if (start_x == end_x && start_y == end_y){
             return moves
         }
-        if (Math.abs(last_move[0]-end_x) >= Math.abs(last_move[1]-end_y)){
-            if (end_x > last_move[0]){
-                moves.push([last_move[0]+1,last_move[1]]);
+        if (Math.abs(start_x-end_x) >= Math.abs(start_y-end_y)){
+            if (end_x > start_x){
+                moves.push([start_x+1,start_y]);
             }else{
-                moves.push([last_move[0]-1,last_move[1]]);
+                moves.push([start_x-1,start_y]);
             }
         }else{
-            if (end_y > last_move[1]){
-                moves.push([last_move[0],last_move[1]+1]);
+            if (end_y > start_y){
+                moves.push([start_x,start_y+1]);
             }else{
-                moves.push([last_move[0],last_move[1]-1]);
+                moves.push([start_x,start_y-1]);
             }
         }
         return this._generate_path(moves,end_x,end_y);
@@ -71,6 +87,7 @@ class GameController{
         this.board.clear_highting();
         this._highlight_in_movement_range(x,y);
         this.board.highlight_cell(x,y,this.CHARACTER_HIGHLIGHT_COLOR);
+        this._update()
     }
 
     _highlight_in_movement_range(x,y){

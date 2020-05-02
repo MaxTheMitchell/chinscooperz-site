@@ -107,6 +107,10 @@ class Cell{
         return this.content;
     }
 
+    position(){
+        return [this.x,this.y];
+    }
+
     _get_left_percent(){
         return this.x*this.width_percent;
     }
