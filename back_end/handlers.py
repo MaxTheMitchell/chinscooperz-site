@@ -21,6 +21,7 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
     GAME = gameHandlers.GameHandler()
 
     def do_GET(self):
+        print(self._request_ip())
         resp_str = self._get_get_str(self.path)
         if resp_str != None:
             return self._custom_get_resp(bytes(resp_str,'utf-8'))
@@ -32,10 +33,13 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
         elif self._is_dialogue(path):
             return self._dialogue_resp(path)
         elif self._is_game(path):
-            return self.GAME.handle_req(path,self._get_query_vals(path))
+            return self.GAME.handle_req(path,self._get_query_vals(path),self._request_ip())
 
     def _get_query_vals(self,path):
         return urllib.parse.parse_qs(urllib.parse.urlparse(path).query)
+
+    def _request_ip(self):
+        return self.client_address[0]
 
     def _is_root(self,path):
         return path == "/"
@@ -65,3 +69,4 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(bytes)
         return
+    
