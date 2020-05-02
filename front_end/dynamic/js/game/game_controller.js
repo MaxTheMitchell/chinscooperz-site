@@ -45,6 +45,27 @@ class GameController{
         this._deselect();
     }
 
+    _generate_path(moves,end_x,end_y){
+        var last_move = moves[moves.length-1];
+        if (last_move[0] == end_x && last_move[1] == end_y){
+            return moves
+        }
+        if (Math.abs(last_move[0]-end_x) >= Math.abs(last_move[1]-end_y)){
+            if (end_x > last_move[0]){
+                moves.push([last_move[0]+1,last_move[1]]);
+            }else{
+                moves.push([last_move[0]-1,last_move[1]]);
+            }
+        }else{
+            if (end_y > last_move[1]){
+                moves.push([last_move[0],last_move[1]+1]);
+            }else{
+                moves.push([last_move[0],last_move[1]-1]);
+            }
+        }
+        return this._generate_path(moves,end_x,end_y);
+    }
+
     _select_character(x,y){
         this.currently_selected = this.board.get_cell(x,y);
         this.board.clear_highting();
