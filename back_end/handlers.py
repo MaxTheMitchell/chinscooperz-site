@@ -38,7 +38,6 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
         return urllib.parse.parse_qs(urllib.parse.urlparse(path).query)
 
     def _request_ip(self):
-        print(os.getenv("HTTP_X_FORWARDED_FOR"))
         return self.client_address[0]
 
     def _is_root(self,path):

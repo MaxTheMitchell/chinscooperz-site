@@ -12,6 +12,7 @@ class GameController{
         this.board.add(characters[1],5,5);
         this.currentlySelected = currentlySelected;
         this.myTurn = myTurn;
+        this.preload()
     }
 
     display(){
@@ -21,8 +22,16 @@ class GameController{
         return this.board.display() + "<div class='opponent_turn'><h1>Opponent's turn</h1></div>"
     }
 
-    _update(){
-        document.getElementById('game_board').innerHTML = this.display();
+    preload(){
+        var preloads = "";
+        this.characters.forEach(character =>{
+            preloads += character.preload();
+        });
+        this._update(preloads);
+    }
+
+    _update(addion=""){
+        document.getElementById('game_board').innerHTML = this.display()+addion;
     }
 
     cellClicked(x,y){

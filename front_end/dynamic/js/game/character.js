@@ -7,6 +7,23 @@ class Character{
         this.movePoints = movePoints;
     }
 
+    preload(){
+        return `
+        <img height='100' width='100' style="display:none;" src='${this.characterSheetPath}/left0.png'>
+        <img height='100' width='100' style="display:none;" src='${this.characterSheetPath}/left1.png'>
+        <img height='100' width='100' style="display:none;" src='${this.characterSheetPath}/left2.png'>
+        <img height='100' width='100' style="display:none;" src='${this.characterSheetPath}/right0.png'>
+        <img height='100' width='100' style="display:none;" src='${this.characterSheetPath}/right1.png'>        
+        <img height='100' width='100' style="display:none;" src='${this.characterSheetPath}/right2.png'>
+        <img height='100' width='100' style="display:none;" src='${this.characterSheetPath}/down0.png'>
+        <img height='100' width='100' style="display:none;" src='${this.characterSheetPath}/down1.png'>
+        <img height='100' width='100' style="display:none;" src='${this.characterSheetPath}/down2.png'>
+        <img height='100' width='100' style="display:none;" src='${this.characterSheetPath}/up0.png'>
+        <img height='100' width='100' style="display:none;" src='${this.characterSheetPath}/up1.png'>
+        <img height='100' width='100' style="display:none;" src='${this.characterSheetPath}/up2.png'>
+        `
+    }
+
     display(){
         return `<img height='100' width='100' src='${this.imgSrc}'>`
     }
