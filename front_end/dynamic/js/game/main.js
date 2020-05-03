@@ -1,4 +1,5 @@
 function setup(){
+    getName();
     gameController = new GameController(
         board = new GameBoard(30,20),
         [
@@ -9,7 +10,6 @@ function setup(){
     )
     updateBoard()
 }
-
 
 function gridClicked(x,y){
     gameController.cellClicked(x,y);
@@ -26,13 +26,13 @@ function startTurn(){
 
 function endTurn(){
     gameController.endTurn();
-    sendGetRequest("/game/turn/end");
+    sendGetRequest("/game/turn/end?name="+getName("name"));
     updateBoard();
     waitForMyTurn();
 }
 
 function waitForMyTurn(){
-    sendGetRequest("/game/turn",function(responseText){
+    sendGetRequest("/game/turn?name="+getName('name'),function(responseText){
         if (responseText == "True"){
             startTurn();
         }else{
@@ -50,4 +50,29 @@ function sendGetRequest(url,func=function(responseText){}){
     };
     request.open("GET",url,true);
     request.send();
+}
+
+function getName(){
+    name = getCookie('name');
+    if (name == ""){
+        location.replace("/game/login");
+    }else{
+        return name
+    }
+}
+
+
+function getCookie(cname){
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+        }
+    }
+    return ""
 }

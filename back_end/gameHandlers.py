@@ -13,10 +13,10 @@ class GameHandler:
 
     def __init__(self,byte_format='utf-8'):
         self.byte_format = byte_format
-        self.turn = ""
+        self.turn = " "
         
     def handle_req(self,path,query_vals):
-        return self._get_resp_str(path,query_vals,ip)
+        return self._get_resp_str(path,query_vals)
 
     def _get_resp_str(self,path,query_vals):
         if path == "/game":
@@ -24,7 +24,7 @@ class GameHandler:
         elif path == "/game/login":
             return self.HTML_FAC.get_html_sting(open("./front_end/static/html/game_login.html").read())
         elif path == "/game/turn":
-            return str(self.turn != query_vals['name'])
+            return str(self.turn != query_vals['name'][0])
         elif path == "/game/turn/end":
-            self.turn = query_vals['name']
+            self.turn = query_vals['name'][0]
             return self.turn
