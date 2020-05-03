@@ -10,6 +10,7 @@ function setup(){
     updateBoard()
 }
 
+
 function gridClicked(x,y){
     gameController.cellClicked(x,y);
 }

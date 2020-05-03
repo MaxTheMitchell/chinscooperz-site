@@ -1,4 +1,4 @@
-import http.server,re,urllib.parse,os
+import http.server,http.cookies,re,urllib.parse
 from back_end import dialogueGenerator,htmlFactory,gameHandlers
 
 class MyHandlers(http.server.SimpleHTTPRequestHandler):
@@ -27,21 +27,27 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
         return super().do_GET()
 
     def _get_get_str(self,path):
-        if self._is_root(path):
+        query_vals = self._get_query_vals(path)
+        url = self._remove_query_string(path)
+        if self._is_root(url):
             return self._root_resp()
-        elif self._is_dialogue(path):
+        elif self._is_dialogue(url):
             return self._dialogue_resp(path)
-        elif self._is_game(path):
-            return self.GAME.handle_req(path,self._get_query_vals(path),self._request_ip())
+        elif self._is_game(url):
+            return self.GAME.handle_req(url,query_vals)
         elif path == "/test":
             return self._test()
 
 
     def _test(self):
-        return str(os.getenv("HTTP_X_FORWARDED_FOR"))+str(os.getenv("REMOTE_ADDR"))
+        return "test"
+
 
     def _get_query_vals(self,path):
         return urllib.parse.parse_qs(urllib.parse.urlparse(path).query)
+
+    def _remove_query_string(self,path):
+        return path.split('?')[0]
 
     def _request_ip(self):
         return self.client_address[0]
