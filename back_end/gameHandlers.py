@@ -22,7 +22,7 @@ class GameHandler:
         if path == "/game":
             return self.HTML_FAC.get_html_sting(open("./front_end/static/html/game_body.html").read())
         elif path == "/game/turn":
-            return str(self.turn == ip)
-        elif path == "/game/turn/test":
+            return str(self.turn != ip)
+        elif path == "/game/turn/end":
             self.turn = ip
             return self.turn

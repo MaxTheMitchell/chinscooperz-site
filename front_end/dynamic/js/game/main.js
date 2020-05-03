@@ -19,27 +19,34 @@ function updateBoard(){
 }
 
 function startTurn(){
-    gameController.startTurn()
-    updateBoard()
+    gameController.startTurn();
+    updateBoard();
 }
 
 function endTurn(){
-    gameController.endTurn()
-    updateBoard()
-    waitForMyTurn()
+    gameController.endTurn();
+    sendGetRequest("/game/turn/end");
+    updateBoard();
+    waitForMyTurn();
 }
 
 function waitForMyTurn(){
+    sendGetRequest("/game/turn",function(responseText){
+        if (responseText == "True"){
+            startTurn();
+        }else{
+            setTimeout(waitForMyTurn,500);
+        }
+    });
+}
+
+function sendGetRequest(url,func=function(responseText){}){
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            if (this.responseText == "True"){
-                startTurn();
-            }else{
-                setTimeout(waitForMyTurn,3000)
-            }
+            func(request.responseText);
         }
-      };
-      request.open("GET", "/game/turn", true);
-      request.send();
+    };
+    request.open("GET",url,true);
+    request.send();
 }
