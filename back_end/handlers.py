@@ -1,4 +1,4 @@
-import http.server,re,urllib.parse
+import http.server,re,urllib.parse,os
 from back_end import dialogueGenerator,htmlFactory,gameHandlers
 
 class MyHandlers(http.server.SimpleHTTPRequestHandler):
@@ -21,7 +21,6 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
     GAME = gameHandlers.GameHandler()
 
     def do_GET(self):
-        print(self._request_ip())
         resp_str = self._get_get_str(self.path)
         if resp_str != None:
             return self._custom_get_resp(bytes(resp_str,'utf-8'))
@@ -39,6 +38,7 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
         return urllib.parse.parse_qs(urllib.parse.urlparse(path).query)
 
     def _request_ip(self):
+        print(os.getenv("HTTP_X_FORWARDED_FOR"))
         return self.client_address[0]
 
     def _is_root(self,path):

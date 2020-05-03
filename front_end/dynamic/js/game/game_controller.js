@@ -52,7 +52,6 @@ class GameController{
         var interval = setInterval(moveSpace,speed)
         var self = this;
         var character = this._currentlySelectedVal();
-        console.log(this.currentlySelected)
         function moveSpace(){
             self.board.move(path[0][0],path[0][1],path[1][0],path[1][1]);
             character.changeDirection(path[0],path[1]);
