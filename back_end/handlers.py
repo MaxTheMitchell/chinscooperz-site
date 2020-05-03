@@ -33,6 +33,12 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
             return self._dialogue_resp(path)
         elif self._is_game(path):
             return self.GAME.handle_req(path,self._get_query_vals(path),self._request_ip())
+        elif path == "/test":
+            return self._test()
+
+
+    def _test(self):
+        return os.getenv("HTTP_X_FORWARDED_FOR")
 
     def _get_query_vals(self,path):
         return urllib.parse.parse_qs(urllib.parse.urlparse(path).query)
