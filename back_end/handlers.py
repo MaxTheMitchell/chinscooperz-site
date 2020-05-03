@@ -38,7 +38,7 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
 
 
     def _test(self):
-        return os.getenv("HTTP_X_FORWARDED_FOR")
+        return str(os.getenv("HTTP_X_FORWARDED_FOR"))
 
     def _get_query_vals(self,path):
         return urllib.parse.parse_qs(urllib.parse.urlparse(path).query)
