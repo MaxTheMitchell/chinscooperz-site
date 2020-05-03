@@ -15,6 +15,22 @@ class Character{
         return this.display();
     }
 
+    changeDirection(startPoint,endPoint){
+        switch((startPoint[0]-endPoint[0]) + 10*(startPoint[1]-endPoint[1])){
+            case 1:
+                this.moveLeft();
+                break;
+            case -1:
+                this.moveRight();
+                break;
+            case 10:
+                this.moveUp();
+                break;
+            case -10:
+                this.moveDown();
+        }
+    }
+
     moveLeft(){
         return this._move('left');
     }

@@ -49,10 +49,13 @@ class GameController{
     }
 
     _moveAlongPath(path,speed=100){
-        var interval = setInterval(move_a_space,speed)
+        var interval = setInterval(moveSpace,speed)
         var self = this;
-        function move_a_space(){
-            this.board.move(path[0][0],path[0][1],path[1][0],path[1][1]);
+        var character = this._currentlySelectedVal();
+        console.log(this.currentlySelected)
+        function moveSpace(){
+            self.board.move(path[0][0],path[0][1],path[1][0],path[1][1]);
+            character.changeDirection(path[0],path[1]);
             self._update();
             path.shift();
             if (path.length <2){
@@ -61,25 +64,25 @@ class GameController{
         }
     }
 
-    _generatePath(moves,end_x,end_y){
+    _generatePath(moves,endX,endY){
         var [start_x,start_y] = moves[moves.length-1];
-        if (start_x == end_x && start_y == end_y){
+        if (start_x == endX && start_y == endY){
             return moves
         }
-        if (Math.abs(start_x-end_x) >= Math.abs(start_y-end_y)){
-            if (end_x > start_x){
+        if (Math.abs(start_x-endX) >= Math.abs(start_y-endY)){
+            if (endX > start_x){
                 moves.push([start_x+1,start_y]);
             }else{
                 moves.push([start_x-1,start_y]);
             }
         }else{
-            if (end_y > start_y){
+            if (endY > start_y){
                 moves.push([start_x,start_y+1]);
             }else{
                 moves.push([start_x,start_y-1]);
             }
         }
-        return this._generatePath(moves,end_x,end_y);
+        return this._generatePath(moves,endX,endY);
     }
 
     _selectCharacter(x,y){
@@ -111,6 +114,10 @@ class GameController{
 
     _anythingSelected(){
         return this.currentlySelected != this.DESELECT_VAL;
+    }
+
+    _currentlySelectedVal(){
+        return this.currentlySelected.get();
     }
 
     _deselect(){
