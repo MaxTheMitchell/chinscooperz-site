@@ -1,50 +1,50 @@
 class Character{
 
-    constructor(character_sheet_path,move_points=1){
-        this.character_sheet_path = character_sheet_path;
-        this.move_tile = 0;
-        this.img_src = this._update_src_img('down',this.move_tile)
-        this.move_points = move_points;
+    constructor(characterSheetPath,movePoints=1){
+        this.characterSheetPath = characterSheetPath;
+        this.moveTile = 0;
+        this.imgSrc = this._updateSrcImg('down',this.moveTile)
+        this.movePoints = movePoints;
     }
 
     display(){
-        return `<img height='100' width='100' src='${this.img_src}'>`
+        return `<img height='100' width='100' src='${this.imgSrc}'>`
     }
 
     toString(){
         return this.display();
     }
 
-    move_left(){
+    moveLeft(){
         return this._move('left');
     }
 
-    move_right(){
+    moveRight(){
         return this._move('right');
     }
 
-    move_up(){
+    moveUp(){
         return this._move('up');
     }
 
-    move_down(){
+    moveDown(){
         return this._move('down');
     }
 
     _move(direction){
-        this._update_src_img(direction,this._update_move_tile());
+        this._updateSrcImg(direction,this._updateMoveTile());
     }
 
-    _update_src_img(direction,tile){
-        this.img_src = `${this.character_sheet_path}/${direction}${tile}.png`;
-        return this.img_src;
+    _updateSrcImg(direction,tile){
+        this.imgSrc = `${this.characterSheetPath}/${direction}${tile}.png`;
+        return this.imgSrc;
     }
 
-    _update_move_tile(){
-        this.move_tile += 1;
-        if (this.move_tile > 2){
-            this.move_tile = 0;
+    _updateMoveTile(){
+        this.moveTile += 1;
+        if (this.moveTile > 2){
+            this.moveTile = 0;
         }
-        return this.move_tile;
+        return this.moveTile;
     }
 }

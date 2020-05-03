@@ -3,14 +3,14 @@ class GameController{
     DESELECT_VAL = "";
     CHARACTER_HIGHLIGHT_COLOR = "red";
     MOVEMENT_COLOR = "orange";
-    TMP_CHARACTER_MOV = 10;
+    TMP_CHARACTER_MOV = 5;
 
-    constructor(board=board.GameBoard(),characters=[],myTurn=true,currently_selected=""){
+    constructor(board=board.GameBoard(),characters=[],myTurn=true,currentlySelected=""){
         this.board = board;
         this.characters = characters;
         this.board.add(characters[0],2,5);
         this.board.add(characters[1],5,5);
-        this.currently_selected = currently_selected;
+        this.currentlySelected = currentlySelected;
         this.myTurn = myTurn;
     }
 
@@ -25,11 +25,11 @@ class GameController{
         document.getElementById('game_board').innerHTML = this.display();
     }
 
-    cell_clicked(x,y){
-        if (this._anything_selected() && this._can_move_to(x,y)){
-            this._move_character(x,y);
-        }else if (this._is_selectable(x,y)){
-            this._select_character(x,y);
+    cellClicked(x,y){
+        if (this._anythingSelected() && this._canMoveTo(x,y)){
+            this._moveCharacter(x,y);
+        }else if (this._isSelectable(x,y)){
+            this._selectCharacter(x,y);
         }
     }
 
@@ -41,14 +41,14 @@ class GameController{
         this.myTurn = false
     }
 
-    _move_character(x,y){
-        this._move_along_path(this._generate_path([this.currently_selected.position()],x,y));
-        this.board.clear_highting();
+    _moveCharacter(x,y){
+        this._moveAlongPath(this._generatePath([this.currentlySelected.position()],x,y));
+        this.board.clearHighting();
         this._deselect();
         this._update();
     }
 
-    _move_along_path(path,speed=300){
+    _moveAlongPath(path,speed=100){
         var interval = setInterval(move_a_space,speed)
         var self = this;
         function move_a_space(){
@@ -61,7 +61,7 @@ class GameController{
         }
     }
 
-    _generate_path(moves,end_x,end_y){
+    _generatePath(moves,end_x,end_y){
         var [start_x,start_y] = moves[moves.length-1];
         if (start_x == end_x && start_y == end_y){
             return moves
@@ -79,41 +79,41 @@ class GameController{
                 moves.push([start_x,start_y-1]);
             }
         }
-        return this._generate_path(moves,end_x,end_y);
+        return this._generatePath(moves,end_x,end_y);
     }
 
-    _select_character(x,y){
-        this.currently_selected = this.board.get_cell(x,y);
-        this.board.clear_highting();
-        this._highlight_in_movement_range(x,y);
-        this.board.highlight_cell(x,y,this.CHARACTER_HIGHLIGHT_COLOR);
+    _selectCharacter(x,y){
+        this.currentlySelected = this.board.getCell(x,y);
+        this.board.clearHighting();
+        this._highlightInMovementRange(x,y);
+        this.board.highlightCell(x,y,this.CHARACTER_HIGHLIGHT_COLOR);
         this._update()
     }
 
-    _highlight_in_movement_range(x,y){
-       this.board.get_cells_in_range_of(x,y,this.TMP_CHARACTER_MOV).forEach(cell => {
+    _highlightInMovementRange(x,y){
+       this.board.getCellsInRangeOf(x,y,this.TMP_CHARACTER_MOV).forEach(cell => {
            cell.highlight(this.MOVEMENT_COLOR);
        });
     }
             
 
-    _is_selectable(x,y){
-        return this.board.get_cell_value(x,y) instanceof Character;
+    _isSelectable(x,y){
+        return this.board.getCellValue(x,y) instanceof Character;
     }
 
-    _can_move_to(x,y){
-        return (!this._is_selectable(x,y) && this.board.cell_is_in_range_of_other_cell(
-            this.currently_selected,
-            this.board.get_cell(x,y),
+    _canMoveTo(x,y){
+        return (!this._isSelectable(x,y) && this.board.cellIsInRangeOfOtherCell(
+            this.currentlySelected,
+            this.board.getCell(x,y),
             this.TMP_CHARACTER_MOV
         ));
     }
 
-    _anything_selected(){
-        return this.currently_selected != this.DESELECT_VAL;
+    _anythingSelected(){
+        return this.currentlySelected != this.DESELECT_VAL;
     }
 
     _deselect(){
-        this.currently_selected = this.DESELECT_VAL;
+        this.currentlySelected = this.DESELECT_VAL;
     }
 }

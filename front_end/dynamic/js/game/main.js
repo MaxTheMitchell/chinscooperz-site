@@ -5,27 +5,27 @@ function setup(){
             new Character("front_end/static/imgs/character_sheets/sam"),
             new Character("front_end/static/imgs/character_sheets/niko")
         ],
-        update_board
+        updateBoard
     )
-    update_board()
+    updateBoard()
 }
 
 function gridClicked(x,y){
-    gameController.cell_clicked(x,y);
+    gameController.cellClicked(x,y);
 }
 
-function update_board(){
+function updateBoard(){
     document.getElementById('game_board').innerHTML = gameController.display();
 }
 
 function startTurn(){
     gameController.startTurn()
-    update_board()
+    updateBoard()
 }
 
 function endTurn(){
     gameController.endTurn()
-    update_board()
+    updateBoard()
     waitForMyTurn()
 }
 
