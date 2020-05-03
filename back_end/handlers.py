@@ -23,6 +23,8 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         resp_str = self._get_get_str(self.path)
         if resp_str != None:
+            if resp_str[0] == '/':
+                return self._custom_redirect(resp_str)
             return self._custom_get_resp(bytes(resp_str,'utf-8'))
         return super().do_GET()
 
@@ -80,4 +82,10 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(bytes)
         return
-    
+
+    def _custom_redirect(self,redirect_url):
+        self.send_response(301)
+        self.send_header('Location',redirect_url)
+        self.end_headers()
+        return
+        

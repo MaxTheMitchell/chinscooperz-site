@@ -1,5 +1,5 @@
 <main>
-    <form action="/game">
+    <form action="/game/loby">
         <label for="name_input">Enter Your Name:</label>
         <input type="text" id="name_input">
         <input type="submit" value="submit" onclick="setCookie()">
@@ -9,6 +9,6 @@
 
 <script>
     function setCookie(){
-        document.cookie = "name="+document.getElementById("name_input").value+"; path= /game";
+        document.cookie = "name="+document.getElementById("name_input").value+"; path=/game";
     }
 </script>

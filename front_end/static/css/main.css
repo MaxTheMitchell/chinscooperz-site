@@ -1,6 +1,6 @@
 @font-face{
     font-family: Papyrus;
-    src: url('../fonts/PAPYRUS.TTF');
+    src: url(/front_end/static//fonts/PAPYRUS.TTF');
     font-family: Ferrum;
     src: url('../fonts/Ferrum.otf');
 }

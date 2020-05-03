@@ -1,0 +1,19 @@
+<main>
+    <div id="current_games">
+
+    </div>
+    <button onclick="createNewGame()">
+        create new game
+    </button>
+</main>
+
+<script>
+    function createNewGame(){
+        window.location.replace("/game/create?name="+getName());
+    }
+    
+    sendGetRequest("/game/games",function(responseText){
+        document.getElementById("current_games").innerHTML = responseText
+    });
+</script>
+
