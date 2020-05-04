@@ -52,6 +52,17 @@ function sendGetRequest(url,func=function(responseText){}){
     request.send();
 }
 
+function sendPostRequest(url,func=function(responseText){}){
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            func(request.responseText);
+        }
+    };
+    request.open("POST",url,true);
+    request.send();
+}
+
 function getName(){
     name = getCookie('name');
     if (name == ""){

@@ -29,6 +29,9 @@ class GameHandler:
         return self._login_page()
 
     def _post_resp(self,path,body,cookies):
+        if path == "/game/create":
+            self.games.append(game.Game(cookies[self.NAME_KEY]))
+            return
         if self._has_no_name(cookies):
             return self._login_page()
         elif self._not_in_a_game(cookies):
@@ -52,7 +55,7 @@ class GameHandler:
         return self._default_html(self.HTML_PATH+"game_lobby.html")
 
     def _game_page(self,cookies):
-        return self._default_html(self.HTML_PATH+"game.html")
+        return self._default_html(self.HTML_PATH+"game_body.html")
 
     def _default_html(self,file_path):
         return self.HTML_FAC.get_html_sting(open(file_path).read())

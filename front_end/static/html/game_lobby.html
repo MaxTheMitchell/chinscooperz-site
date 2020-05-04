@@ -1,15 +1,13 @@
 <main>
-    <div id="current_games">
-
-    </div>
-    <button onclick="createNewGame()">
-        create new game
-    </button>
+    <div id="current_games"></div>
+    <form action="/game" method="POST">
+        <input type="submit" value="Create New Game" onclick="createNewGame()">
+    </form>
 </main>
 
 <script>
     function createNewGame(){
-        window.location.replace("/game/create?name="+getName());
+        sendPostRequest("/game/create")
     }
     
     sendGetRequest("/game/games",function(responseText){
