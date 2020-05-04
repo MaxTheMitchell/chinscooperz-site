@@ -1,43 +1,58 @@
 from back_end import htmlFactory
 from back_end import game
-import re,http
+import re,http,os
 
 class GameHandler:
 
-    CHARACTER_SHEET_PATH = "./front_end/static/imgs/character_sheets"
-    SAVE_PATH = "./front_end/static/imgs/game/tmp"
     HTML_FAC = htmlFactory.HtmlFac(
         open("./front_end/static/html/game_head.html").read(),
         open("./front_end/static/html/header.html").read(),
         open("./front_end/static/html/footer.html").read()
     )
-    
+    NAME_KEY = 'name'
+    HTML_PATH = "./front_end/static/html/"
 
     def __init__(self,byte_format='utf-8'):
         self.byte_format = byte_format
         self.turn = " "
         self.games = []
         
-    def handle_req(self,path,query_vals):
-        return self._get_resp_str(path,query_vals)
-
-    def _get_resp_str(self,path,query_vals):
-        if path == "/game":
-            return self._default_html("./front_end/static/html/game_body.html")
-        elif path == "/game/login":
-            return self._default_html("./front_end/static/html/game_login.html")
-        elif path == "/game/loby":
-            return self._default_html("./front_end/static/html/game_loby.html")
-        elif path == "/game/create":
-            self.games.append(game.Game(query_vals['name'][0]))
-            return "/game"
-        elif path == "/game/games":
+    def handle_get_req(self,path,query_vals):
+        if path == "/game/games":
             return self._games_html()
-        elif path == "/game/turn":
-            return str(self.turn != query_vals['name'][0])
-        elif path == "/game/turn/end":
-            self.turn = query_vals['name'][0]
-            return self.turn
+        return self._get_resp(path,query_vals)
+
+    def handle_post_req(self,path,body,cookies):
+        return self._post_resp(path,body,cookies)
+
+    def _get_resp(self,path,query_vals):
+        return self._login_page()
+
+    def _post_resp(self,path,body,cookies):
+        if self._has_no_name(cookies):
+            return self._login_page()
+        elif self._not_in_a_game(cookies):
+            return self._lobby_page()
+        else:
+            return self._game_page(cookies)
+
+    def _has_no_name(self,cookies):
+        return not self.NAME_KEY in cookies
+
+    def _not_in_a_game(self,cookies):
+        for game in self.games:
+            if cookies[self.NAME_KEY] in game.players():
+                return False
+        return True
+
+    def _login_page(self):
+        return self._default_html(self.HTML_PATH+"game_login.html")
+
+    def _lobby_page(self):
+        return self._default_html(self.HTML_PATH+"game_lobby.html")
+
+    def _game_page(self,cookies):
+        return self._default_html(self.HTML_PATH+"game.html")
 
     def _default_html(self,file_path):
         return self.HTML_FAC.get_html_sting(open(file_path).read())
@@ -45,5 +60,5 @@ class GameHandler:
     def _games_html(self):
         html = ""
         for game in self.games:
-            html += str(game)
+            html += "<button onclick=joinGame('{}')>{}</button>".format(game.player_one,game)
         return html

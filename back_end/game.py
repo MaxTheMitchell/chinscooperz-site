@@ -6,3 +6,6 @@ class Game:
 
     def __str__(self):
         return self.player_one+"'s game"
+
+    def players(self):
+        return self.player_one, self.player_two
