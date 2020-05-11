@@ -63,7 +63,6 @@ class GameManager:
     def _players_game(self,player):
         for game in self.games:
             if player in game.players():
-                print(game.players())
                 return game
         return NullGame()
 

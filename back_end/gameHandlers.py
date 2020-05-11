@@ -26,7 +26,7 @@ class GameHandler:
         elif self._not_in_a_game(cookies):
             return self._lobby_page()
         elif path == "/game/turn/is_mine":
-            self.GAME_MANAGER.is_players_turn(cookies[self.NAME_KEY])
+            return str(self.GAME_MANAGER.is_players_turn(cookies[self.NAME_KEY]))
         else:
             return self._game_page(cookies)
 
@@ -38,7 +38,6 @@ class GameHandler:
         elif path == "/game/create":
             self.GAME_MANAGER.add_game(game.Game(cookies[self.NAME_KEY]))
         elif path == "/game/join":
-            print(body)
             self.GAME_MANAGER.join_game(body[self.PLAYER_ONE_KEY],cookies[self.NAME_KEY])
         return " "
 
