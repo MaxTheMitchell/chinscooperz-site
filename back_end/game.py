@@ -6,7 +6,7 @@ class Game:
         self.current_turn = self.player_one
 
     def __str__(self):
-        return self.player_one+" game"
+        return self.player_one+"'s game"
 
     def players(self):
         return self.player_one, self.player_two
@@ -69,7 +69,7 @@ class GameManager:
     def html(self):
         html = ""
         for game in self.games:
-            html += "<input type='submit' value='{}' onclick='joinGame(\"{}\")'>".format(game,game.player_one)
+            html += '<input type="submit" value="{}" onclick="joinGame(\'{}\')">'.format(game,game.player_one)
         return html
 
 
