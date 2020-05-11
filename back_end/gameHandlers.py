@@ -1,4 +1,5 @@
 from back_end import htmlFactory,game
+import re
 
 class GameHandler:
 
@@ -15,9 +16,12 @@ class GameHandler:
     def __init__(self,byte_format='utf-8'):
         self.byte_format = byte_format
         self.turn = " "
+        self.taken_names = []
         
     def handle_get_req(self,path,query_vals,cookies):
-        if self._has_no_name(cookies):
+        if path == "/game/check_name":
+            return self._check_name(query_vals[self.NAME_KEY][0])
+        elif self._has_no_name(cookies):
             return self._login_page()
         elif path == "/game/games":
             return self.GAME_MANAGER.html()
@@ -38,6 +42,14 @@ class GameHandler:
         elif path == "/game/join":
             self.GAME_MANAGER.join_game(body[self.PLAYER_ONE_KEY],cookies[self.NAME_KEY])
         return " "
+
+    def _check_name(self,name):
+        if name in self.taken_names:
+            return "The name {} is already taken buster!".format(name)
+        elif re.match('.*[\'\"`]',name):
+            return "Your name uses an invalid character buster!"
+        self.taken_names.append(name)
+        return "valid" 
 
     def _is_turn_path(self,path):
         return path.split('/')[1] == 'turn'

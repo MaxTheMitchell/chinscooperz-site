@@ -1,14 +1,21 @@
 <main>
-    <form action="/game" method="GET"">
+    <form action="/game" method="GET">
         <label for="name">Enter Your Name:</label>
         <input type="text" id="name">
-        <input type="submit" value="submit" onclick="setCookie()">
+        <input type="submit" value="submit" onclick="setName()">
     </form>
 
 </main>
 
 <script>
-    function setCookie(){
-        document.cookie = "name="+document.getElementById("name").value+"; path=/game";
+    function setName(){
+        sendGetRequest(`/game/check_name?name=${document.getElementById("name").value}`,function(responseText){
+            if(responseText == "valid"){
+                document.cookie = `name=${document.getElementById("name").value}; path=/game`;
+                location.reload();
+            }else{
+                alert(responseText);
+            }
+        });
     }
 </script>
