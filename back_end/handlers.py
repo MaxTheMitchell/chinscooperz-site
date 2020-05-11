@@ -1,4 +1,4 @@
-import http.server,http.cookies,re,urllib.parse,copy
+import http.server,re,urllib.parse,copy,json
 from back_end import dialogueGenerator,htmlFactory,gameHandlers
 
 class MyHandlers(http.server.SimpleHTTPRequestHandler):
@@ -51,13 +51,14 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
 
     def _post_body(self):
         try:
-            return { 
-                pair.split('=')[0] : pair.split('=')[1] for pair in 
-                self.rfile.read(int(self.headers['Content-Length'])).decode(self.BYTE_FORMAT).split('&')
-            }
+            return json.loads(
+                self.rfile.read(
+                        int(self.headers['Content-Length'])
+                    ).decode(self.BYTE_FORMAT)
+                )
         except:
             return {}
-        
+            
 
     def _cookies(self):
         try:

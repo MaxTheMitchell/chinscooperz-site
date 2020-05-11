@@ -1,6 +1,4 @@
-from back_end import htmlFactory
-from back_end import game
-import re,http,os
+from back_end import htmlFactory,game
 
 class GameHandler:
 
