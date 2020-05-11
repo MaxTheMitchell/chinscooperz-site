@@ -36,7 +36,7 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
         elif self._is_dialogue(url):
             return self._dialogue_resp(self.path)
         elif self._is_game(url):
-            return self.GAME.handle_get_req(url,query_vals)
+            return self.GAME.handle_get_req(url,query_vals,self._cookies())
         elif self.path == "/test":
             return self._test()
         return
@@ -50,13 +50,20 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
         return "test"
 
     def _post_body(self):
-        return self._get_query_vals(self.rfile.read(int(self.headers['Content-Length'])))
+        try:
+            return { 
+                pair.split('=')[0] : pair.split('=')[1] for pair in 
+                self.rfile.read(int(self.headers['Content-Length'])).decode(self.BYTE_FORMAT).split('&')
+            }
+        except:
+            return {}
+        
 
     def _cookies(self):
         try:
             return {cookie.split('=')[0] : cookie.split('=')[1] 
                 for cookie in self.headers["Cookie"].split('&')}
-        except KeyError:
+        except:
             return {}
 
     def _get_query_vals(self,path):

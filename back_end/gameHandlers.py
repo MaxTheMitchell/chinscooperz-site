@@ -10,43 +10,46 @@ class GameHandler:
         open("./front_end/static/html/footer.html").read()
     )
     NAME_KEY = 'name'
+    PLAYER_ONE_KEY = 'player_1'
     HTML_PATH = "./front_end/static/html/"
+    GAME_MANAGER = game.GameManager()
 
     def __init__(self,byte_format='utf-8'):
         self.byte_format = byte_format
         self.turn = " "
-        self.games = []
         
-    def handle_get_req(self,path,query_vals):
-        if path == "/game/games":
-            return self._games_html()
-        return self._get_resp(path,query_vals)
-
-    def handle_post_req(self,path,body,cookies):
-        return self._post_resp(path,body,cookies)
-
-    def _get_resp(self,path,query_vals):
-        return self._login_page()
-
-    def _post_resp(self,path,body,cookies):
-        if path == "/game/create":
-            self.games.append(game.Game(cookies[self.NAME_KEY]))
-            return
+    def handle_get_req(self,path,query_vals,cookies):
         if self._has_no_name(cookies):
             return self._login_page()
+        elif path == "/game/games":
+            return self.GAME_MANAGER.html()
         elif self._not_in_a_game(cookies):
             return self._lobby_page()
+        elif path == "/game/turn/is_mine":
+            self.GAME_MANAGER.is_players_turn(cookies[self.NAME_KEY])
         else:
             return self._game_page(cookies)
+
+    def handle_post_req(self,path,body,cookies):
+        if self._has_no_name(cookies):
+            return self._login_page()
+        elif  path == "/game/turn/end":
+            self.GAME_MANAGER.end_players_turn(cookies[self.NAME_KEY])
+        elif path == "/game/create":
+            self.GAME_MANAGER.add_game(game.Game(cookies[self.NAME_KEY]))
+        elif path == "/game/join":
+            print(body)
+            self.GAME_MANAGER.join_game(body[self.PLAYER_ONE_KEY],cookies[self.NAME_KEY])
+        return " "
+
+    def _is_turn_path(self,path):
+        return path.split('/')[1] == 'turn'
 
     def _has_no_name(self,cookies):
         return not self.NAME_KEY in cookies
 
     def _not_in_a_game(self,cookies):
-        for game in self.games:
-            if cookies[self.NAME_KEY] in game.players():
-                return False
-        return True
+        return not self.GAME_MANAGER.is_player_in_a_game(cookies[self.NAME_KEY])
 
     def _login_page(self):
         return self._default_html(self.HTML_PATH+"game_login.html")
@@ -59,9 +62,3 @@ class GameHandler:
 
     def _default_html(self,file_path):
         return self.HTML_FAC.get_html_sting(open(file_path).read())
-
-    def _games_html(self):
-        html = ""
-        for game in self.games:
-            html += "<button onclick=joinGame('{}')>{}</button>".format(game.player_one,game)
-        return html

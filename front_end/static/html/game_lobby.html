@@ -1,6 +1,5 @@
 <main>
-    <div id="current_games"></div>
-    <form action="/game" method="POST">
+    <form id="current_games" action="/game" method="GET">
         <input type="submit" value="Create New Game" onclick="createNewGame()">
     </form>
     <audio autoplay loop>
@@ -12,9 +11,13 @@
     function createNewGame(){
         sendPostRequest("/game/create")
     }
+
+    function joinGame(player_name){
+        sendPostRequest("/game/join",function(){},"player_1="+player_name)
+    }
     
     sendGetRequest("/game/games",function(responseText){
-        document.getElementById("current_games").innerHTML = responseText
+        document.getElementById("current_games").innerHTML += responseText
     });
 </script>
 

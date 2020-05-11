@@ -26,13 +26,13 @@ function startTurn(){
 
 function endTurn(){
     gameController.endTurn();
-    sendGetRequest("/game/turn/end?name="+getName("name"));
+    sendPostRequest("/game/turn/end");
     updateBoard();
     waitForMyTurn();
 }
 
 function waitForMyTurn(){
-    sendGetRequest("/game/turn?name="+getName('name'),function(responseText){
+    sendGetRequest("/game/turn/is_mine",function(responseText){
         if (responseText == "True"){
             startTurn();
         }else{
@@ -52,7 +52,7 @@ function sendGetRequest(url,func=function(responseText){}){
     request.send();
 }
 
-function sendPostRequest(url,func=function(responseText){}){
+function sendPostRequest(url,func=function(responseText){},body=""){
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -60,7 +60,7 @@ function sendPostRequest(url,func=function(responseText){}){
         }
     };
     request.open("POST",url,true);
-    request.send();
+    request.send(body);
 }
 
 function getName(){
