@@ -12,6 +12,7 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
     )
     BYTE_FORMAT = 'utf-8'
     GAME = gameHandlers.GameHandler()
+    DIALOG_GEN = dialogueGenerator.DialogueGenerator("/front_end/static/imgs/faces")
 
     def do_GET(self):
         self._parse_resp(self._get_resp(),super().do_GET)
