@@ -2,16 +2,16 @@ class GameBoard {
 
     constructor(width=10,height=10) {
         this.cell_grid = [];
-        for(var x=0;x<width;x++){
+        for(let x=0;x<width;x++){
             this.cell_grid.push([]);
-            for(var y=0;y<height;y++){
+            for(let y=0;y<height;y++){
                 this.cell_grid[x].push(new Cell(x,y,100/width,100/height));
             }
         }
     }
 
     display() {
-        var html = "";
+        let html = "";
         this._getAllCells().forEach(cell =>{
             html += cell.display()
         });
@@ -98,7 +98,7 @@ class Cell{
     }
 
     pop(){
-        var old_content = this.content;
+        let old_content = this.content;
         this.content = '';
         return old_content;
     }

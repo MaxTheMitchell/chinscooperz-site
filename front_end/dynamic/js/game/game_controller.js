@@ -23,7 +23,7 @@ class GameController{
     }
 
     preload(){
-        var preloads = "";
+        let preloads = "";
         this.characters.forEach(character =>{
             preloads += character.preload();
         });
@@ -58,9 +58,9 @@ class GameController{
     }
 
     _moveAlongPath(path,speed=100){
-        var interval = setInterval(moveSpace,speed)
-        var self = this;
-        var character = this._currentlySelectedVal();
+        let interval = setInterval(moveSpace,speed)
+        let self = this;
+        let character = this._currentlySelectedVal();
         function moveSpace(){
             self.board.move(path[0][0],path[0][1],path[1][0],path[1][1]);
             character.changeDirection(path[0],path[1]);
@@ -73,7 +73,7 @@ class GameController{
     }
 
     _generatePath(moves,endX,endY){
-        var [start_x,start_y] = moves[moves.length-1];
+        let [start_x,start_y] = moves[moves.length-1];
         if (start_x == endX && start_y == endY){
             return moves
         }
