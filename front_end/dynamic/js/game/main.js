@@ -1,22 +1,37 @@
+
 function setup(){
-    getName();
     gameController = new GameController(
-        board = new GameBoard(30,20),
+        new GameBoard(30,20),
         [
-            new Character("front_end/static/imgs/character_sheets/sam"),
-            new Character("front_end/static/imgs/character_sheets/niko")
-        ],
-        updateBoard
-    )
-    updateBoard()
+            new Character("front_end/static/imgs/character_sheets/sam",3,2,2),
+            new Character("front_end/static/imgs/character_sheets/niko",5,5,5)
+        ]
+    );
+    getGameController();
+    updateBoard();
+}
+
+function getGameController() {
+    sendGetRequest("/game/json",(responseText) =>{
+        if (responseText != "null"){
+            json = JSON.parse(responseText);
+            gameController = new GameController(
+                new GameBoard(1,1,json.board.cellGrid),
+                json.characters.map(character => {
+                    return new Character(character.characterSheetPath,character.movePoints,character.x,character.y)
+                })
+            )
+            updateBoard();
+        }
+    });
 }
 
 function gridClicked(x,y){
     gameController.cellClicked(x,y);
 }
 
-function updateBoard(){
-    document.getElementById('game_board').innerHTML = gameController.display();
+function updateBoard(myTurn=true){
+    document.getElementById('game_board').innerHTML = gameController.display(myTurn);
 }
 
 function startTurn(){
@@ -26,8 +41,8 @@ function startTurn(){
 
 function endTurn(){
     gameController.endTurn();
-    sendPostRequest("/game/turn/end");
-    updateBoard();
+    sendPostRequest("/game/turn/end",()=>{},JSON.stringify(gameController));
+    updateBoard(false);
     waitForMyTurn();
 }
 
@@ -36,6 +51,7 @@ function waitForMyTurn(){
         if (responseText == "True"){
             startTurn();
         }else{
+
             setTimeout(waitForMyTurn,500);
         }
     });

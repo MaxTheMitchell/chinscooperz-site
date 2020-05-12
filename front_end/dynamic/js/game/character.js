@@ -1,10 +1,17 @@
 class Character{
 
-    constructor(characterSheetPath,movePoints=1){
+    constructor(characterSheetPath,movePoints=1,x,y){
         this.characterSheetPath = characterSheetPath;
         this.moveTile = 0;
         this.imgSrc = this._updateSrcImg('down',this.moveTile)
         this.movePoints = movePoints;
+        this.x = x;
+        this.y = y;
+    }
+
+    setPos(x,y){
+        this.x = x;
+        this.y = y;
     }
 
     preload(){

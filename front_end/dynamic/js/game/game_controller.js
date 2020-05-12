@@ -5,18 +5,22 @@ class GameController{
     MOVEMENT_COLOR = "orange";
     TMP_CHARACTER_MOV = 5;
 
-    constructor(board=board.GameBoard(),characters=[],myTurn=true,currentlySelected=""){
+    constructor(board=new GameBoard(),characters=[],currentlySelected=""){
         this.board = board;
         this.characters = characters;
-        this.board.add(characters[0],2,5);
-        this.board.add(characters[1],5,5);
         this.currentlySelected = currentlySelected;
-        this.myTurn = myTurn;
-        this.preload()
+        this.preload();
+        this.addCharacters();
     }
 
-    display(){
-        if (this.myTurn){
+    addCharacters(){
+        this.characters.forEach(character =>{
+            this.board.add(character,character.x,character.y);
+        });
+    }
+
+    display(myTurn){
+        if (myTurn){
             return this.board.display();
         }
         return this.board.display() + "<div class='opponent_turn'><h1>Opponent's turn</h1></div>"
@@ -30,8 +34,12 @@ class GameController{
         this._update(preloads);
     }
 
+    set_position(character,x,y){
+        this.board.add(character,x,y)
+    }
+
     _update(addion=""){
-        document.getElementById('game_board').innerHTML = this.display()+addion;
+        document.getElementById('game_board').innerHTML = this.display(true)+addion;
     }
 
     cellClicked(x,y){
@@ -43,15 +51,16 @@ class GameController{
     }
 
     startTurn(){
-        this.myTurn = true
+        this.display(true)
     }
 
     endTurn(){
-        this.myTurn = false
+        this.display(false)
     }
 
     _moveCharacter(x,y){
         this._moveAlongPath(this._generatePath([this.currentlySelected.position()],x,y));
+        this.currentlySelected.content.setPos(x,y);
         this.board.clearHighting();
         this._deselect();
         this._update();

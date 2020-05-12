@@ -1,12 +1,17 @@
+import json
 class Game:
     
-    def __init__(self,player_one,player_two=""):
+    def __init__(self,player_one,player_two="",game_controller=None):
         self.player_one = player_one
         self.player_two = player_two
         self.current_turn = self.player_one
+        self.game_controller = game_controller
 
     def __str__(self):
         return self.player_one+"'s game"
+    
+    def json(self):
+        return json.dumps(self.game_controller)
 
     def players(self):
         return self.player_one, self.player_two
@@ -14,11 +19,12 @@ class Game:
     def add_player_two(self,player):
         self.player_two = player
 
-    def end_turn(self,player):
+    def end_turn(self,player,game_controller):
         if player == self.player_one:
             self.current_turn = self.player_two
         else:
             self.current_turn = self.player_one
+        self.game_controller = game_controller
 
     def is_player_turn(self,player):
         return self.current_turn == player
@@ -26,6 +32,7 @@ class Game:
 class NullGame:
      
     def __init__(self):
+        self.game_controller = "None"
         pass
 
     def end_turn(self,player):
@@ -54,8 +61,11 @@ class GameManager:
     def is_player_in_a_game(self,player):
         return isinstance(self._players_game(player),Game)
     
-    def end_players_turn(self,player):
-        self._players_game(player).end_turn(player)
+    def players_game_json(self,player):
+        return self._players_game(player).json()
+    
+    def end_players_turn(self,player,game_controller):
+        self._players_game(player).end_turn(player,game_controller)
 
     def is_players_turn(self,player):
         return self._players_game(player).is_player_turn(player)

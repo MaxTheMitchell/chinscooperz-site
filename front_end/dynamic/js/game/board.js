@@ -1,13 +1,25 @@
 class GameBoard {
 
-    constructor(width=10,height=10) {
-        this.cell_grid = [];
-        for(let x=0;x<width;x++){
-            this.cell_grid.push([]);
-            for(let y=0;y<height;y++){
-                this.cell_grid[x].push(new Cell(x,y,100/width,100/height));
+    constructor(width=10,height=10,json=undefined) {
+        if (json !== undefined){
+            this.json_constructor(json)
+        }else{
+            this.cellGrid = [];
+            for(let x=0;x<width;x++){
+                this.cellGrid.push([]);
+                for(let y=0;y<height;y++){
+                    this.cellGrid[x].push(new Cell(x,y,100/width,100/height));
+                }
             }
         }
+    }
+
+    json_constructor(rows){
+        this.cellGrid = rows.map(row=>{
+            return row.map(cell=>{
+                return new Cell(cell.x,cell.y,cell.widthPercent,cell.heightPercent)
+            })
+        });
     }
 
     display() {
@@ -59,11 +71,11 @@ class GameBoard {
     }
 
     _accessCell(x,y){
-        return this.cell_grid[x][y];
+        return this.cellGrid[x][y];
     }
 
     _getAllCells(){
-        return [].concat.apply([], this.cell_grid);
+        return [].concat.apply([], this.cellGrid);
     }
 
 }
