@@ -45,6 +45,7 @@ function updateBoard(myTurn=true){
 }
 
 function startTurn(){
+    getGameControllerFromServer();
     gameController.startTurn();
     updateBoard();
 }
