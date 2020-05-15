@@ -1,29 +1,39 @@
 
 function setup(){
-    gameController = new GameController(
+    gameController = getDefaultGame()
+    getGameControllerFromServer();
+    updateBoard();
+}
+
+function getGameControllerFromServer() {
+    sendGetRequest("/game/json",(responseText) =>{
+        if (responseText != "null"){
+            gameController = genGameFromJSON(JSON.parse(responseText));
+            updateBoard();
+        }
+    });
+}
+
+function getDefaultGame(){
+    return new GameController(
         new GameBoard(30,20),
         [
             new Character("front_end/static/imgs/character_sheets/sam",3,2,2),
             new Character("front_end/static/imgs/character_sheets/niko",5,5,5)
         ]
     );
-    getGameController();
-    updateBoard();
 }
 
-function getGameController() {
-    sendGetRequest("/game/json",(responseText) =>{
-        if (responseText != "null"){
-            json = JSON.parse(responseText);
-            gameController = new GameController(
-                new GameBoard(1,1,json.board.cellGrid),
-                json.characters.map(character => {
-                    return new Character(character.characterSheetPath,character.movePoints,character.x,character.y)
-                })
-            )
-            updateBoard();
-        }
-    });
+function genGameFromJSON(json){
+    return new GameController(
+        new GameBoard(1,1,json.board.cellGrid),
+        json.characters.map(character => {
+            return new Character(
+                character.characterSheetPath,character.movePoints,
+                character.x,character.y,
+                character.img,character.movePoints)
+        })
+    )
 }
 
 function gridClicked(x,y){

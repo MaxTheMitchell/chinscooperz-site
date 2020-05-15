@@ -1,9 +1,9 @@
 class Character{
 
-    constructor(characterSheetPath,movePoints=1,x,y){
+    constructor(characterSheetPath,movePoints,x,y,img = "down0.png",moveTile = 0,){
         this.characterSheetPath = characterSheetPath;
-        this.moveTile = 0;
-        this.imgSrc = this._updateSrcImg('down',this.moveTile)
+        this.moveTile = moveTile;
+        this.img = img
         this.movePoints = movePoints;
         this.x = x;
         this.y = y;
@@ -32,7 +32,11 @@ class Character{
     }
 
     display(){
-        return `<img height='100' width='100' src='${this.imgSrc}'>`
+        return `<img height='100' width='100' src='${this.imgPath()}'>`
+    }
+
+    imgPath(){
+        return this.characterSheetPath+'/'+this.img
     }
 
     toString(){
@@ -72,12 +76,12 @@ class Character{
     }
 
     _move(direction){
-        this._updateSrcImg(direction,this._updateMoveTile());
+        this._updateImg(direction,this._updateMoveTile());
     }
 
-    _updateSrcImg(direction,tile){
-        this.imgSrc = `${this.characterSheetPath}/${direction}${tile}.png`;
-        return this.imgSrc;
+    _updateImg(direction,tile){
+        this.img = `${direction}${tile}.png`;
+        return this.img;
     }
 
     _updateMoveTile(){
