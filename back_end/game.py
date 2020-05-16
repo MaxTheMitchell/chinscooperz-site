@@ -1,17 +1,21 @@
 import json
 class Game:
     
-    def __init__(self,player_one,player_two="",game_controller=None):
+    def __init__(self,player_one,player_two="",game_controller=None,moves_made=None):
         self.player_one = player_one
         self.player_two = player_two
         self.current_turn = self.player_one
         self.game_controller = game_controller
+        self.moves_made = moves_made
 
     def __str__(self):
         return self.player_one+"'s game"
     
-    def json(self):
+    def game_controller_json(self):
         return json.dumps(self.game_controller)
+        
+    def moves_made_json(self):
+        return json.dumps(self.moves_made)
 
     def players(self):
         return self.player_one, self.player_two
@@ -19,12 +23,13 @@ class Game:
     def add_player_two(self,player):
         self.player_two = player
 
-    def end_turn(self,player,game_controller):
+    def end_turn(self,player,game_controller,moves_made):
         if player == self.player_one:
             self.current_turn = self.player_two
         else:
             self.current_turn = self.player_one
         self.game_controller = game_controller
+        self.moves_made = moves_made
 
     def is_player_turn(self,player):
         return self.current_turn == player
@@ -62,13 +67,18 @@ class GameManager:
         return isinstance(self._players_game(player),Game)
     
     def players_game_json(self,player):
-        return self._players_game(player).json()
+        return self._players_game(player).game_controller_json()
+
+    def players_moves_made(self,player):
+        return self._players_game(player).moves_made_json()
     
-    def end_players_turn(self,player,game_controller):
-        self._players_game(player).end_turn(player,game_controller)
+    def end_players_turn(self,player,game_controller,moves_made):
+        self._players_game(player).end_turn(player,game_controller,moves_made)
 
     def is_players_turn(self,player):
-        return self._players_game(player).is_player_turn(player)
+        if self._players_game(player).is_player_turn(player):
+            return self.players_moves_made(player)
+        return "NotYourTurn"
 
     def _players_game(self,player):
         for game in self.games:

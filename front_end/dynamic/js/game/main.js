@@ -45,24 +45,34 @@ function updateBoard(myTurn=true){
 }
 
 function startTurn(){
-    getGameControllerFromServer();
     gameController.startTurn();
     updateBoard();
 }
 
 function endTurn(){
+    endTurnPost()
     gameController.endTurn();
-    sendPostRequest("/game/turn/end",()=>{},JSON.stringify(gameController));
     updateBoard(false);
     waitForMyTurn();
 }
 
+function makeOpponentsMoves(moves,callback){
+    gameController.makeAutomatedMoves(moves,callback)
+}
+
+function endTurnPost(){
+    sendPostRequest("/game/turn/end",()=>{},
+        JSON.stringify({
+            gameController : gameController,
+            movesMade : gameController.movesMade
+        }));
+}
+
 function waitForMyTurn(){
     sendGetRequest("/game/turn/is_mine",function(responseText){
-        if (responseText == "True"){
-            startTurn();
+        if (responseText !== "NotYourTurn"){
+            makeOpponentsMoves(JSON.parse(responseText),startTurn)
         }else{
-
             setTimeout(waitForMyTurn,500);
         }
     });

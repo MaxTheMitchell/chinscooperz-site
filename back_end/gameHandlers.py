@@ -30,7 +30,7 @@ class GameHandler:
         elif path == "/game/json":
             return self.GAME_MANAGER.players_game_json(cookies[self.NAME_KEY])
         elif path == "/game/turn/is_mine":
-            return str(self.GAME_MANAGER.is_players_turn(cookies[self.NAME_KEY]))
+            return self.GAME_MANAGER.is_players_turn(cookies[self.NAME_KEY])
         else:
             return self._game_page(cookies)
 
@@ -38,7 +38,7 @@ class GameHandler:
         if self._has_no_name(cookies):
             return self._login_page()
         elif  path == "/game/turn/end":
-            self.GAME_MANAGER.end_players_turn(cookies[self.NAME_KEY],body)
+            self.GAME_MANAGER.end_players_turn(cookies[self.NAME_KEY],body["gameController"],body["movesMade"])
         elif path == "/game/create":
             self.GAME_MANAGER.add_game(game.Game(cookies[self.NAME_KEY]))
         elif path == "/game/join":

@@ -14,6 +14,10 @@ class Character{
         this.y = y;
     }
 
+    position(){
+        return [this.x,this.y];
+    }
+
     preload(){
         return `
         <img height='100' width='100' style="display:none;" src='${this.characterSheetPath}/left0.png'>

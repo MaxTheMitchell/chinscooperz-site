@@ -5,10 +5,11 @@ class GameController{
     MOVEMENT_COLOR = "orange";
     TMP_CHARACTER_MOV = 5;
 
-    constructor(board=new GameBoard(),characters=[],currentlySelected=""){
+    constructor(board=new GameBoard(),characters=[],currentlySelected="",movesMade=[]){
         this.board = board;
         this.characters = characters;
         this.currentlySelected = currentlySelected;
+        this.movesMade = movesMade;
         this.preload();
         this.addCharacters();
     }
@@ -34,6 +35,17 @@ class GameController{
         this._update(preloads);
     }
 
+    makeAutomatedMoves(moves,callback){
+        let interval = setInterval(()=>{
+            window["gameController"][moves[0].func].apply(this, moves[0].args);
+            moves.shift();
+            if (moves.length < 1){
+                clearInterval(interval);
+                callback();
+            }
+        },1000)
+    }
+
     set_position(character,x,y){
         this.board.add(character,x,y)
     }
@@ -44,8 +56,10 @@ class GameController{
 
     cellClicked(x,y){
         if (this._anythingSelected() && this._canMoveTo(x,y)){
+            this._addMoveToHistory(this._moveCharacter.name,[x,y])
             this._moveCharacter(x,y);
         }else if (this._isSelectable(x,y)){
+            this._addMoveToHistory(this._selectCharacter.name,[x,y])
             this._selectCharacter(x,y);
         }
     }
@@ -56,11 +70,12 @@ class GameController{
 
     endTurn(){
         this.display(false)
+        this._clearMovesMade()
     }
 
     _moveCharacter(x,y){
         this._moveAlongPath(this._generatePath([this.currentlySelected.position()],x,y));
-        this.currentlySelected.content.setPos(x,y);
+        this.currentlySelected.setPos(x,y);
         this.board.clearHighting();
         this._deselect();
         this._update();
@@ -69,7 +84,7 @@ class GameController{
     _moveAlongPath(path,speed=100){
         let interval = setInterval(moveSpace,speed)
         let self = this;
-        let character = this._currentlySelectedVal();
+        let character = this.currentlySelected
         function moveSpace(){
             self.board.move(path[0][0],path[0][1],path[1][0],path[1][1]);
             character.changeDirection(path[0],path[1]);
@@ -103,7 +118,7 @@ class GameController{
     }
 
     _selectCharacter(x,y){
-        this.currentlySelected = this.board.getCell(x,y);
+        this.currentlySelected = this.board.getCellValue(x,y);
         this.board.clearHighting();
         this._highlightInMovementRange(x,y);
         this.board.highlightCell(x,y,this.CHARACTER_HIGHLIGHT_COLOR);
@@ -133,11 +148,18 @@ class GameController{
         return this.currentlySelected != this.DESELECT_VAL;
     }
 
-    _currentlySelectedVal(){
-        return this.currentlySelected.get();
-    }
-
     _deselect(){
         this.currentlySelected = this.DESELECT_VAL;
+    }
+
+    _clearMovesMade(){
+        this.movesMade = [];
+    }
+
+    _addMoveToHistory(func,args){
+        this.movesMade.push({
+            func : func,
+            args : args
+        })
     }
 }
