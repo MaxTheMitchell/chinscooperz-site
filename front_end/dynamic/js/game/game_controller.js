@@ -5,9 +5,10 @@ class GameController{
     MOVEMENT_COLOR = "orange";
     TMP_CHARACTER_MOV = 5;
 
-    constructor(board=new GameBoard(),characters=[],currentlySelected="",movesMade=[]){
+    constructor(board=new GameBoard(),characters=[],canClick=true,currentlySelected="",movesMade=[]){
         this.board = board;
         this.characters = characters;
+        this.canClick = canClick;
         this.currentlySelected = currentlySelected;
         this.movesMade = movesMade;
         this.preload();
@@ -24,7 +25,8 @@ class GameController{
         if (myTurn){
             return this.board.display();
         }
-        return this.board.display() + "<div class='opponent_turn'><h1>Opponent's turn</h1></div>"
+        return this.board.display() + "<div class='opponent_turn'><h1>Opponent's turn</h1></div>";
+        
     }
 
     preload(){
@@ -55,21 +57,25 @@ class GameController{
     }
 
     cellClicked(x,y){
-        if (this._anythingSelected() && this._canMoveTo(x,y)){
-            this._addMoveToHistory(this._moveCharacter.name,[x,y])
-            this._moveCharacter(x,y);
-        }else if (this._isSelectable(x,y)){
-            this._addMoveToHistory(this._selectCharacter.name,[x,y])
-            this._selectCharacter(x,y);
+        if (this._canClick()){
+            if (this._anythingSelected() && this._canMoveTo(x,y)){
+                this._addMoveToHistory(this._moveCharacter.name,[x,y])
+                this._moveCharacter(x,y);
+            }else if (this._isSelectable(x,y)){
+                this._addMoveToHistory(this._selectCharacter.name,[x,y])
+                this._selectCharacter(x,y);
+            }
         }
     }
 
     startTurn(){
-        this.display(true)
+        this.display(true);
+        this._enableClick();
     }
 
     endTurn(){
         this.display(false)
+        this._disableClick()
         this._clearMovesMade()
     }
 
@@ -150,6 +156,18 @@ class GameController{
 
     _deselect(){
         this.currentlySelected = this.DESELECT_VAL;
+    }
+
+    _canClick(){
+        return this.canClick
+    }
+
+    _enableClick(){
+        this.canClick = true;
+    }
+
+    _disableClick(){
+        this.canClick = false;
     }
 
     _clearMovesMade(){
