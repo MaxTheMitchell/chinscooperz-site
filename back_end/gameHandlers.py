@@ -48,7 +48,7 @@ class GameHandler:
     def _check_name(self,name):
         if name in self.taken_names:
             return "The name {} is already taken buster!".format(name)
-        elif re.match('.*[\'\"`]',name):
+        elif re.match('.*[^\w\s]',name):
             return "Your name uses an invalid character buster!"
         self.taken_names.append(name)
         return "valid" 
