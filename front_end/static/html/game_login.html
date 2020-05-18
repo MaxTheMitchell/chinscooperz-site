@@ -1,5 +1,5 @@
 <main>
-    <form onsubmit="setName()">
+    <form id="form" onsubmit="setName()">
         <label for="name">Enter Your Name:</label>
         <input type="text" id="name">
         <input type="submit" value="submit">
@@ -9,6 +9,7 @@
 
 <script>
     function setName(){
+        event.preventDefault()
         sendGetRequest(`/game/check_name?name=${document.getElementById("name").value}`,function(responseText){
             if(responseText == "valid"){
                 document.cookie = `name=${document.getElementById("name").value}; path=/game`;

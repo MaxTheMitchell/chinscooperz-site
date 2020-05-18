@@ -1,5 +1,5 @@
 <main>
-    <form id="current_games">
+    <form id="current_games" onsubmit="doNothing()">
         <input type="submit" value="Create New Game" onclick="createNewGame()">
     </form>
     <audio autoplay loop>
@@ -9,11 +9,19 @@
 
 <script>
     function createNewGame(){
-        sendPostRequest("/game/create",location.reload)
+        sendPostRequest("/game/create",reload)
     }
 
     function joinGame(player_name){
-        sendPostRequest("/game/join",location.reload,`{ "player_1":"${player_name}" }`)
+        sendPostRequest("/game/join",reload,`{ "player_1":"${player_name}" }`)
+    }
+
+    function reload(){
+        window.location.replace("/game")
+    }
+
+    function doNothing(){
+        event.preventDefault()
     }
     
     sendGetRequest("/game/games",function(responseText){
