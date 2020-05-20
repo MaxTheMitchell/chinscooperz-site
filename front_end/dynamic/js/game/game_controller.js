@@ -21,8 +21,8 @@ class GameController {
         });
     }
 
-    display(myTurn) {
-        if (myTurn) {
+    display() {
+        if (this.canClick) {
             return this.board.display();
         }
         return this.board.display() + "<div class='opponent_turn'><h1>Opponent's turn</h1></div>";
@@ -39,9 +39,11 @@ class GameController {
 
     makeAutomatedMoves(moves, callback) {
         let interval = setInterval(() => {
-            if (moves.length < 1) {
+            if  (moves[0] === "end"){
                 clearInterval(interval);
                 callback();
+            }else if (moves.length < 1) {
+                clearInterval(interval);
             } else {
                 window["gameController"][moves[0].func].apply(this, moves[0].args);
                 moves.shift();
@@ -70,14 +72,14 @@ class GameController {
     }
 
     startTurn() {
-        this.display(true);
+        this.display();
         this._enableClick();
     }
 
     endTurn() {
-        this.display(false)
-        this._disableClick()
-        this._clearMovesMade()
+        this.display();
+        this._disableClick();
+        this._clearMovesMade();
     }
 
     _moveCharacter(x, y) {
@@ -180,5 +182,10 @@ class GameController {
             func: func,
             args: args
         })
+        this.postMovesMade();
+    }
+
+    postMovesMade(){
+        sendPostRequest("/game/turn/movesMade",()=>{},JSON.stringify(this.movesMade));
     }
 }

@@ -1,4 +1,6 @@
-from back_end import htmlFactory,game
+from back_end import htmlFactory
+from back_end.game.manager import GameManager
+from back_end.game.game import Game
 import re
 
 class GameHandler:
@@ -11,7 +13,7 @@ class GameHandler:
     NAME_KEY = 'name'
     PLAYER_ONE_KEY = 'player_1'
     HTML_PATH = "./front_end/static/html/"
-    GAME_MANAGER = game.GameManager()
+    GAME_MANAGER = GameManager()
 
     def __init__(self,byte_format='utf-8'):
         self.byte_format = byte_format
@@ -29,8 +31,12 @@ class GameHandler:
             return self._lobby_page()
         elif path == "/game/json":
             return self.GAME_MANAGER.players_game_json(cookies[self.NAME_KEY])
-        elif path == "/game/turn/is_mine":
-            return self.GAME_MANAGER.is_players_turn(cookies[self.NAME_KEY])
+        elif path == "/game/turn/isMine":
+            return self.GAME_MANAGER.is_players_turn_str(cookies[self.NAME_KEY])
+        elif path == "/game/turn/opponentHasStarted":
+            return self.GAME_MANAGER.has_opponent_started_str(cookies[self.NAME_KEY])
+        elif path == "/game/turn/movesMade":
+            return self.GAME_MANAGER.moves_made_by_opponent(cookies[self.NAME_KEY])
         else:
             return self._game_page(cookies)
 
@@ -39,8 +45,12 @@ class GameHandler:
             return self._login_page()
         elif  path == "/game/turn/end":
             self.GAME_MANAGER.end_players_turn(cookies[self.NAME_KEY],body["gameController"],body["movesMade"])
+        elif path == "/game/turn/start":
+            self.GAME_MANAGER.start_players_turn(cookies[self.NAME_KEY])
+        elif path == "/game/turn/movesMade":
+            self.GAME_MANAGER.update_moves_made(cookies[self.NAME_KEY],body)
         elif path == "/game/create":
-            self.GAME_MANAGER.add_game(game.Game(cookies[self.NAME_KEY]))
+            self.GAME_MANAGER.add_game(Game(cookies[self.NAME_KEY]))
         elif path == "/game/join":
             self.GAME_MANAGER.join_game(body[self.PLAYER_ONE_KEY],cookies[self.NAME_KEY])
         return " "

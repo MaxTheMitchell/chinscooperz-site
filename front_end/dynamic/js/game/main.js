@@ -1,13 +1,15 @@
+const PULL_INTERVAL = 500;
 
 function setup(){
-    gameController = getDefaultGame()
+    gameController = getDefaultGame();
     getGameControllerFromServer();
     updateBoard();
+    checkTurn(startTurn,endTurn);
 }
 
 function getGameControllerFromServer() {
     sendGetRequest("/game/json",(responseText) =>{
-        if (responseText != "null"){
+        if (responseText != "{}"){
             gameController = genGameFromJSON(JSON.parse(responseText));
             updateBoard();
         }
@@ -40,45 +42,73 @@ function gridClicked(x,y){
     gameController.cellClicked(x,y);
 }
 
-function updateBoard(myTurn=true){
-    document.getElementById('game_board').innerHTML = gameController.display(myTurn);
+function updateBoard(){
+    document.getElementById('game_board').innerHTML = gameController.display();
 }
 
 function startTurn(){
-    gameController.startTurn();
-    updateBoard();
+    sendPostRequest("/game/turn/start",()=>{
+        gameController.startTurn();
+        updateBoard();
+    });
 }
 
 function endTurn(){
-    endTurnPost()
+    endTurnPost();
     gameController.endTurn();
-    updateBoard(false);
-    waitForMyTurn();
+    updateBoard();
+    waitForOpponentToStart(waitForMyTurn);
 }
 
-function makeOpponentsMoves(moves,callback){
+function makeOpponentsMoves(moves,callback=()=>{}){
     gameController.makeAutomatedMoves(moves,callback)
 }
+
 
 function endTurnPost(){
     sendPostRequest("/game/turn/end",()=>{},
         JSON.stringify({
             gameController : gameController,
-            movesMade : gameController.movesMade
+            movesMade : gameController.movesMade.concat("end")
         }));
 }
 
-function waitForMyTurn(){
-    sendGetRequest("/game/turn/is_mine",function(responseText){
-        if (responseText !== "NotYourTurn"){
-            makeOpponentsMoves(JSON.parse(responseText),startTurn)
+function checkTurn(trueCallback,falseCallback){
+    sendGetRequest("/game/turn/isMine",(responseText)=>{
+        if (responseText === "True"){
+            trueCallback();
         }else{
-            setTimeout(waitForMyTurn,500);
+            falseCallback();
+        }
+    })
+
+}
+
+function waitForOpponentToStart(callback){
+    sendGetRequest("/game/turn/opponentHasStarted",responseText=>{
+        if (responseText === "True"){
+            callback();
+        }else{
+            setTimeout(()=>{waitForOpponentToStart(callback)},PULL_INTERVAL);
+        }
+    })
+}
+
+function waitForMyTurn(NumbMovesMade=0){
+    sendGetRequest("/game/turn/movesMade",responseText=>{
+        console.log(responseText)
+        console.log(NumbMovesMade)
+        let moves = JSON.parse(responseText);
+        makeOpponentsMoves(moves.slice(NumbMovesMade),startTurn);
+        NumbMovesMade = moves.length;
+        if (moves.pop() !== "end"){
+            setTimeout(()=>{waitForMyTurn(NumbMovesMade)},PULL_INTERVAL);
         }
     });
 }
 
-function sendGetRequest(url,func=function(responseText){}){
+
+function sendGetRequest(url,func=()=>{}){
     let request = new XMLHttpRequest();
     request.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -89,7 +119,7 @@ function sendGetRequest(url,func=function(responseText){}){
     request.send();
 }
 
-function sendPostRequest(url,func=function(responseText){},body=""){
+function sendPostRequest(url,func=()=>{},body="{}"){
     let request = new XMLHttpRequest();
     request.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
