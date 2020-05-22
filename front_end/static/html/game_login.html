@@ -12,7 +12,7 @@
         event.preventDefault()
         sendGetRequest(`/game/check_name?name=${document.getElementById("name").value}`,function(responseText){
             if(responseText == "valid"){
-                document.cookie = `name=${document.getElementById("name").value}; path=/game`;
+                Cookies.set("name",document.getElementById("name").value)
                 location.reload();
             }else{
                 alert(responseText);
