@@ -96,8 +96,6 @@ function waitForOpponentToStart(callback){
 
 function waitForMyTurn(NumbMovesMade=0){
     sendGetRequest("/game/turn/movesMade",responseText=>{
-        console.log(responseText)
-        console.log(NumbMovesMade)
         let moves = JSON.parse(responseText);
         makeOpponentsMoves(moves.slice(NumbMovesMade),startTurn);
         NumbMovesMade = moves.length;
@@ -108,26 +106,20 @@ function waitForMyTurn(NumbMovesMade=0){
 }
 
 
-function sendGetRequest(url,func=()=>{}){
-    let request = new XMLHttpRequest();
-    request.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            func(request.responseText);
-        }
-    };
-    request.open("GET",url,true);
-    request.send();
+function sendGetRequest(url,callback=()=>{}){
+    fetch(url)
+        .then((response)=>{
+            return response.text()
+        }).then(callback)
 }
 
-function sendPostRequest(url,func=()=>{},body="{}"){
-    let request = new XMLHttpRequest();
-    request.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            func(request.responseText);
-        }
-    };
-    request.open("POST",url,true);
-    request.send(body);
+function sendPostRequest(url,callback=()=>{},body="{}"){
+    fetch(url,{
+        method : "POST",
+        body : body 
+    }).then((response)=>{
+        return response.text()
+    }).then(callback)
 }
 
 function getName(){
