@@ -12,8 +12,8 @@
         event.preventDefault()
         sendGetRequest(`/game/check_name?name=${document.getElementById("name").value}`,function(responseText){
             if(responseText == "valid"){
-                Cookies.set("name",document.getElementById("name").value)
-                location.reload();
+                Cookies.set("name",document.getElementById("name").value,{ path: "/game" })
+                window.location.replace("/game")
             }else{
                 alert(responseText);
             }

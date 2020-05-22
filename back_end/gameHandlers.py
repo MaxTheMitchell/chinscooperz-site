@@ -23,12 +23,8 @@ class GameHandler:
     def handle_get_req(self,path,query_vals,cookies):
         if path == "/game/check_name":
             return self._check_name(query_vals[self.NAME_KEY][0])
-        elif self._has_no_name(cookies):
-            return self._login_page()
         elif path == "/game/games":
             return self.GAME_MANAGER.html()
-        elif self._not_in_a_game(cookies):
-            return self._lobby_page()
         elif path == "/game/json":
             return self.GAME_MANAGER.players_game_json(cookies[self.NAME_KEY])
         elif path == "/game/turn/isMine":
@@ -37,6 +33,11 @@ class GameHandler:
             return self.GAME_MANAGER.has_opponent_started_str(cookies[self.NAME_KEY])
         elif path == "/game/turn/movesMade":
             return self.GAME_MANAGER.moves_made_by_opponent(cookies[self.NAME_KEY])
+        elif self._has_no_name(cookies):
+            return self._login_page()
+        elif self._not_in_a_game(cookies):
+            print("worked")
+            return self._lobby_page()
         else:
             return self._game_page(cookies)
 

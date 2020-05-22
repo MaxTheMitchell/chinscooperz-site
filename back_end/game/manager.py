@@ -42,7 +42,7 @@ class GameManager:
         return NullGame()
 
     def html(self):
-        html = ""
+        html = " "
         for game in self.games:
             html += '<input type="submit" value="{}" onclick="joinGame(\'{}\')">'.format(game,game.player_one_name())
         return html

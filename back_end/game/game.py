@@ -37,7 +37,7 @@ class Game:
         return self._get_opponent(player_name).is_my_turn
 
     def has_player_with_name(self,player_name):
-        return not isinstance(self._get_player(player_name),NullPlayer)
+        return player_name in [p.name for p in self.players]
 
     def player_one_name(self):
         return self.players[0].name
