@@ -21,40 +21,34 @@ class GameHandler:
         self.taken_names = []
         
     def handle_get_req(self,path,query_vals,cookies):
-        if path == "/game/check_name":
-            return self._check_name(query_vals[self.NAME_KEY][0])
-        elif path == "/game/games":
-            return self.GAME_MANAGER.html()
-        elif path == "/game/json":
-            return self.GAME_MANAGER.players_game_json(cookies[self.NAME_KEY])
-        elif path == "/game/turn/isMine":
-            return self.GAME_MANAGER.is_players_turn_str(cookies[self.NAME_KEY])
-        elif path == "/game/turn/opponentHasStarted":
-            return self.GAME_MANAGER.has_opponent_started_str(cookies[self.NAME_KEY])
-        elif path == "/game/turn/movesMade":
-            return self.GAME_MANAGER.moves_made_by_opponent(cookies[self.NAME_KEY])
-        elif self._has_no_name(cookies):
-            return self._login_page()
-        elif self._not_in_a_game(cookies):
-            print("worked")
-            return self._lobby_page()
-        else:
-            return self._game_page(cookies)
-
+        return {
+            "/game/check_name": lambda : self._check_name(query_vals[self.NAME_KEY][0]),
+            "/game/games": lambda : self.GAME_MANAGER.html(),
+            "/game/json": lambda : self.GAME_MANAGER.players_game_json(cookies[self.NAME_KEY]),
+            "/game/turn/isMine": lambda : self.GAME_MANAGER.is_players_turn_str(cookies[self.NAME_KEY]),
+            "/game/turn/opponentHasStarted":lambda :self.GAME_MANAGER.has_opponent_started_str(cookies[self.NAME_KEY]),
+            "/game/turn/movesMade": lambda : self.GAME_MANAGER.moves_made_by_opponent(cookies[self.NAME_KEY]),
+        }.setdefault(path,lambda : self._root_gets(cookies))()
+        
     def handle_post_req(self,path,body,cookies):
         if self._has_no_name(cookies):
             return self._login_page()
-        elif  path == "/game/turn/end":
-            self.GAME_MANAGER.end_players_turn(cookies[self.NAME_KEY],body["gameController"],body["movesMade"])
-        elif path == "/game/turn/start":
-            self.GAME_MANAGER.start_players_turn(cookies[self.NAME_KEY])
-        elif path == "/game/turn/movesMade":
-            self.GAME_MANAGER.update_moves_made(cookies[self.NAME_KEY],body)
-        elif path == "/game/create":
-            self.GAME_MANAGER.add_game(Game(cookies[self.NAME_KEY]))
-        elif path == "/game/join":
-            self.GAME_MANAGER.join_game(body[self.PLAYER_ONE_KEY],cookies[self.NAME_KEY])
+        {
+            "/game/turn/end": lambda : self.GAME_MANAGER.end_players_turn(cookies[self.NAME_KEY],body["gameController"],body["movesMade"]),
+            "/game/turn/start": lambda : self.GAME_MANAGER.start_players_turn(cookies[self.NAME_KEY]),
+            "/game/turn/movesMade": lambda : self.GAME_MANAGER.update_moves_made(cookies[self.NAME_KEY],body),
+            "/game/create": lambda : self.GAME_MANAGER.add_game(Game(cookies[self.NAME_KEY])),
+            "/game/join":lambda : self.GAME_MANAGER.join_game(body[self.PLAYER_ONE_KEY],cookies[self.NAME_KEY])
+        }.setdefault(path,lambda : None)()
         return " "
+
+    def _root_gets(self,cookies):
+        if self._has_no_name(cookies):
+            return self._login_page()
+        elif self._not_in_a_game(cookies):
+            return self._lobby_page()
+        else:
+            return self._game_page(cookies)
 
     def _check_name(self,name):
         if name in self.taken_names:

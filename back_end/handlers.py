@@ -27,7 +27,6 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
             return self._custom_resp(bytes(resp,self.BYTE_FORMAT))
         return default_resp()
     
-
     def _get_resp(self):
         query_vals = self._get_query_vals(self.path)
         url = self._remove_query_string(self.path)
