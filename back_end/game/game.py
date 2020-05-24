@@ -28,7 +28,7 @@ class Game:
         self.update_moves_made(player_name,moves_made)
 
     def start_players_turn(self,player_name):
-        self._get_opponent(player_name).start_turn()
+        self._get_player(player_name).start_turn()
 
     def is_players_turn(self,player_name):
         return self._get_player(player_name).is_my_turn
