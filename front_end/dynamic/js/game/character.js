@@ -1,7 +1,8 @@
 class Character{
 
-    constructor(characterSheetPath,movePoints,x,y,img = "down0.png",moveTile = 0,){
+    constructor(characterSheetPath,facePath,movePoints,x,y,img = "down0.png",moveTile = 0,){
         this.characterSheetPath = characterSheetPath;
+        this.facePath = facePath;
         this.moveTile = moveTile;
         this.img = img
         this.movePoints = movePoints;
@@ -37,6 +38,10 @@ class Character{
 
     display(){
         return `<img height='100' width='100' src='${this.imgPath()}'>`
+    }
+
+    displayPanel(){
+        return `<div class="display_panel"> <img src=${this.facePath}>  <div>`
     }
 
     imgPath(){

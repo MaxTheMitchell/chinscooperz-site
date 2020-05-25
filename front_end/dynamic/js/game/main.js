@@ -20,22 +20,19 @@ function getGameControllerFromServer() {
 function getDefaultGame(){
     return new GameController(
         new GameBoard(30,20),
-        [
-            new Character("front_end/static/imgs/character_sheets/sam",3,2,2),
-            new Character("front_end/static/imgs/character_sheets/niko",5,5,5)
-        ]
+        new Player([
+            new Character("front_end/static/imgs/character_sheets/sam","front_end/static/imgs/faces/sam.jpg",3,2,2),
+            new Character("front_end/static/imgs/character_sheets/niko","front_end/static/imgs/faces/niko.jpg",5,5,5)
+        ])
     );
 }
 
 function genGameFromJSON(json){
     return new GameController(
         new GameBoard(1,1,json.board.cellGrid),
-        json.characters.map(character => {
-            return new Character(
-                character.characterSheetPath,character.movePoints,
-                character.x,character.y,
-                character.img,character.movePoints)
-        }),
+        new Player(
+            json.player.characters.map(character => {return constructCharacterFromJson(character)})
+        ),
         json.canClick,
         parseJsonCurrentlySelected(json.currentlySelected),
         json.movesMade
@@ -45,10 +42,15 @@ function genGameFromJSON(json){
 function parseJsonCurrentlySelected(currentlySelected){
     if (currentlySelected  === ""){
         return ""
-    }return new  Character(
-        currentlySelected.characterSheetPath,currentlySelected.movePoints,
-        currentlySelected.x,currentlySelected.y,
-        currentlySelected.img,currentlySelected.movePoints)
+    }return constructCharacterFromJson(currentlySelected)
+}
+
+function constructCharacterFromJson(json){
+    return new Character(
+        json.characterSheetPath,json.facePath,
+        json.movePoints,
+        json.x,json.y,
+        json.img,json.movePoints)
 }
 
 function gridClicked(x,y){
