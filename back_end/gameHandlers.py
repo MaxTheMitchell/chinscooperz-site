@@ -1,6 +1,8 @@
 from back_end import htmlFactory
 from back_end.game.manager import GameManager
 from back_end.game.game import Game
+from back_end.game.player import Player
+from back_end.game.game_factories import *
 import re
 
 class GameHandler:
@@ -37,10 +39,30 @@ class GameHandler:
             "/game/turn/end": lambda : self.GAME_MANAGER.end_players_turn(cookies[self.NAME_KEY],body),
             "/game/turn/start": lambda : self.GAME_MANAGER.start_players_turn(cookies[self.NAME_KEY]),
             "/game/turn/makeMove": lambda : self.GAME_MANAGER.update_game_controller(cookies[self.NAME_KEY],body),
-            "/game/create": lambda : self.GAME_MANAGER.add_game(Game(cookies[self.NAME_KEY])),
+            "/game/create": lambda : self.GAME_MANAGER.add_game(self.create_test_game(cookies)),
             "/game/join":lambda : self.GAME_MANAGER.join_game(body[self.PLAYER_ONE_KEY],cookies[self.NAME_KEY])
         }.setdefault(path,lambda : None)()
         return " "
+
+    def create_test_game(self,cookies):
+        return Game(
+            Player(cookies[self.NAME_KEY],True,self.test_game_controller()),
+            Player(cookies[self.NAME_KEY],False,self.test_game_controller())
+            )
+        
+    def test_game_controller(self):
+        return GameControllerFactory(
+            GameBoardFactory(45,30).json,
+            PlayerFactory(
+                [
+                    CharacterFactory("niko",3,2,2).json,
+                    CharacterFactory("magic_rat",3,2,4).json,
+                    CharacterFactory("chef",3,4,4).json,
+                ]
+            ).json,
+            False
+        ).json
+
 
     def _root_gets(self,cookies):
         if self._has_no_name(cookies):

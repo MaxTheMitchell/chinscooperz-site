@@ -1,30 +1,15 @@
 const PULL_INTERVAL = 500;
 
 function setup(){
-    gameController = getDefaultGame();
-    getGameControllerFromServer();
-    updateBoard();
-    checkTurn(startTurn,endTurn);
+    getGameControllerFromServer(gc=>{
+        gameController = gc
+        updateBoard();
+        checkTurn(startTurn,endTurn);
+    })
 }
 
-function getGameControllerFromServer() {
-    sendGetRequest("/game/json",(responseText) =>{
-        // TODO: fix this ridiculousness 
-        if (responseText !== '{"movesMade": []}'){
-            gameController = genGameFromJSON(JSON.parse(responseText));
-            updateBoard();
-        }
-    });
-}
-
-function getDefaultGame(){
-    return new GameController(
-        new GameBoard(30,20),
-        new Player([
-            new Character("front_end/static/imgs/character_sheets/sam","front_end/static/imgs/faces/sam.jpg",3,2,2),
-            new Character("front_end/static/imgs/character_sheets/niko","front_end/static/imgs/faces/niko.jpg",5,5,5)
-        ])
-    );
+function getGameControllerFromServer(callback) {
+    sendGetRequest("/game/json",(responseText)=>{callback(genGameFromJSON(JSON.parse(responseText)))});
 }
 
 function genGameFromJSON(json){
@@ -69,11 +54,13 @@ function startTurn(){
 }
 
 function endTurn(){
-    endTurnPost(()=>{
-        gameController.endTurn();
-        updateBoard();
-        waitForOpponentToStart(waitForMyTurn);
-    })
+    if (gameController.canClick){
+        endTurnPost(()=>{
+            gameController.endTurn();
+            updateBoard();
+            waitForOpponentToStart(waitForMyTurn);
+        })
+    }
 }
 
 function makeOpponentsMoves(moves,callback=()=>{}){

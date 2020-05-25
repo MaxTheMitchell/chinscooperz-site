@@ -3,8 +3,8 @@ from back_end.game.player import Player,NullPlayer
 
 class Game:
     
-    def __init__(self,player_one_name,player_two_name=""):
-        self.players = Player(player_one_name,False),Player(player_two_name)
+    def __init__(self,player_one,player_two):
+        self.players = player_one,player_two
 
     def __str__(self):
         return self.players[0].name+"'s game"

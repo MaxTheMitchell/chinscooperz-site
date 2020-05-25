@@ -26,7 +26,6 @@ class GameController {
             return this.board.display();
         }
         return this.board.display() + "<div class='opponent_turn'><h1>Opponent's turn</h1></div>";
-
     }
 
     preload() {

@@ -1,21 +1,7 @@
 class GameBoard {
 
-    constructor(width=10,height=10,json=undefined) {
-        if (json !== undefined){
-            this.json_constructor(json)
-        }else{
-            this.cellGrid = [];
-            for(let x=0;x<width;x++){
-                this.cellGrid.push([]);
-                for(let y=0;y<height;y++){
-                    this.cellGrid[x].push(new Cell(x,y,100/width,100/height));
-                }
-            }
-        }
-    }
-
-    json_constructor(rows){
-        this.cellGrid = rows.map(row=>{
+    constructor(cellGrid=[]) {
+        this.cellGrid = cellGrid.map(row=>{
             return row.map(cell=>{
                 return new Cell(cell.x,cell.y,cell.widthPercent,cell.heightPercent,cell.highlightColor)
             })
