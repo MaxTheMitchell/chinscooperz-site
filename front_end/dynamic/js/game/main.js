@@ -1,20 +1,20 @@
-const PULL_INTERVAL = 500;
+const PULL_INTERVAL = 500
 
 function setup(){
     getGameControllerFromServer(gc=>{
         gameController = gc
-        updateBoard();
-        checkTurn(startTurn,endTurn);
+        updateBoard()
+        checkTurn(startTurn,endTurn)
     })
 }
 
 function getGameControllerFromServer(callback) {
-    sendGetRequest("/game/json",(responseText)=>{callback(genGameFromJSON(JSON.parse(responseText)))});
+    sendGetRequest("/game/json",(responseText)=>{callback(genGameFromJSON(JSON.parse(responseText)))})
 }
 
 function genGameFromJSON(json){
     return new GameController(
-        new GameBoard(1,1,json.board.cellGrid),
+        new GameBoard(json.board.cellGrid),
         new Player(
             json.player.characters.map(character => {return constructCharacterFromJson(character)})
         ),
@@ -39,26 +39,26 @@ function constructCharacterFromJson(json){
 }
 
 function gridClicked(x,y){
-    gameController.cellClicked(x,y);
+    gameController.cellClicked(x,y)
 }
 
 function updateBoard(){
-    document.getElementById('game_board').innerHTML = gameController.display();
+    document.getElementById('game_board').innerHTML = gameController.display()
 }
 
 function startTurn(){
     sendPostRequest("/game/turn/start",()=>{
-        gameController.startTurn();
-        updateBoard();
-    });
+        gameController.startTurn()
+        updateBoard()
+    })
 }
 
 function endTurn(){
     if (gameController.canClick){
         endTurnPost(()=>{
-            gameController.endTurn();
-            updateBoard();
-            waitForOpponentToStart(waitForMyTurn);
+            gameController.endTurn()
+            updateBoard()
+            waitForOpponentToStart(waitForMyTurn)
         })
     }
 }
@@ -70,15 +70,15 @@ function makeOpponentsMoves(moves,callback=()=>{}){
 
 function endTurnPost(callback){
     gameController.movesMade.push("end")
-    sendPostRequest("/game/turn/end",callback,JSON.stringify(gameController));
+    sendPostRequest("/game/turn/end",callback,JSON.stringify(gameController))
 }
 
 function checkTurn(trueCallback,falseCallback){
     sendGetRequest("/game/turn/isMine",(responseText)=>{
         if (responseText === "True"){
-            trueCallback();
+            trueCallback()
         }else{
-            falseCallback();
+            falseCallback()
         }
     })
 
@@ -87,22 +87,22 @@ function checkTurn(trueCallback,falseCallback){
 function waitForOpponentToStart(callback){
     sendGetRequest("/game/turn/opponentHasStarted",responseText=>{
         if (responseText === "True"){
-            callback();
+            callback()
         }else{
-            setTimeout(()=>{waitForOpponentToStart(callback)},PULL_INTERVAL);
+            setTimeout(()=>{waitForOpponentToStart(callback)},PULL_INTERVAL)
         }
     })
 }
 
 function waitForMyTurn(NumbMovesMade=0){
     sendGetRequest("/game/turn/movesMade",responseText=>{
-        let moves = JSON.parse(responseText);
-        makeOpponentsMoves(moves.slice(NumbMovesMade),startTurn);
-        NumbMovesMade = moves.length;
+        let moves = JSON.parse(responseText)
+        makeOpponentsMoves(moves.slice(NumbMovesMade),startTurn)
+        NumbMovesMade = moves.length
         if (moves.pop() !== "end"){
-            setTimeout(()=>{waitForMyTurn(NumbMovesMade)},PULL_INTERVAL);
+            setTimeout(()=>{waitForMyTurn(NumbMovesMade)},PULL_INTERVAL)
         }
-    });
+    })
 }
 
 
@@ -123,9 +123,9 @@ function sendPostRequest(url,callback=()=>{},body="{}"){
 }
 
 function getName(){
-    name = getCookie('name');
+    name = getCookie('name')
     if (name == ""){
-        location.replace("/game/login");
+        location.replace("/game/login")
     }else{
         return name
     }
