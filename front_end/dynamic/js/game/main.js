@@ -56,14 +56,18 @@ function startTurn(){
     })
 }
 
-function endTurn(){
+function endTurnButtonPressed(){
     if (gameController.canClick){
-        endTurnPost(()=>{
-            gameController.endTurn()
-            updateBoard()
-            waitForOpponentToStart(waitForMyTurn)
-        })
+        endTurn()
     }
+}
+
+function endTurn(){
+    endTurnPost(()=>{
+        gameController.endTurn()
+        updateBoard()
+        waitForOpponentToStart(waitForMyTurn)
+    })
 }
 
 function makeOpponentsMoves(moves,callback=()=>{}){

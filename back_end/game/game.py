@@ -11,9 +11,10 @@ class Game:
 
     def add_player_two(self,player_name):
         self.players[1].name = player_name
+        self.players[1].swap_game_controller_players()
     
     def game_controller_json(self,player_name):
-        return self._get_player(player_name).game_conroller_str()
+        return self._get_player(player_name).game_controller_str()
     
     def moves_made_by_opponent(self,player_name):
         return self._get_opponent(player_name).moves_made_str()
@@ -25,6 +26,7 @@ class Game:
         self._get_player(player_name).end_turn()
         self.update_game_controller(player_name,game_controller)
         self._get_opponent(player_name).set_game_controller(copy.copy(game_controller))
+        self._get_opponent(player_name).swap_game_controller_players()
         self._get_opponent(player_name).clear_moves_made()
 
     def start_players_turn(self,player_name):
