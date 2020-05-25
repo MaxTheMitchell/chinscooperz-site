@@ -1,10 +1,11 @@
 import json
 class GameControllerFactory:
     
-    def __init__(self,board,player,canClick):
+    def __init__(self,board,player,opponent,canClick):
         self.json = {
             "board" : board,
             "player" : player,
+            "opponent" : opponent,
             "canClick" : canClick,
             "currentlySelected" : "",
             "movesMade" : []

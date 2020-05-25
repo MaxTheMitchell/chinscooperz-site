@@ -1,0 +1,25 @@
+<main>
+    <form id="scenarios" onsubmit="doNothing()">
+        <input type="submit" value="Custom Scenario" onclick="displayScenarios()">
+    </form>
+    <audio autoplay loop>
+        <source src="/front_end/static/audio/lobby_music.mp3" type="audio/mpeg">
+    </audio>
+</main>
+
+<script>
+    function displayScenarios(){
+        document.querySelector("main").innerHTML = `
+            <p>TODO</p>
+        `
+    }
+
+    function reload(){
+        window.location.replace("/game")
+    }
+
+    function doNothing(){
+        event.preventDefault()
+    }
+    
+</script>

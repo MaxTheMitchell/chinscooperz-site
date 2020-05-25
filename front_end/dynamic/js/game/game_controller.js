@@ -5,10 +5,11 @@ class GameController {
     MOVEMENT_COLOR = "orange"
     TMP_CHARACTER_MOV = 5
 
-    constructor(board = new GameBoard(), player = new Player(), canClick = true, currentlySelected = "", movesMade = []) {
+    constructor(board = new GameBoard(), player = new Player(),opponent= new Player(), canClick = true, currentlySelected = "", movesMade = []) {
         this.movesMade = movesMade
         this.board = board
         this.player = player
+        this.opponent = opponent
         this.canClick = canClick
         this.currentlySelected = currentlySelected
         this.preload()
@@ -16,7 +17,7 @@ class GameController {
     }
 
     addCharacters() {
-        this.player.characters.forEach(character => {
+        this.player.characters.concat(this.opponent.characters).forEach(character => {
             this.board.add(character, character.x, character.y)
         })
     }
@@ -138,7 +139,7 @@ class GameController {
 
 
     _isSelectable(x, y) {
-        return this.board.getCellValue(x, y) instanceof Character
+        return this.player.hasCharacterAt(x,y)
     }
 
     _canMoveTo(x, y) {

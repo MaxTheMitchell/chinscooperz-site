@@ -52,12 +52,19 @@ class GameHandler:
         
     def test_game_controller(self):
         return GameControllerFactory(
-            GameBoardFactory(45,30).json,
+            GameBoardFactory(33,22).json,
             PlayerFactory(
                 [
                     CharacterFactory("niko",3,2,2).json,
                     CharacterFactory("magic_rat",3,2,4).json,
                     CharacterFactory("chef",3,4,4).json,
+                ]
+            ).json,
+            PlayerFactory(
+                [
+                    CharacterFactory("grunt_1",3,20,2).json,
+                    CharacterFactory("grunt_2",3,20,4).json,
+                    CharacterFactory("grunt_3",3,30,4).json,
                 ]
             ).json,
             False

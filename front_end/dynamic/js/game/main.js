@@ -18,6 +18,9 @@ function genGameFromJSON(json){
         new Player(
             json.player.characters.map(character => {return constructCharacterFromJson(character)})
         ),
+        new Player(
+            json.opponent.characters.map(character => {return constructCharacterFromJson(character)})
+        ),
         json.canClick,
         parseJsonCurrentlySelected(json.currentlySelected),
         json.movesMade
