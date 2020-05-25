@@ -5,11 +5,11 @@ class Player{
     }
     
     display(){
-        return this.characters.reduce((total,addon)=>{total+addon},"")
+        return this.characters.reduce((total,addon)=>{return total+addon},"")
     }
 
     preloadCharacters(){
-        return this.characters.reduce((total,addon)=>{total+addon.preload()},"")
+        return this.characters.reduce((total,addon)=>{return total+addon.preload()},"")
     }
 
 }
