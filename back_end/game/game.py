@@ -1,4 +1,4 @@
-import json
+import json,copy
 from back_end.game.player import Player,NullPlayer
 
 class Game:
@@ -24,6 +24,7 @@ class Game:
     def end_turn(self,player_name,game_controller):
         self._get_player(player_name).end_turn()
         self.update_game_controller(player_name,game_controller)
+        self._get_opponent(player_name).set_game_controller(copy.copy(game_controller))
         self._get_opponent(player_name).clear_moves_made()
 
     def start_players_turn(self,player_name):
