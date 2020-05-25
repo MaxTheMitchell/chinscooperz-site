@@ -34,9 +34,9 @@ class GameHandler:
         if self._has_no_name(cookies):
             return self._login_page()
         {
-            "/game/turn/end": lambda : self.GAME_MANAGER.end_players_turn(cookies[self.NAME_KEY],body["gameController"],body["movesMade"]),
+            "/game/turn/end": lambda : self.GAME_MANAGER.end_players_turn(cookies[self.NAME_KEY],body),
             "/game/turn/start": lambda : self.GAME_MANAGER.start_players_turn(cookies[self.NAME_KEY]),
-            "/game/turn/movesMade": lambda : self.GAME_MANAGER.update_moves_made(cookies[self.NAME_KEY],body),
+            "/game/turn/makeMove": lambda : self.GAME_MANAGER.update_game_controller(cookies[self.NAME_KEY],body),
             "/game/create": lambda : self.GAME_MANAGER.add_game(Game(cookies[self.NAME_KEY])),
             "/game/join":lambda : self.GAME_MANAGER.join_game(body[self.PLAYER_ONE_KEY],cookies[self.NAME_KEY])
         }.setdefault(path,lambda : None)()

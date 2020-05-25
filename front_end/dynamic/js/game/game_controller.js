@@ -6,11 +6,11 @@ class GameController {
     TMP_CHARACTER_MOV = 5;
 
     constructor(board = new GameBoard(), characters = [], canClick = true, currentlySelected = "", movesMade = []) {
+        this.movesMade = movesMade;
         this.board = board;
         this.characters = characters;
         this.canClick = canClick;
         this.currentlySelected = currentlySelected;
-        this.movesMade = movesMade;
         this.preload();
         this.addCharacters();
     }
@@ -62,12 +62,13 @@ class GameController {
     cellClicked(x, y) {
         if (this._canClick()) {
             if (this._anythingSelected() && this._canMoveTo(x, y)) {
-                this._addMoveToHistory(this._moveCharacter.name, [x, y])
                 this._moveCharacter(x, y);
+                this._addMoveToHistory(this._moveCharacter.name, [x, y])
             } else if (this._isSelectable(x, y)) {
-                this._addMoveToHistory(this._selectCharacter.name, [x, y])
                 this._selectCharacter(x, y);
+                this._addMoveToHistory(this._selectCharacter.name, [x, y])
             }
+            this.postMovesMade();
         }
     }
 
@@ -86,7 +87,7 @@ class GameController {
         this._moveAlongPath(this._generatePath([this.currentlySelected.position()], x, y));
         this.currentlySelected.setPos(x, y);
         this.board.clearHighting();
-        this._deselect();
+        this.deselect();
         this._update();
     }
 
@@ -157,7 +158,7 @@ class GameController {
         return this.currentlySelected != this.DESELECT_VAL;
     }
 
-    _deselect() {
+    deselect() {
         this.currentlySelected = this.DESELECT_VAL;
     }
 
@@ -182,10 +183,9 @@ class GameController {
             func: func,
             args: args
         })
-        this.postMovesMade();
     }
 
-    postMovesMade(){
-        sendPostRequest("/game/turn/movesMade",()=>{},JSON.stringify(this.movesMade));
+    postMovesMade(callback=()=>{}){
+        sendPostRequest("/game/turn/makeMove",callback,JSON.stringify(this));
     }
 }

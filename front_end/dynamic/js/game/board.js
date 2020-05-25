@@ -17,7 +17,7 @@ class GameBoard {
     json_constructor(rows){
         this.cellGrid = rows.map(row=>{
             return row.map(cell=>{
-                return new Cell(cell.x,cell.y,cell.widthPercent,cell.heightPercent)
+                return new Cell(cell.x,cell.y,cell.widthPercent,cell.heightPercent,cell.highlightColor)
             })
         });
     }
@@ -82,7 +82,7 @@ class GameBoard {
 
 class Cell{
 
-    constructor(x,y,widthPercent,heightPercent,content='',highlightColor=''){
+    constructor(x,y,widthPercent,heightPercent,highlightColor='',content='',){
         this.content = content;
         this.x = x;
         this.y = y;

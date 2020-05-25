@@ -9,7 +9,8 @@ function setup(){
 
 function getGameControllerFromServer() {
     sendGetRequest("/game/json",(responseText) =>{
-        if (responseText != "{}"){
+        // TODO: fix this ridiculousness 
+        if (responseText !== '{"movesMade": []}'){
             gameController = genGameFromJSON(JSON.parse(responseText));
             updateBoard();
         }
@@ -34,8 +35,20 @@ function genGameFromJSON(json){
                 character.characterSheetPath,character.movePoints,
                 character.x,character.y,
                 character.img,character.movePoints)
-        })
+        }),
+        json.canClick,
+        parseJsonCurrentlySelected(json.currentlySelected),
+        json.movesMade
     )
+}
+
+function parseJsonCurrentlySelected(currentlySelected){
+    if (currentlySelected  === ""){
+        return ""
+    }return new  Character(
+        currentlySelected.characterSheetPath,currentlySelected.movePoints,
+        currentlySelected.x,currentlySelected.y,
+        currentlySelected.img,currentlySelected.movePoints)
 }
 
 function gridClicked(x,y){
@@ -54,10 +67,11 @@ function startTurn(){
 }
 
 function endTurn(){
-    endTurnPost();
-    gameController.endTurn();
-    updateBoard();
-    waitForOpponentToStart(waitForMyTurn);
+    endTurnPost(()=>{
+        gameController.endTurn();
+        updateBoard();
+        waitForOpponentToStart(waitForMyTurn);
+    })
 }
 
 function makeOpponentsMoves(moves,callback=()=>{}){
@@ -65,12 +79,9 @@ function makeOpponentsMoves(moves,callback=()=>{}){
 }
 
 
-function endTurnPost(){
-    sendPostRequest("/game/turn/end",()=>{},
-        JSON.stringify({
-            gameController : gameController,
-            movesMade : gameController.movesMade.concat("end")
-        }));
+function endTurnPost(callback){
+    gameController.movesMade.push("end")
+    sendPostRequest("/game/turn/end",callback,JSON.stringify(gameController));
 }
 
 function checkTurn(trueCallback,falseCallback){
