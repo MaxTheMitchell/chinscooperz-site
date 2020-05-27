@@ -44,9 +44,10 @@ h2{
     padding-right: 8%;
 }
 
-p{
+.text_dump{
     padding-left: 8%;
     padding-right: 8%;
+    line-height: 200%;
 }
 
 body{
