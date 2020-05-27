@@ -1,15 +1,59 @@
 @font-face{
-    font-family: Papyrus;
-    src: url('../fonts/PAPYRUS.TTF');
-    font-family: Ferrum;
-    src: url('../fonts/Ferrum.otf');
+    font-family: pixel;
+    src: url('../fonts/pixel.TTF');
 }
+
+@font-face{
+    font-family: Roboto-Thin;
+    src: url('../fonts/Roboto-Thin.ttf');
+}
+
+@font-face{
+    font-family: Platinum;
+    src: url('../fonts/Platinum.ttf');
+}
+
+@keyframes border{
+    0% {
+        background-image: url("/front_end/static/imgs/character_sheets/blind/down0.png"),
+            url("/front_end/static/imgs/character_sheets/niko/down0.png");
+    }
+    50% {background-image: url("/front_end/static/imgs/character_sheets/blind/down2.png"),
+        url("/front_end/static/imgs/character_sheets/niko/down0.png");
+    }
+    100% {background-image: url("/front_end/static/imgs/character_sheets/blind/down0.png"),
+        url("/front_end/static/imgs/character_sheets/niko/down0.png");
+    }
+}
+
+h1{
+    font-size: xx-large;
+    font-family: Platinum; 
+}
+
 body{
-    font-family: Papyrus;
+    font-family: Roboto-Thin;
+    background-color: lightpink;
+}
+
+nav{
+    font-size: large;
+}
+
+.border{
+    float: left;
+    background-size: 100% 100%;
+    animation-iteration-count: infinite;
+    width: 10%;
+    padding-top: 50%;
+    background-position: 0% 0%,50% 50%;
+    background-repeat: no-repeat,no-repeat;
+    /* animation-name: border;
+    animation-duration: 1s; */
 }
 
 .textbox{
-    font-family: Ferrum;
+    font-family: pixel;
     font-size: large;
     padding: 1%;
     border-style: double;
