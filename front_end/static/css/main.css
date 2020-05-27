@@ -13,22 +13,40 @@
     src: url('../fonts/Platinum.ttf');
 }
 
-@keyframes border{
+@keyframes border_left{
     0% {
-        background-image: url("/front_end/static/imgs/character_sheets/blind/down0.png"),
-            url("/front_end/static/imgs/character_sheets/niko/down0.png");
+        background-image: url("/front_end/static/imgs/borders/down0_border.png");
     }
-    50% {background-image: url("/front_end/static/imgs/character_sheets/blind/down2.png"),
-        url("/front_end/static/imgs/character_sheets/niko/down0.png");
+    50% {background-image: url("/front_end/static/imgs/borders/down2_border.png")
     }
-    100% {background-image: url("/front_end/static/imgs/character_sheets/blind/down0.png"),
-        url("/front_end/static/imgs/character_sheets/niko/down0.png");
+    100% {background-image: url("/front_end/static/imgs/borders/down0_border.png")
     }
 }
+
+@keyframes border_right{
+    0% {
+        background-image: url("/front_end/static/imgs/borders/up0_border.png");
+    }
+    50% {background-image: url("/front_end/static/imgs/borders/up2_border.png")
+    }
+    100% {background-image: url("/front_end/static/imgs/borders/up0_border.png")
+    }
+}
+
 
 h1{
     font-size: xx-large;
     font-family: Platinum; 
+}
+
+h2{
+    padding-left: 8%;
+    padding-right: 8%;
+}
+
+p{
+    padding-left: 8%;
+    padding-right: 8%;
 }
 
 body{
@@ -40,16 +58,24 @@ nav{
     font-size: large;
 }
 
-.border{
+.border_left{
     float: left;
-    background-size: 100% 100%;
+    background-size: 100%;
+    width: 5%;
+    padding-top: 100%;
     animation-iteration-count: infinite;
-    width: 10%;
-    padding-top: 50%;
-    background-position: 0% 0%,50% 50%;
-    background-repeat: no-repeat,no-repeat;
-    /* animation-name: border;
-    animation-duration: 1s; */
+    animation-name: border_left;
+    animation-duration: 1s;
+}
+
+.border_right{
+    float: right;
+    background-size: 100%;
+    width: 5%;
+    padding-top: 100%;
+    animation-iteration-count: infinite;
+    animation-name: border_right;
+    animation-duration: 1s;
 }
 
 .textbox{
@@ -64,10 +90,10 @@ nav{
 .textbox img{
     border-style: solid;
     border-width: 1px;
-
 }
 
 .end_turn_button{
+    font-family: pixel;
     position: absolute;
     background-color: red;
     width: 20%;
