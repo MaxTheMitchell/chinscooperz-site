@@ -53,6 +53,7 @@ h2{
 body{
     font-family: Roboto-Thin;
     background-color: lightpink;
+    /* background-image: url("/front_end/static/imgs/background.jpg"); */
 }
 
 nav{
@@ -138,3 +139,38 @@ nav{
     background-color: aquamarine;
 }
 
+.magic_rat{
+    background-color: #DEB3EB;
+}
+
+.niko{
+    background-color: #FF9AA2;
+}
+
+.sheriff{
+    background-color: #E2F0CB;
+}
+
+.blind1{
+    background-color: #E9E2D7;
+}
+
+.blind2{
+    background-color: #E9E2D7;
+}
+
+.chef{
+    background-color: #E1B894;
+}
+
+.grunt1{
+    background-color: #988270;
+}
+
+.grunt2{
+    background-color: #FFDAC1;
+}
+
+.sama{
+    background-color: grey;
+}

@@ -62,9 +62,9 @@ class GameHandler:
             ).json,
             PlayerFactory(
                 [
-                    CharacterFactory("grunt_1",3,20,2).json,
-                    CharacterFactory("grunt_2",3,20,4).json,
-                    CharacterFactory("grunt_3",3,30,4).json,
+                    CharacterFactory("grunt1",3,20,2).json,
+                    CharacterFactory("grunt2",3,20,4).json,
+                    CharacterFactory("grunt3",3,30,4).json,
                 ]
             ).json,
             False

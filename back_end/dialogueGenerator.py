@@ -12,7 +12,7 @@ class DialogueGenerator:
             
     def make_text_box(self,name,text):
         return """
-            <div class="textbox" style="background-color: white;">
+            <div class="textbox {}">
                 <table>
                 <tr>
                     <td>
@@ -24,4 +24,4 @@ class DialogueGenerator:
                 </tr>
             </table>
             </div>
-            """.format(self.img_path,name,text)
+            """.format(name,self.img_path,name,text)
