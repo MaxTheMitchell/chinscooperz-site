@@ -24,7 +24,7 @@ class GameHandler:
         
     def handle_get_req(self,path,query_vals,cookies):
         return {
-            "/game/check_name": lambda : self._check_name(query_vals[self.NAME_KEY][0]),
+            "/game/check_name": lambda : self._check_name(query_vals),
             "/game/games": lambda : self.GAME_MANAGER.html(),
             "/game/json": lambda : self.GAME_MANAGER.players_game_json(cookies[self.NAME_KEY]),
             "/game/turn/isMine": lambda : self.GAME_MANAGER.is_players_turn_str(cookies[self.NAME_KEY]),
@@ -64,7 +64,7 @@ class GameHandler:
                 [
                     CharacterFactory("grunt1",3,20,2).json,
                     CharacterFactory("grunt2",3,20,4).json,
-                    CharacterFactory("grunt3",3,30,4).json,
+                    CharacterFactory("sheriff",3,30,4).json,
                 ]
             ).json,
             False
@@ -79,7 +79,11 @@ class GameHandler:
         else:
             return self._game_page(cookies)
 
-    def _check_name(self,name):
+    def _check_name(self,query_vals):
+        if self.NAME_KEY in query_vals:
+            name = query_vals[self.NAME_KEY][0]
+        else:
+            return "no name entered or you have cookies disable (Enable them coward!)"
         if name in self.taken_names:
             return "The name {} is already taken buster!".format(name)
         elif re.match('.*[^\w\s]',name):

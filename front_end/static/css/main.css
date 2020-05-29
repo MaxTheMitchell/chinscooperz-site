@@ -39,14 +39,13 @@ h1{
     font-family: Platinum; 
 }
 
-.center{
-    padding-left: 8%;
-    padding-right: 8%;
+h2{
+    font-size: 40px;
 }
 
 p{
-    
     line-height: 200%;
+    font-size: 20px;
 }
 
 body{
@@ -57,6 +56,25 @@ body{
 
 nav{
     font-size: large;
+}
+
+input[type=submit]{
+    width: 80px;
+    height: 30px;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    background-color: lightblue;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 3px #999;
+}
+
+input[type=submit]:hover {background-color:lightskyblue}
+
+input[type=submit]:active {
+  box-shadow: 0 0px #666;
+  transform: translateY(3px);
 }
 
 .border_left{
@@ -77,6 +95,11 @@ nav{
     animation-iteration-count: infinite;
     animation-name: border_right;
     animation-duration: 1s;
+}
+
+.center{
+    padding-left: 8%;
+    padding-right: 8%;
 }
 
 .end_turn_button{
