@@ -1,5 +1,5 @@
 import http.server,re,urllib.parse,copy,json
-from back_end import dialogueGenerator,htmlFactory,gameHandlers
+from back_end import htmlFactory,gameHandlers
 
 class MyHandlers(http.server.SimpleHTTPRequestHandler):
 
@@ -12,7 +12,6 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
     )
     BYTE_FORMAT = 'utf-8'
     GAME = gameHandlers.GameHandler()
-    DIALOG_GEN = dialogueGenerator.DialogueGenerator("/front_end/static/imgs/faces")
 
     def do_GET(self):
         self._parse_resp(self._get_resp(),super().do_GET)
@@ -32,8 +31,8 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
         url = self._remove_query_string(self.path)
         if self._is_root(url):
             return self._root_resp()
-        elif self._is_dialogue(url):
-            return self._dialogue_resp(self.path)
+        elif self._is_story(url):
+            return self._story_resp(url)
         elif self._is_game(url):
             return self.GAME.handle_get_req(url,query_vals,self._cookies())
         elif self.path == "/test":
@@ -81,18 +80,14 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
     def _root_resp(self):
         return self.HTML_FAC.get_html_sting(open(self.HTML_PATH+"/index.html").read())
 
-    def _is_dialogue(self,path):
-        return re.match('^/dialogue/.*',path)
-
-    def _dialogue_resp(self,path):
-        return self.HTML_FAC.get_html_sting(
-            self.DIALOG_GEN.get_html(
-                open(self.ROOT_PATH+self.path+".dialogue").read()
-            )
-        )
+    def _story_resp(self,url):
+        return self.HTML_FAC.get_html_sting(open(self.HTML_PATH+"/story/"+url.split("/")[-1]+".html").read())
 
     def _is_game(self,path):
         return re.match("^/game.*",path)
+
+    def _is_story(self,path):
+        return re.match("^/story.*",path)
 
     def _custom_resp(self,bytes=bytes("",'utf-8')):
         self.send_response(200)
