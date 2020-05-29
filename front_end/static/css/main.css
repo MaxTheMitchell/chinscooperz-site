@@ -102,51 +102,6 @@ input[type=submit]:active {
     padding-right: 8%;
 }
 
-.end_turn_button{
-    font-family: pixel;
-    position: absolute;
-    background-color: red;
-    width: 20%;
-    left: 0%;
-}
-
-.end_turn_button:hover{
-    background-color: rgba(255, 0, 0, 0.5);
-}
-
-.game_board{
-    position: absolute;
-    left: 20%;
-    width: 60%;
-    padding-top: 40%;
-    background-size: 100% 100%;
-    background-image: url('https://d.ibtimes.co.uk/en/full/1490099/galaxy-dark-matter-detection.jpg');
-}
-
-.opponent_turn{
-    position: absolute;
-    width:100%;
-    height: 100%;
-    top: 0%;
-    background-color: rgba(158, 143, 143,.8);
-}
-
-.game_cell {
-    position:absolute;
-    border-style: solid;
-    border-width: 1px;
-    border-color: rgba(255, 0, 0, 0.5);
-}
-
-.game_cell img{
-    width: 100%;
-    height: 100%;
-}
-
-.game_cell:hover{
-    background-color: aquamarine;
-}
-
 .textbox{
     font-family: pixel;
     font-size: large;

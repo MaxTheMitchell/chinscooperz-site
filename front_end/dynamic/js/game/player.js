@@ -5,7 +5,8 @@ class Player{
     }
     
     display(){
-        return this.characters.reduce((total,addon)=>{return total+addon},"")
+        return this.characters.reduce((total,character)=>
+            {return total+character.displayPanel()},"")
     }
 
     preloadCharacters(){

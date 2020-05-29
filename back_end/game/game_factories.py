@@ -20,8 +20,7 @@ class PlayerFactory:
 class CharacterFactory:
     def __init__(self,name,movePoints,x,y,img="down0.png"):
         self.json = {
-            "characterSheetPath" : "front_end/static/imgs/character_sheets/"+name,
-            "facePath" : "front_end/static/imgs/faces/"+name+".jpeg",
+            "name" : name,
             "movePoints" : movePoints,
             "x" : x,
             "y" : y,

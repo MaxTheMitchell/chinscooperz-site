@@ -35,7 +35,7 @@ function parseJsonCurrentlySelected(currentlySelected){
 
 function constructCharacterFromJson(json){
     return new Character(
-        json.characterSheetPath,json.facePath,
+        json.name,
         json.movePoints,
         json.x,json.y,
         json.img,json.movePoints)
@@ -46,7 +46,7 @@ function gridClicked(x,y){
 }
 
 function updateBoard(){
-    document.getElementById('game_board').innerHTML = gameController.display()
+    gameController.display()
 }
 
 function startTurn(){

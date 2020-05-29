@@ -24,9 +24,15 @@ class GameController {
 
     display() {
         if (this.canClick) {
-            return this.board.display()
+            document.getElementById("game_board").innerHTML = this.board.display()
         }
-        return this.board.display() + "<div class='opponent_turn'><h1>Opponent's turn</h1></div>"
+        document.getElementById("game_board").innerHTML = this.board.display() + "<div class='opponent_turn'><h1>Opponent's turn</h1></div>"
+        document.getElementById("left_border").innerHTML = `
+        <button class="end_turn_button" onclick="endTurnButtonPressed()">
+            <h3>End Turn</h3>
+        </button>
+        ${this.player.display()}`
+        document.getElementById("right_border").innerHTML = this.opponent.display()
     }
 
     preload() {

@@ -1,8 +1,9 @@
 class Character{
 
-    constructor(characterSheetPath,facePath,movePoints,x,y,img = "down0.png",moveTile = 0,){
-        this.characterSheetPath = characterSheetPath
-        this.facePath = facePath
+    constructor(name,movePoints,x,y,img = "down0.png",moveTile = 0,){
+        this.name = name
+        this.characterSheetPath = "/front_end/static/imgs/character_sheets/"+name
+        this.facePath = "/front_end/static/imgs/faces/"+name+".jpg"
         this.moveTile = moveTile
         this.img = img
         this.movePoints = movePoints
@@ -41,7 +42,7 @@ class Character{
     }
 
     displayPanel(){
-        return `<div class="display_panel"> <img src=${this.facePath}>  <div>`
+        return `<div class="character_panel ${this.name}"> <img src=${this.facePath}></div>`
     }
 
     imgPath(){
