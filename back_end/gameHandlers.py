@@ -55,16 +55,16 @@ class GameHandler:
             GameBoardFactory(33,22).json,
             PlayerFactory(
                 [
-                    CharacterFactory("niko",3,2,2).json,
-                    CharacterFactory("magic_rat",3,2,4).json,
-                    CharacterFactory("chef",3,4,4).json,
+                    CharacterFactory("niko",3,100,3,2,2).json,
+                    CharacterFactory("magic_rat",3,100,3,2,4).json,
+                    CharacterFactory("chef",3,100,3,4,4).json,
                 ]
             ).json,
             PlayerFactory(
                 [
-                    CharacterFactory("grunt1",3,20,2).json,
-                    CharacterFactory("grunt2",3,20,4).json,
-                    CharacterFactory("sheriff",3,30,4).json,
+                    CharacterFactory("grunt1",3,100,3,20,2).json,
+                    CharacterFactory("grunt2",3,100,3,20,4).json,
+                    CharacterFactory("sheriff",3,100,3,30,4).json,
                 ]
             ).json,
             False

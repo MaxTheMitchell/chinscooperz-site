@@ -3,7 +3,9 @@ const PULL_INTERVAL = 500
 function setup(){
     getGameControllerFromServer(gc=>{
         gameController = gc
-        updateBoard()
+        gameController.preload()
+        gameController.addCharacters()
+        gameController.display()
         checkTurn(startTurn,endTurn)
     })
 }
@@ -13,18 +15,12 @@ function getGameControllerFromServer(callback) {
 }
 
 function genGameFromJSON(json){
-    return new GameController(
-        new GameBoard(json.board.cellGrid),
-        new Player(
-            json.player.characters.map(character => {return constructCharacterFromJson(character)})
-        ),
-        new Player(
-            json.opponent.characters.map(character => {return constructCharacterFromJson(character)})
-        ),
-        json.canClick,
-        parseJsonCurrentlySelected(json.currentlySelected),
-        json.movesMade
-    )
+    json.board = new GameBoard(json.board.cellGrid)
+    json.player = new Player(json.player.characters.map(character => {return constructCharacterFromJson(character)}))
+    json.opponent = new Player((json.opponent.characters.map(character => {return constructCharacterFromJson(character)})))
+    json.currentlySelected = parseJsonCurrentlySelected(json.currentlySelected)
+    json.__proto__ = new GameController()
+    return json 
 }
 
 function parseJsonCurrentlySelected(currentlySelected){
@@ -34,11 +30,8 @@ function parseJsonCurrentlySelected(currentlySelected){
 }
 
 function constructCharacterFromJson(json){
-    return new Character(
-        json.name,
-        json.movePoints,
-        json.x,json.y,
-        json.img,json.movePoints)
+    json.__proto__ = new Character()
+    return json
 }
 
 function gridClicked(x,y){
@@ -88,7 +81,6 @@ function checkTurn(trueCallback,falseCallback){
             falseCallback()
         }
     })
-
 }
 
 function waitForOpponentToStart(callback){
@@ -110,23 +102,6 @@ function waitForMyTurn(NumbMovesMade=0){
             setTimeout(()=>{waitForMyTurn(NumbMovesMade)},PULL_INTERVAL)
         }
     })
-}
-
-
-function sendGetRequest(url,callback=()=>{}){
-    fetch(url)
-        .then((response)=>{
-            return response.text()
-        }).then(callback)
-}
-
-function sendPostRequest(url,callback=()=>{},body="{}"){
-    fetch(url,{
-        method : "POST",
-        body : body 
-    }).then((response)=>{
-        return response.text()
-    }).then(callback)
 }
 
 function getName(){

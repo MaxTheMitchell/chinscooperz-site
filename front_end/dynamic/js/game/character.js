@@ -1,14 +1,11 @@
 class Character{
+    
+    facePath(){
+        return "/front_end/static/imgs/faces/"+this.name+".jpg"
+    }
 
-    constructor(name,movePoints,x,y,img = "down0.png",moveTile = 0,){
-        this.name = name
-        this.characterSheetPath = "/front_end/static/imgs/character_sheets/"+name
-        this.facePath = "/front_end/static/imgs/faces/"+name+".jpg"
-        this.moveTile = moveTile
-        this.img = img
-        this.movePoints = movePoints
-        this.x = x
-        this.y = y
+    characterSheetPath(){
+        return "/front_end/static/imgs/character_sheets/"+this.name
     }
 
     setPos(x,y){
@@ -22,18 +19,18 @@ class Character{
 
     preload(){
         return `
-        <img height='100' width='100' style="display:none" src='${this.characterSheetPath}/left0.png'>
-        <img height='100' width='100' style="display:none" src='${this.characterSheetPath}/left1.png'>
-        <img height='100' width='100' style="display:none" src='${this.characterSheetPath}/left2.png'>
-        <img height='100' width='100' style="display:none" src='${this.characterSheetPath}/right0.png'>
-        <img height='100' width='100' style="display:none" src='${this.characterSheetPath}/right1.png'>        
-        <img height='100' width='100' style="display:none" src='${this.characterSheetPath}/right2.png'>
-        <img height='100' width='100' style="display:none" src='${this.characterSheetPath}/down0.png'>
-        <img height='100' width='100' style="display:none" src='${this.characterSheetPath}/down1.png'>
-        <img height='100' width='100' style="display:none" src='${this.characterSheetPath}/down2.png'>
-        <img height='100' width='100' style="display:none" src='${this.characterSheetPath}/up0.png'>
-        <img height='100' width='100' style="display:none" src='${this.characterSheetPath}/up1.png'>
-        <img height='100' width='100' style="display:none" src='${this.characterSheetPath}/up2.png'>
+        <img height='100' width='100' style="display:none" src='${this.characterSheetPath()}/left0.png'>
+        <img height='100' width='100' style="display:none" src='${this.characterSheetPath()}/left1.png'>
+        <img height='100' width='100' style="display:none" src='${this.characterSheetPath()}/left2.png'>
+        <img height='100' width='100' style="display:none" src='${this.characterSheetPath()}/right0.png'>
+        <img height='100' width='100' style="display:none" src='${this.characterSheetPath()}/right1.png'>        
+        <img height='100' width='100' style="display:none" src='${this.characterSheetPath()}/right2.png'>
+        <img height='100' width='100' style="display:none" src='${this.characterSheetPath()}/down0.png'>
+        <img height='100' width='100' style="display:none" src='${this.characterSheetPath()}/down1.png'>
+        <img height='100' width='100' style="display:none" src='${this.characterSheetPath()}/down2.png'>
+        <img height='100' width='100' style="display:none" src='${this.characterSheetPath()}/up0.png'>
+        <img height='100' width='100' style="display:none" src='${this.characterSheetPath()}/up1.png'>
+        <img height='100' width='100' style="display:none" src='${this.characterSheetPath()}/up2.png'>
         `
     }
 
@@ -42,11 +39,15 @@ class Character{
     }
 
     displayPanel(){
-        return `<div class="character_panel ${this.name}"> <img src=${this.facePath}></div>`
+        return `<div class="character_panel ${this.name}"> <img src=${this.facePath()}>${this.displayHealth()}</div>`
+    }
+
+    displayHealth(){
+        return `<div class="health_display" padding_right= "${this.health/this.maxHealth}"><div> `
     }
 
     imgPath(){
-        return this.characterSheetPath+'/'+this.img
+        return this.characterSheetPath()+'/'+this.img
     }
 
     toString(){

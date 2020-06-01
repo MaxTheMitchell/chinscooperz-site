@@ -1,6 +1,7 @@
 .end_turn_button{
     font-family: pixel;
     background-color: red;
+    width: 100%;
 }
 
 .end_turn_button:hover{
@@ -8,13 +9,12 @@
 }
 
 .game_board{
-    position: absolute;
-    top:0%;
+    position: relative;
     width: 60%;
     padding-top: 40%;
     left: 20%;
     background-size: 100% 100%;
-    /* background-image: url('https://d.ibtimes.co.uk/en/full/1490099/galaxy-dark-matter-detection.jpg'); */
+    background-image: url('https://d.ibtimes.co.uk/en/full/1490099/galaxy-dark-matter-detection.jpg');
 }
 
 .opponent_turn{
@@ -44,6 +44,7 @@
 .character_panel{
     position: relative;
     width: 100%;
+    height: 100%;
     margin-bottom: 1%;
     border-style: solid;
 }
@@ -55,13 +56,13 @@
 #left_border{
     position: absolute;
     left: 0%;
-    width: 20%;
+    width: 19%;
     top: 0%;
 }
 
 #right_border{
     position: absolute;
     top: 0%;
-    left: 80.1%;
-    width: 20%;
+    left: 80.5%;
+    width: 19%;
 }

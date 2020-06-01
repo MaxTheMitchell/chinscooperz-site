@@ -18,10 +18,14 @@ class PlayerFactory:
         }
 
 class CharacterFactory:
-    def __init__(self,name,movePoints,x,y,img="down0.png"):
+    def __init__(self,name,movePoints,health,actionPoints,x,y,img="down0.png"):
         self.json = {
             "name" : name,
             "movePoints" : movePoints,
+            "health" : health,
+            "maxHealth" : health,
+            "actionPoints" : actionPoints,
+            "maxActionPoints" : actionPoints,
             "x" : x,
             "y" : y,
             "img" : img,

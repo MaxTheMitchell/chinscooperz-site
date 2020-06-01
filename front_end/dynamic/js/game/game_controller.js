@@ -5,17 +5,6 @@ class GameController {
     MOVEMENT_COLOR = "orange"
     TMP_CHARACTER_MOV = 5
 
-    constructor(board = new GameBoard(), player = new Player(),opponent= new Player(), canClick = true, currentlySelected = "", movesMade = []) {
-        this.movesMade = movesMade
-        this.board = board
-        this.player = player
-        this.opponent = opponent
-        this.canClick = canClick
-        this.currentlySelected = currentlySelected
-        this.preload()
-        this.addCharacters()
-    }
-
     addCharacters() {
         this.player.characters.concat(this.opponent.characters).forEach(character => {
             this.board.add(character, character.x, character.y)
@@ -25,18 +14,19 @@ class GameController {
     display() {
         if (this.canClick) {
             document.getElementById("game_board").innerHTML = this.board.display()
+        }else{
+            document.getElementById("game_board").innerHTML = this.board.display() + "<div class='opponent_turn'><h1>Opponent's turn</h1></div>"
         }
-        document.getElementById("game_board").innerHTML = this.board.display() + "<div class='opponent_turn'><h1>Opponent's turn</h1></div>"
         document.getElementById("left_border").innerHTML = `
-        <button class="end_turn_button" onclick="endTurnButtonPressed()">
-            <h3>End Turn</h3>
-        </button>
-        ${this.player.display()}`
+            ${this.player.display()}
+            <button class="end_turn_button" onclick="endTurnButtonPressed()">
+                <h3>End Turn</h3>
+            </button>`
         document.getElementById("right_border").innerHTML = this.opponent.display()
     }
 
     preload() {
-        this._update(this.player.preloadCharacters())
+        this.display(this.player.preloadCharacters())
     }
 
     makeAutomatedMoves(moves, callback) {
@@ -55,10 +45,6 @@ class GameController {
 
     set_position(character, x, y) {
         this.board.add(character, x, y)
-    }
-
-    _update(addion = "") {
-        document.getElementById('game_board').innerHTML = this.display(true) + addion
     }
 
     cellClicked(x, y) {
@@ -90,7 +76,7 @@ class GameController {
         this.currentlySelected.setPos(x, y)
         this.board.clearHighting()
         this.deselect()
-        this._update()
+        this.display()
     }
 
     _moveAlongPath(path, speed = 100) {
@@ -100,7 +86,7 @@ class GameController {
         function moveSpace() {
             self.board.move(path[0][0], path[0][1], path[1][0], path[1][1])
             character.changeDirection(path[0], path[1])
-            self._update()
+            self.display()
             path.shift()
             if (path.length < 2) {
                 clearInterval(interval)
@@ -134,7 +120,7 @@ class GameController {
         this.board.clearHighting()
         this._highlightInMovementRange(x, y)
         this.board.highlightCell(x, y, this.CHARACTER_HIGHLIGHT_COLOR)
-        this._update()
+        this.display()
     }
 
     _highlightInMovementRange(x, y) {

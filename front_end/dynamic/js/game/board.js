@@ -3,7 +3,8 @@ class GameBoard {
     constructor(cellGrid=[]){
         this.cellGrid = cellGrid.map(row=>{
             return row.map(cell=>{
-                return new Cell(cell.x,cell.y,cell.widthPercent,cell.heightPercent,cell.highlightColor)
+                cell.__proto__ = new Cell
+                return cell
             })
         })
     }
@@ -67,15 +68,6 @@ class GameBoard {
 }
 
 class Cell{
-
-    constructor(x,y,widthPercent,heightPercent,highlightColor='',content=''){
-        this.content = content
-        this.x = x
-        this.y = y
-        this.highlightColor = highlightColor
-        this.widthPercent = widthPercent
-        this.heightPercent = heightPercent
-    }
 
     display(){
         return `<div class="game_cell"onclick='gridClicked(${this.x},${this.y});' 
