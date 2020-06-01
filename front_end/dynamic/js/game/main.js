@@ -67,7 +67,6 @@ function makeOpponentsMoves(moves,callback=()=>{}){
     gameController.makeAutomatedMoves(moves,callback)
 }
 
-
 function endTurnPost(callback){
     gameController.movesMade.push("end")
     sendPostRequest("/game/turn/end",callback,JSON.stringify(gameController))

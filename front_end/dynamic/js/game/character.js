@@ -39,11 +39,14 @@ class Character{
     }
 
     displayPanel(){
-        return `<div class="character_panel ${this.name}"> <img src=${this.facePath()}>${this.displayHealth()}</div>`
+        return `<div class="character_panel ${this.name}">
+            <img src=${this.facePath()}>
+            <div class="character_info">${this.displayHealth()}</div>
+        </div>`
     }
 
     displayHealth(){
-        return `<div class="health_display" padding_right= "${this.health/this.maxHealth}"><div> `
+        return `<div class="health_display" style= "width:${100*this.health/this.maxHealth}%;">hp:${this.health}/${this.maxHealth}</div> `
     }
 
     imgPath(){

@@ -45,5 +45,6 @@ class CellFactory:
             "y" : y,
             "widthPercent" : widthPercent,
             "heightPercent" : heightPercent,
-            "highlightColor" : highlightColor
+            "highlightColor" : highlightColor,
+            "content" : ""
         }

@@ -1,3 +1,4 @@
+
 .end_turn_button{
     font-family: pixel;
     background-color: red;
@@ -43,14 +44,31 @@
 
 .character_panel{
     position: relative;
-    width: 100%;
-    height: 100%;
+    padding-bottom: 33%;
     margin-bottom: 1%;
     border-style: solid;
 }
 
 .character_panel img{
+    position: absolute;
     width: 33%;
+    height: 100%;
+}
+
+.character_info{
+    font-family: pixel;
+    position: absolute;
+    height: 100%;
+    left: 34%;
+    width: 65%;
+}
+
+.health_display{
+    text-align: center;
+    font-size: 1vw;
+    height: 25%;
+    background-color: red;
+    line-height: 150%;
 }
 
 #left_border{
