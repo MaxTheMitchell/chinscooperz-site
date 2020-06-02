@@ -41,7 +41,9 @@ class Character{
     displayPanel(){
         return `<div class="character_panel ${this.name}">
             <img src=${this.facePath()}>
-            <div class="character_info">${this.displayHealth()}${this.displayActionPoints()}</div>
+            <div class="character_info">
+            ${this.displayHealth()}${this.displayActionPoints()}${this.displayMove()}
+            </div>
         </div>`
     }
 
@@ -54,6 +56,10 @@ class Character{
             ${[...Array(this.actionPoints).keys()].map(
                 x=>{return`<div class="actionPoint" style="left:${x*100/this.maxActionPoints}%;width:${(100/this.maxActionPoints)}%;">ap</div>`}).join()}
         </div>`
+    }
+
+    displayMove(){
+        return ` <div class="move_display">${this.movePoints}</div>`
     }
 
     imgPath(){

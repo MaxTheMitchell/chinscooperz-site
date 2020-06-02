@@ -90,6 +90,19 @@
     text-align: center;
 }
 
+.move_display{
+    position: relative;
+    line-height: 180%;
+    font-size: 1.25vw;
+    text-align: center;
+    height: 37%;
+    left: 0%;
+    top: 3%;
+    width: 23%;
+    background-color: lightgreen;
+    border-style: solid;
+}
+
 #left_border{
     position: absolute;
     left: 0%;
