@@ -42,7 +42,7 @@ class Character{
         return `<div class="character_panel ${this.name}">
             <img src=${this.facePath()}>
             <div class="character_info">
-            ${this.displayHealth()}${this.displayActionPoints()}${this.displayMove()}
+            ${this.displayHealth()}${this.displayActionPoints()}${this.displayActions()}
             </div>
         </div>`
     }
@@ -58,8 +58,16 @@ class Character{
         </div>`
     }
 
+    displayActions(){
+        return `<div class="actions_display">${this.displayMove()}${this.displayAttack()}</div>`
+    }
+
     displayMove(){
-        return ` <div class="move_display">${this.movePoints}</div>`
+        return `<div class="move_display">${this.movePoints}</div>`
+    }
+
+    displayAttack(){
+        return `<div class="attack_display">${this.attackMin}<br>${this.attackMax}</div>`
     }
 
     imgPath(){
