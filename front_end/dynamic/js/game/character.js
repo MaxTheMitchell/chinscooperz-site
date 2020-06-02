@@ -41,12 +41,19 @@ class Character{
     displayPanel(){
         return `<div class="character_panel ${this.name}">
             <img src=${this.facePath()}>
-            <div class="character_info">${this.displayHealth()}</div>
+            <div class="character_info">${this.displayHealth()}${this.displayActionPoints()}</div>
         </div>`
     }
 
     displayHealth(){
-        return `<div class="health_display" style= "width:${100*this.health/this.maxHealth}%;">hp:${this.health}/${this.maxHealth}</div> `
+        return `<div class="health_display" style="width:${100*this.health/this.maxHealth}%;">hp:${this.health}/${this.maxHealth}</div>`
+    }
+
+    displayActionPoints(){
+        return `<div class="actionPoint_display">
+            ${[...Array(this.actionPoints).keys()].map(
+                x=>{return`<div class="actionPoint" style="left:${x*100/this.maxActionPoints}%;width:${(100/this.maxActionPoints)}%;">ap</div>`}).join()}
+        </div>`
     }
 
     imgPath(){

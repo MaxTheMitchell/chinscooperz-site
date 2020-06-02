@@ -3,6 +3,7 @@
     font-family: pixel;
     background-color: red;
     width: 100%;
+    
 }
 
 .end_turn_button:hover{
@@ -52,6 +53,7 @@
 .character_panel img{
     position: absolute;
     width: 33%;
+    left: 0%;
     height: 100%;
 }
 
@@ -60,15 +62,32 @@
     position: absolute;
     height: 100%;
     left: 34%;
-    width: 65%;
+    width: 63%;
 }
 
 .health_display{
+    border-style: solid;
     text-align: center;
     font-size: 1vw;
     height: 25%;
     background-color: red;
     line-height: 150%;
+}
+
+.actionPoint_display{
+    position: relative;
+    font-size: 1vw;
+    height: 25%;
+    line-height: 150%;
+}
+
+.actionPoint{
+    position: absolute;
+    background-color: lightblue;
+    border-style: solid;
+    top:0%;
+    height: 100%;
+    text-align: center;
 }
 
 #left_border{
