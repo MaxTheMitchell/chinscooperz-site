@@ -2,7 +2,7 @@ class GameController {
 
     DESELECT_VAL = ""
     CHARACTER_HIGHLIGHT_COLOR = "red"
-    MOVEMENT_COLOR = "orange"
+    MOVEMENT_COLOR = "lightgreen"
     TMP_CHARACTER_MOV = 5
 
     addCharacters() {

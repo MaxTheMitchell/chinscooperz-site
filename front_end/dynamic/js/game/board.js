@@ -4,6 +4,7 @@ class GameBoard {
         this.cellGrid = cellGrid.map(row=>{
             return row.map(cell=>{
                 cell.__proto__ = new Cell
+                cell.content = ""
                 return cell
             })
         })

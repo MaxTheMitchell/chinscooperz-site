@@ -81,7 +81,7 @@ input[type=submit]:active {
     float: left;
     background-size: 100%;
     width: 5%;
-    padding-top: 50%;
+    padding-top: 100%;
     animation-iteration-count: infinite;
     animation-name: border_left;
     animation-duration: 1s;
@@ -91,7 +91,7 @@ input[type=submit]:active {
     float: right;
     background-size: 100%;
     width: 5%;
-    padding-top: 50%;
+    padding-top: 100%;
     animation-iteration-count: infinite;
     animation-name: border_right;
     animation-duration: 1s;
