@@ -59,7 +59,7 @@ class Character{
     }
 
     displayActions(){
-        return `<div class="actions_display">${this.displayMove()}${this.displayAttack()}</div>`
+        return `<div class="actions_display">${this.displayMove()}${this.displayAttack()}${this.displayActive()}${this.displayPassive()}</div>`
     }
 
     displayMove(){
@@ -68,6 +68,14 @@ class Character{
 
     displayAttack(){
         return `<div class="attack_display">${this.attackMin}<br>${this.attackMax}</div>`
+    }
+
+    displayActive(){
+        return `<div class="active_display">Active</div>`
+    }
+
+    displayPassive(){
+        return `<div class="passive_display">Passive</div>`
     }
 
     imgPath(){

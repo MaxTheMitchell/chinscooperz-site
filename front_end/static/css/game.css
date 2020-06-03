@@ -60,6 +60,7 @@
 .character_info{
     font-family: pixel;
     position: absolute;
+    top:1%;
     height: 100%;
     left: 34%;
     width: 63%;
@@ -121,6 +122,33 @@
     background-color:red;
     border-style: solid;
 }
+
+.active_display{
+    height: 70%;
+    position: absolute;
+    line-height: 170%;
+    font-size: .5vw;
+    text-align: center;
+    left: 50%;
+    width: 25%;
+    top: 6%;
+    background-color:lightseagreen;
+    border-style: solid;
+}
+
+.passive_display{
+    height: 70%;
+    position: absolute;
+    line-height: 170%;
+    font-size: .5vw;
+    text-align: center;
+    left: 75%;
+    width: 25%;
+    top: 6%;
+    background-color:violet;
+    border-style: solid;
+}
+
 
 #left_border{
     position: absolute;
