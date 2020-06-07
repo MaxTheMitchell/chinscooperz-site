@@ -11,7 +11,6 @@ class Game:
 
     def add_player_two(self,player_name):
         self.players[1].name = player_name
-        # self.players[1].swap_game_controller_players()
     
     def game_controller_json(self,player_name):
         return self._get_player(player_name).game_controller_str()

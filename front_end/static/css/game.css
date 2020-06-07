@@ -40,7 +40,7 @@
 }
 
 .game_cell:hover{
-    background-color: aquamarine;
+    background: aquamarine;
 }
 
 .character_panel{

@@ -1,8 +1,8 @@
 class GameController {
 
     DESELECT_VAL = ""
-    CHARACTER_HIGHLIGHT_COLOR = "red"
-    MOVEMENT_COLOR = "lightgreen"
+    // CHARACTER_HIGHLIGHT_COLOR = "red"
+    MOVEMENT_COLOR = "rgba(170,255,170,0.5)"
     TMP_CHARACTER_MOV = 5
 
     addCharacters() {
@@ -26,7 +26,7 @@ class GameController {
     }
 
     preload() {
-        this.display(this.player.preloadCharacters())
+        document.body.innerHTML += this.player.preloadCharacters()
     }
 
     makeAutomatedMoves(moves, callback) {
