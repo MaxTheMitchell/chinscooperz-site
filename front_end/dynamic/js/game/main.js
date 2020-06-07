@@ -3,9 +3,9 @@ const PULL_INTERVAL = 500
 function setup(){
     getGameControllerFromServer(gc=>{
         gameController = gc
-        gameController.preload()
         gameController.addCharacters()
         gameController.display()
+        gameController.preload()
         checkTurn(startTurn,endTurn)
     })
 }
