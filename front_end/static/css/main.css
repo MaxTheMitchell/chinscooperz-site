@@ -33,7 +33,6 @@
     }
 }
 
-
 h1{
     font-size: xx-large;
     font-family: Platinum; 
@@ -48,15 +47,17 @@ p{
     font-size: 20px;
 }
 
-html, body{
+body{
     height: 100%;
     font-family: Roboto-Thin;
     background-color: lightpink;
-    /* background-image: url("/front_end/static/imgs/background.jpg"); */
 }
 
 main{
-    height: 100%;
+    min-height: 100%;
+    height: auto;
+    width: 100%;
+    position: absolute;
 }
 
 nav{
@@ -82,26 +83,29 @@ input[type=submit]:active {
   transform: translateY(3px);
 }
 
-.border_left{
-    overflow: hidden;
-    float: left;
+.test{
+    height: 100%;
+    position: absolute;
+    top: 0%;
+}
+
+.border_left,.border_right{
+    position: absolute;
+    /* overflow: hidden; */
     background-size: 100%;
     width: 5%;
     height: 100%;
     animation-iteration-count: infinite;
-    animation-name: border_left;
     animation-duration: 1s;
 }
 
+.border_left{
+    animation-name: border_left;
+}
+
 .border_right{
-    overflow: hidden;
-    float: right;
-    background-size: 100%;
-    width: 5%;
-    height: 100%;
-    animation-iteration-count: infinite;
+    left: 94%;
     animation-name: border_right;
-    animation-duration: 1s;
 }
 
 .center{
@@ -135,6 +139,7 @@ input[type=submit]:active {
     line-height: normal;
     top: 0%;
     left: 2%;
+    margin-right: 2%;
 }
 
 .godfoot1{
