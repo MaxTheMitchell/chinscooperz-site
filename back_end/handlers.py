@@ -28,7 +28,7 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
     
     def _get_resp(self):
         query_vals = self._get_query_vals(self.path)
-        url = self._remove_query_string(self.path)
+        url = urllib.parse.unquote(self._remove_query_string(self.path))
         if self._is_root(url):
             return self._root_resp()
         elif self._is_story(url):
@@ -81,7 +81,7 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
         return self.HTML_FAC.get_html_sting(open(self.HTML_PATH+"/index.html").read())
 
     def _story_resp(self,url):
-        return self.HTML_FAC.get_html_sting(open(self.HTML_PATH+"/story/"+url.split("/")[-1]+".html").read())
+        return self.HTML_FAC.get_html_sting(open(self.HTML_PATH+url+".html").read())
 
     def _is_game(self,path):
         return re.match("^/game.*",path)

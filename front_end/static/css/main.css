@@ -109,6 +109,11 @@ input[type=submit]:active {
     padding-right: 8%;
 }
 
+.narration_break{
+    border-style: dashed;
+    border-width: .5vw;
+}
+
 .textbox{
     font-family: pixel;
     font-size: large;
@@ -127,8 +132,21 @@ input[type=submit]:active {
 
 .textbox p{
     position: relative;
+    line-height: normal;
     top: 0%;
     left: 2%;
+}
+
+.godfoot1{
+    background-color: #E9E2D7;
+}
+
+.fadora{
+    background-color: #666;
+}
+
+.justice{
+    background-color: #8b0000;
 }
 
 .magic_rat{
