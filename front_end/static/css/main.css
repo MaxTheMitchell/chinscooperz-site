@@ -33,6 +33,13 @@
     }
 }
 
+@keyframes disappear {
+    from {opacity: 1;}
+    to {opacity: 0;}
+  }
+
+
+
 h1{
     font-size: xx-large;
     font-family: Platinum; 
@@ -91,7 +98,6 @@ input[type=submit]:active {
 
 .border_left,.border_right{
     position: absolute;
-    /* overflow: hidden; */
     background-size: 100%;
     width: 5%;
     height: 100%;
@@ -113,9 +119,31 @@ input[type=submit]:active {
     padding-right: 8%;
 }
 
+.next_button,.previous_button{
+    float: bottom;
+    text-align: center;
+    font-size: 20px;
+    padding: 5px;
+    background-color: lightgreen;
+}
+
+.next_button{
+    float: right;
+}
+
+.previous_button{
+    float: left;
+}
+
 .narration_break{
     border-style: dashed;
     border-width: .5vw;
+}
+
+.disappear{
+    animation-name: disappear;
+    animation-iteration-count: infinite;
+    animation-duration: 5s;
 }
 
 .textbox{
@@ -188,4 +216,8 @@ input[type=submit]:active {
 
 .sama{
     background-color: grey;
+}
+
+.dues{
+    background-image: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet);
 }
