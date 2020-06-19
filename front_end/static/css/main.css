@@ -13,6 +13,11 @@
     src: url('../fonts/Platinum.ttf');
 }
 
+@font-face{
+    font-family: alien;
+    src: url('../fonts/alien.ttf');
+}
+
 @keyframes border_left{
     0% {
         background-image: url("/front_end/static/imgs/borders/down0_border.png");
@@ -36,9 +41,11 @@
 @keyframes disappear {
     from {opacity: 1;}
     to {opacity: 0;}
-  }
+}
 
+@keyframes magic_rat_attack{
 
+}
 
 h1{
     font-size: xx-large;
@@ -146,13 +153,15 @@ input[type=submit]:active {
     animation-duration: 5s;
 }
 
-.textbox{
+.textbox, .animation_box{
+    position: relative;
     font-family: pixel;
     font-size: large;
     border-style: double;
     height: 104px;
     margin-bottom: 5px;
 }
+
 
 .textbox img{
     float:left;
@@ -204,6 +213,11 @@ input[type=submit]:active {
 
 .chef{
     background-color: #E1B894;
+    font-family: alien;
+}
+
+.chef p{
+    font-size: 25px;
 }
 
 .grunt1{
@@ -211,7 +225,7 @@ input[type=submit]:active {
 }
 
 .grunt2{
-    background-color: #FFDAC1;
+    background-color: #ffac64;;
 }
 
 .sama{

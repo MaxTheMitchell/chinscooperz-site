@@ -1,0 +1,106 @@
+<main>
+    <div class="border_left"></div>
+    <div class="border_right"></div>
+    <div class="center">
+        <div class="textbox godfoot1">
+            <p>Shifting to the Sword of Vengeance timeline we find our heros in conflict...</p>
+        </div>
+        <hr class="narration_break">
+        <div class="textbox chef">
+            <p>Get them you fools, I will advenge my brother!</p>
+        </div>
+        <div class="textbox grunt1">
+            <p>Roger</p>
+        </div>
+        <div class="textbox grunt2">
+            <p>Roger</p>
+        </div>
+        <div class="textbox magic_rat">
+            <p>Dam it!, Chef has allied with the Rancore and now he's sticking there damn Grunts on us.</p>
+        </div>
+        <div class="textbox niko">
+            <p>Don't worry brother we can take em on, no problem!</p>
+        </div>
+        <div class="textbox magic_rat">
+            <p>Alright, lets take on these Ran-cowards</p>
+        </div>
+        <div class="animation_box" id="magic_rat_animation"></div>
+    </div>
+</main>
+
+<script>
+    const CHARACTER_HEIGHT_PERCENT = 70
+
+    document.addEventListener("DOMContentLoaded", ()=>{
+        magicRatAnimation()
+    })
+
+    function createCharacterImg(src){
+        let img = document.createElement("img")
+        img.setAttribute("src",src)
+        img.style.position = "relative"
+        img.style.height = `${CHARACTER_HEIGHT_PERCENT}%`
+        img.style.top = `${100 - CHARACTER_HEIGHT_PERCENT}%`
+        return img
+    }
+
+    function magicRatAnimation(){
+        let rat_img = createCharacterImg("/front_end/static/imgs/character_sheets/magic_rat/right1.png")
+        let grunt_img = createCharacterImg("/front_end/static/imgs/character_sheets/grunt1/left1.png")
+        let bullet = document.createElement("div")
+        bullet.style.top = "70%"
+        bullet.style.height = "5%"
+        bullet.style.width = "2%"
+        bullet.style.position = "absolute"
+        let sword = document.createElement("div")
+        sword.style.position = "absolute"
+        sword.style.background = 'linear-gradient(180deg, grey 50%, rgba(1,1,1,0) 50%)'
+        sword.style.left = "72.5%"
+        sword.style.width = ".4%"
+        sword.style.height = "50%"
+        sword.style.top = "50%"
+        let canvas = document.getElementById("magic_rat_animation")
+        canvas.style.background = "url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fthumbs.dreamstime.com%2Fb%2Fspaceship-interior-view-distant-planets-system-d-render-white-blue-space-rendering-elements-image-95289284.jpg&f=1&nofb=1)"
+        canvas.style.backgroundSize = "100% 100%"
+        canvas.appendChild(rat_img)
+        canvas.appendChild(grunt_img)
+        canvas.appendChild(bullet)
+        canvas.appendChild(sword)
+        let i = 0
+        setInterval(function(){
+            if (i < 11){
+                rat_img.src = "/front_end/static/imgs/character_sheets/magic_rat/right1.png"
+                rat_img.style.left = "20%"
+                rat_img.style.opacity = 1-.1*i
+                grunt_img.style.top = `${100 - CHARACTER_HEIGHT_PERCENT}%`
+                grunt_img.style.left = "60%"
+                grunt_img.style.transform = "rotate(0deg)"
+                bullet.style.visibility = "visible"
+                sword.style.visibility = "hidden"
+                if (i%2==0){
+                    bullet.style.backgroundColor = "red"
+                }else{
+                    bullet.style.backgroundColor = "yellow"
+                }
+            }else if(i<22){
+                rat_img.src = "/front_end/static/imgs/character_sheets/magic_rat/left1.png"
+                rat_img.style.left = "70%"
+                rat_img.style.opacity = .1*(i-11)
+            }else if(i<28){
+                grunt_img.style.transform = `rotate(-${90*(i-22)/5}deg)`
+                grunt_img.style.top = `${100 - CHARACTER_HEIGHT_PERCENT+2*(i-22)}%`
+                grunt_img.style.left = `${60-2*(i-22)}%`
+                sword.style.visibility = "visible"
+                sword.style.transform = `rotate(-${180*(i-22)/5}deg)`
+            }else if(i>30){
+                i = 0
+            }
+            if(i <16){
+                bullet.style.left = `${60-40*(i/10)}%`
+            }else{
+                bullet.style.visibility = "hidden" 
+            }
+            i++
+            }, 70);
+    }
+</script>
