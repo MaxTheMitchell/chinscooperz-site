@@ -29,7 +29,7 @@
 </main>
 
 <script>
-    const CHARACTER_HEIGHT_PERCENT = 70
+    const CHARACTER_WIDTH_PERCENT = 5
 
     document.addEventListener("DOMContentLoaded", ()=>{
         magicRatAnimation()
@@ -38,9 +38,9 @@
     function createCharacterImg(src){
         let img = document.createElement("img")
         img.setAttribute("src",src)
-        img.style.position = "relative"
-        img.style.height = `${CHARACTER_HEIGHT_PERCENT}%`
-        img.style.top = `${100 - CHARACTER_HEIGHT_PERCENT}%`
+        img.style.position = "absolute"
+        img.style.width = `${CHARACTER_WIDTH_PERCENT}%`
+        img.style.bottom = "0%"
         return img
     }
 
@@ -54,11 +54,11 @@
         bullet.style.position = "absolute"
         let sword = document.createElement("div")
         sword.style.position = "absolute"
-        sword.style.background = 'linear-gradient(180deg, grey 50%, rgba(1,1,1,0) 50%)'
-        sword.style.left = "72.5%"
+        sword.style.background = 'linear-gradient(180deg, silver 50%, rgba(1,1,1,0) 50%)'
+        sword.style.left = "67.5%"
         sword.style.width = ".4%"
-        sword.style.height = "50%"
-        sword.style.top = "50%"
+        sword.style.height = "80%"
+        sword.style.top = "25%"
         let canvas = document.getElementById("magic_rat_animation")
         canvas.style.background = "url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fthumbs.dreamstime.com%2Fb%2Fspaceship-interior-view-distant-planets-system-d-render-white-blue-space-rendering-elements-image-95289284.jpg&f=1&nofb=1)"
         canvas.style.backgroundSize = "100% 100%"
@@ -72,7 +72,7 @@
                 rat_img.src = "/front_end/static/imgs/character_sheets/magic_rat/right1.png"
                 rat_img.style.left = "20%"
                 rat_img.style.opacity = 1-.1*i
-                grunt_img.style.top = `${100 - CHARACTER_HEIGHT_PERCENT}%`
+                grunt_img.style.bottom = "0%"
                 grunt_img.style.left = "60%"
                 grunt_img.style.transform = "rotate(0deg)"
                 bullet.style.visibility = "visible"
@@ -84,14 +84,14 @@
                 }
             }else if(i<22){
                 rat_img.src = "/front_end/static/imgs/character_sheets/magic_rat/left1.png"
-                rat_img.style.left = "70%"
+                rat_img.style.left = "65%"
                 rat_img.style.opacity = .1*(i-11)
             }else if(i<28){
                 grunt_img.style.transform = `rotate(-${90*(i-22)/5}deg)`
-                grunt_img.style.top = `${100 - CHARACTER_HEIGHT_PERCENT+2*(i-22)}%`
+                grunt_img.style.bottom = `${CHARACTER_WIDTH_PERCENT/(i-22)-8}%`
                 grunt_img.style.left = `${60-2*(i-22)}%`
                 sword.style.visibility = "visible"
-                sword.style.transform = `rotate(-${180*(i-22)/5}deg)`
+                sword.style.transform = `rotate(-${150*(i-22)/5}deg)`
             }else if(i>30){
                 i = 0
             }
