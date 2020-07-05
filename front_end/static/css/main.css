@@ -18,6 +18,11 @@
     src: url('../fonts/alien.ttf');
 }
 
+@font-face{
+    font-family: small_pixel;
+    src: url('../fonts/small_pixel.ttf')
+}
+
 @keyframes border_left{
     0% {
         background-image: url("/front_end/static/imgs/borders/down0_border.png");
@@ -64,7 +69,7 @@ p{
 body{
     height: 100%;
     font-family: Roboto-Thin;
-    background-color: lightpink;
+    background-color: whitesmoke;
 }
 
 main{
@@ -155,11 +160,11 @@ input[type=submit]:active {
 
 .textbox, .animation_box{
     position: relative;
-    font-family: pixel;
-    font-size: large;
+    font-family: small_pixel;
     border-style: double;
     height: 104px;
     margin-bottom: 5px;
+    overflow :hidden;
 }
 
 
@@ -177,6 +182,7 @@ input[type=submit]:active {
     top: 0%;
     left: 2%;
     margin-right: 2%;
+    font-size: 25px;
 }
 
 .godfoot1{
