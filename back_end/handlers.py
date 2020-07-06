@@ -1,4 +1,4 @@
-import http.server,re,urllib.parse,copy,json
+import http.server,re,urllib.parse,copy,json,os
 from back_end import htmlFactory,gameHandlers
 
 class MyHandlers(http.server.SimpleHTTPRequestHandler):
@@ -81,7 +81,53 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
         return self.HTML_FAC.get_html_sting(open(self.HTML_PATH+"/index.html").read())
 
     def _story_resp(self,url):
+        if url.split('story')[1] == "/contents":
+            return self._table_of_contents()
+        if re.match(r".*[0-9]+$",url):
+            url = re.sub(
+                r"[0-9]+$",
+                next(d.split('.')[0] for d in os.listdir(self.HTML_PATH + re.findall(r"(.+)(\/\d$)",url)[0][0])
+                    if re.findall(r"[0-9]+$",url)[0] == re.findall(r"^[0-9]+",d)[0]
+                ),
+                url)
         return self.HTML_FAC.get_html_sting(open(self.HTML_PATH+url+".html").read())
+
+    def _table_of_contents(self):
+        return self.HTML_FAC.get_html_sting("""
+            <main> 
+                <div class="border_left"></div>
+                <div class="border_right"></div>
+                <div class="center">
+                    {}
+                </div>
+            </main>
+            """.format("".join(
+                    map(
+                        lambda directory: self._pages_in_part(directory),
+                        filter(lambda f: not '.' in f , os.listdir(self.HTML_PATH+'/story'))
+                    ))
+                )
+        )
+
+    def _pages_in_part(self,directory):
+        return """
+            <h2>Table of Contents</h2>
+            <hr>
+            <a href="#"><h3 onClick="toggelDisplay('{}')">{}</h3></a>
+            <div id="{}" class="table_contents_text" style="display: none;">{}</div>
+            """.format(
+                    directory, 
+                    directory,
+                    directory,
+                    "".join(
+                        map(
+                            lambda file: """
+                                <h4><a href="/story/{}/{}">{}</a></h4>
+                                """.format(directory,file.split('.')[0],file.split('.')[0]),
+                            sorted(os.listdir(self.HTML_PATH+'/story/'+directory))
+                        )
+                    )
+            )
 
     def _is_game(self,path):
         return re.match("^/game.*",path)
