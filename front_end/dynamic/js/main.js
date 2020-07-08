@@ -35,11 +35,22 @@ function toggelDisplay(id){
 function createPageControls(){
   let pageNumb = Number(window.location.href.match(/^.*\/([0-9]+).*$/)[1])
   let part_url = window.location.href.match(/(.*\/)[0-9]+.*$/)[1]
+  let get_previous = (e)=>{
+    if(e.getAttribute('previous')){
+      return e.getAttribute('previous')
+    }else{return part_url+String(pageNumb-1)};
+  }
+  let get_next = (e)=>{
+    if(e.getAttribute('next')){
+      return e.getAttribute('next')
+    }else{return part_url+String(pageNumb+1)};
+  } 
   Array.from(document.getElementsByTagName("page_controls")).forEach((e)=>{
     e.innerHTML = `
-    <a href="${part_url}${pageNumb-1}"><button class="previous_button">Previous</button></a>
+    <a href="${get_previous(e)}
+        "><button class="previous_button">Previous</button></a>
     <a href="/story/contents"><button class="table_contents_button">Table of Contents</button></a>
-    <a href="${part_url}${pageNumb+1}"><button class="next_button">Next</button></a>
+    <a href="${get_next(e)}"><button class="next_button">Next</button></a>
     `
   })
 }

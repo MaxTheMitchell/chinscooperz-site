@@ -84,13 +84,16 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
         if url.split('story')[1] == "/contents":
             return self._table_of_contents()
         if re.match(r".*[0-9]+$",url):
-            url = re.sub(
+            url = self.fix_story_url(url)
+        return self.HTML_FAC.get_html_sting(open(self.HTML_PATH+url+".html").read())
+
+    def fix_story_url(self,url):
+        return re.sub(
                 r"[0-9]+$",
                 next(d.split('.')[0] for d in os.listdir(self.HTML_PATH + re.findall(r"(.+)(\/\d$)",url)[0][0])
                     if re.findall(r"[0-9]+$",url)[0] == re.findall(r"^[0-9]+",d)[0]
                 ),
                 url)
-        return self.HTML_FAC.get_html_sting(open(self.HTML_PATH+url+".html").read())
 
     def _table_of_contents(self):
         return self.HTML_FAC.get_html_sting("""
