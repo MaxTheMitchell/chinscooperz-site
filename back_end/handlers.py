@@ -98,6 +98,7 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
                 <div class="border_left"></div>
                 <div class="border_right"></div>
                 <div class="center">
+                <h2>Table of Contents</h2>
                     {}
                 </div>
             </main>
@@ -111,8 +112,6 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
 
     def _pages_in_part(self,directory):
         return """
-            <h2>Table of Contents</h2>
-            <hr>
             <a href="#"><h3 onClick="toggelDisplay('{}')">{}</h3></a>
             <div id="{}" class="table_contents_text" style="display: none;">{}</div>
             """.format(
