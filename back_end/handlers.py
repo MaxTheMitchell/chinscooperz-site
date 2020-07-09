@@ -35,17 +35,12 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
             return self._story_resp(url)
         elif self._is_game(url):
             return self.GAME.handle_get_req(url,query_vals,self._cookies())
-        elif self.path == "/test":
-            return self._test()
         return
     
     def _post_resp(self):
         if self._is_game(self.path):
             return self.GAME.handle_post_req(self.path,self._post_body(),self._cookies())
         return
-
-    def _test(self):
-        return "test"
 
     def _post_body(self):
         try:
@@ -85,13 +80,17 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
             return self._table_of_contents()
         if re.match(r".*[0-9]+$",url):
             url = self.fix_story_url(url)
-        return self.HTML_FAC.get_html_sting(open(self.HTML_PATH+url+".html").read())
+        try:
+            return self.HTML_FAC.get_html_sting(open(self.HTML_PATH+url+".html").read())
+        except:
+            return "/story/contents"
 
     def fix_story_url(self,url):
         return re.sub(
                 r"[0-9]+$",
-                next(d.split('.')[0] for d in os.listdir(self.HTML_PATH + re.findall(r"(.+)(\/\d$)",url)[0][0])
-                    if re.findall(r"[0-9]+$",url)[0] == re.findall(r"^[0-9]+",d)[0]
+                next((d.split('.')[0] for d in os.listdir(self.HTML_PATH + re.findall(r"(.+)(\/\d$)",url)[0][0])
+                    if re.findall(r"[0-9]+$",url)[0] == re.findall(r"^[0-9]+",d)[0])
+                    ,""
                 ),
                 url)
 
