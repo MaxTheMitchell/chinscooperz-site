@@ -216,6 +216,14 @@ input[type=submit]:active {
     background-color: #E9E2D7;
 }
 
+.godfoot2{
+    background-color: black;
+    color: grey;
+}
+/* .godfoot2 p{
+    background-color: black;
+} */
+
 .fadora{
     background-color: #666;
 }

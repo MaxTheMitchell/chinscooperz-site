@@ -108,7 +108,7 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
             """.format("".join(
                     map(
                         lambda directory: self._pages_in_part(directory),
-                        filter(lambda f: not '.' in f , os.listdir(self.HTML_PATH+'/story'))
+                        filter(lambda f: not '.' in f , sorted(os.listdir(self.HTML_PATH+'/story')))
                     ))
                 )
         )
