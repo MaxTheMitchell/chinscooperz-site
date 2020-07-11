@@ -1,0 +1,71 @@
+<style>
+    .myH1{
+        color: greenyellow;
+        text-align: center;
+        font-size: 5vw;
+    }
+
+    .myLink .myP{
+        color:hotpink;
+        /* text-align: center; */
+        display:inline-block;
+        
+    }
+    
+    .myP{
+        margin-left: 45%;
+        font-size: 4vw;
+        margin-top: 0%;
+    }
+
+</style>
+
+<main style="background: url('/front_end/static/imgs/misc/godfoot3Color.png');">
+    <h1 class="myH1">PART THREE</h1>
+    <h1  class="myH1">THE QUEST FOR JUSTICE</h1>
+    <u><b><i><a class="myLink" href="/story/Part 3: The Quest for Justice" ><h2 onmouseover="fall(this)" class="myP">Start</h2></a></b></i></u>
+
+</main>
+
+<script>
+    let fallTimes = 0
+
+    function fall(element){
+        let i = 0
+        if(fallTimes === 0){
+            let interval = setInterval(()=>{
+                if(i>100){
+                    clearInterval(interval)
+                }else{
+                    element.style.marginTop = `${i}%`
+                }i++
+            },10)
+        }else if(fallTimes==1){
+            let interval = setInterval(()=>{
+                if(i>50){
+                    clearInterval(interval)
+                    let height = 0
+                    i=0
+                    let outer_interval = setInterval(()=>{
+                        let inner_interval = setInterval(()=>{
+                            if(height>9){clearInterval(outer_interval)}
+                            if(i>100){
+                                clearInterval(inner_interval)
+                                i=0
+                                height++
+                            }else{
+                                if(height%2==0){
+                                    element.style.marginLeft = `${100-i}%`
+                                }else{
+                                    element.style.marginLeft = `${i}%`
+                                }element.style.marginTop = `${100-height*10-i/10}%`
+                            }i++
+                        },10)
+                    },1000)
+                }else{
+                    element.style.marginLeft = `${i+50}%`
+                }i++
+            },10)
+        }fallTimes++
+    }
+</script>
