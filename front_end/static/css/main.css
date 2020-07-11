@@ -74,8 +74,10 @@ p{
 body{
     height: 100%;
     font-family: Roboto-Thin;
-    background-color: lightcyan;
+    /* background-color: lightcyan; */
+    background-image: url("/front_end/static/imgs/misc/background.jpg");
 }
+
 
 main{
     min-height: 100%;
