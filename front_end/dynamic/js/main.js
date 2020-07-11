@@ -54,3 +54,7 @@ function createPageControls(){
     `
   })
 }
+
+function setPageTitle(titleName){
+  document.getElementById("pageTitle").innerHTML = titleName
+}

@@ -81,9 +81,15 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
         if re.match(r".*[0-9]+$",url):
             url = self.fix_story_url(url)
         try:
-            return self.HTML_FAC.get_html_sting(open(self.HTML_PATH+url+".html").read())
+            return self.HTML_FAC.get_html_sting(
+                open(self.HTML_PATH+url+".html").read()+self._set_page_title(url))
         except:
             return "/story/contents"
+
+    def _set_page_title(self,url):
+        return "<script>setPageTitle('{}')</script>".format(
+            url.upper().split('/')[-1]
+        )
 
     def fix_story_url(self,url):
         return re.sub(
