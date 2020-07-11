@@ -88,7 +88,7 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
     def fix_story_url(self,url):
         return re.sub(
                 r"[0-9]+$",
-                next((d.split('.')[0] for d in os.listdir(self.HTML_PATH + re.findall(r"(.+)(\/\d$)",url)[0][0])
+                next((d.split('.')[0] for d in os.listdir(self.HTML_PATH + re.findall(r"(.+)(\/\d+$)",url)[0][0])
                     if re.findall(r"[0-9]+$",url)[0] == re.findall(r"^[0-9]+",d)[0])
                     ,""
                 ),
