@@ -57,4 +57,7 @@ function createPageControls(){
 
 function setPageTitle(titleName){
   document.getElementById("pageTitle").innerHTML = titleName
+  // if(titleName==="0 TITLE PAGE"){
+  //   document.body.removeChild(document.body.getElementsByTagName("header")[0])
+  // }
 }

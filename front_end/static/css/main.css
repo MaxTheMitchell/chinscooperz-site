@@ -9,6 +9,11 @@
 }
 
 @font-face{
+    font-family: Roboto-Regular;
+    src: url('../fonts/Roboto-Regular.ttf');
+}
+
+@font-face{
     font-family: Platinum;
     src: url('../fonts/Platinum.ttf');
 }
@@ -73,9 +78,13 @@ p{
 
 body{
     height: 100%;
-    font-family: Roboto-Thin;
-    /* background-color: lightcyan; */
+    font-family: Roboto-Regular;
     background-image: url("/front_end/static/imgs/misc/background.jpg");
+}
+
+header{
+    background-color: grey;
+    display: inline;
 }
 
 
