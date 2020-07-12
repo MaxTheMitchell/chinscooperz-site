@@ -1,10 +1,20 @@
-document.addEventListener('DOMContentLoaded', loadTextBoxes)
-document.addEventListener('DOMContentLoaded', createPageControls)
+document.addEventListener('DOMContentLoaded', makeStuff)
+
+function makeStuff(){
+  loadTextBoxes()
+  createPageControls()
+  bindChoices()
+}
 
 function loadTextBoxes(){
-    Array.from(document.getElementsByClassName("textbox")).forEach(textbox => {
-      textbox.innerHTML = `<img src="/front_end/static/imgs/faces/${textbox.getAttribute("class").split(' ')[1]}.jpg">${textbox.innerHTML}`
-    })
+  Array.from(document.getElementsByClassName("textbox"))
+    .filter((e)=>{
+      return e.getElementsByTagName("img").length < 1
+    }).forEach((textbox)=>loadTextBox(textbox))
+}
+
+function loadTextBox(textbox){
+  textbox.innerHTML = `<img src="/front_end/static/imgs/faces/${textbox.getAttribute("class").split(' ')[1]}.jpg">${textbox.innerHTML}`
 }
 
 function sendGetRequest(url,callback=()=>{}){
@@ -55,9 +65,21 @@ function createPageControls(){
   })
 }
 
+function bindChoices(){
+  Array.from(document.getElementsByClassName("choices")).forEach((e)=>
+    Array.from(e.getElementsByTagName("div")).forEach((div)=>div.setAttribute("onclick","makeChoice(this)"))
+  )
+}
+
 function setPageTitle(titleName){
   document.getElementById("pageTitle").innerHTML = titleName
-  // if(titleName==="0 TITLE PAGE"){
-  //   document.body.removeChild(document.body.getElementsByTagName("header")[0])
-  // }
+}
+
+function makeChoice(element){
+  path =  element.getAttribute("path")
+  element.parentNode.innerHTML = element.innerHTML
+  document.getElementsByClassName("center")[0].innerHTML 
+    += paths[path].response
+  paths = paths[path]
+  makeStuff()
 }

@@ -1,0 +1,102 @@
+<main> 
+    <div class="border_left"></div>
+    <div class="border_right"></div>
+    <div class="center">
+        <div class="textbox godfoot3">
+            <p>Magic Rat has come upon the first of the groups he needs to sway.
+                The Knights, a very powerful group indeed, lets see if he has what it
+                takes to persuade them...
+            </p>
+        </div>
+        <hr class="narration_break">
+        <div class="textbox knight">
+            <p>Who is tho over hinder?</p>
+        </div>
+        <div class="textbox magic_rat choices">
+            <div path="a"><p>It is I, sir Magic Rat.</p></div>
+            <div path="b"><p>Hey it's me, Magic Rat.</p></div>
+        </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    let knightPath ={
+            response:`
+            <div class="textbox knight">
+                <p>Ah a fellow Knight I see. 
+                    Say young Rat one, what may your full title be? 
+                    </p></div>
+            <div class="textbox magic_rat choices">
+                <div path="a"><p>Sir Magic Rat the Brave.</p></div>
+                <div path="a"><p>Sir Magic Rat the Just.</p></div>
+                <div path="a"><p>Sir Magic Rat the Rat.</p></div>
+            </div>
+            `,
+            a:{
+                response:`
+                <div class="textbox knight">
+                    <p>Ah yes most excellent!
+                        What was it you came to inquire about?
+                        </p></div>
+                <div class="textbox magic_rat choices">
+                    <div path="a"><p>Could you help me and my friends fight a great foe named Chef?</p></div>
+                    <div path="b"><p>Could you guys... uh help me fight a dragon or something?</p></div>
+                </div>
+                `,
+                a:{
+                    response:`
+                    <div class="textbox knight">
+                    <p>Why yes, we will fight this.. Chef?
+                        Anything to help a fellow knight.
+                        </p></div>
+                    <div class="textbox magic_rat">
+                        <p>Dope.</p></div>
+                    <page_controls></page_controls>`
+                },
+                b:{
+                    response:`
+                    <div class="textbox knight">
+                    <p>A DRAGON! Why we must help thy for our own safety 
+                        </p></div>
+                    <div class="textbox magic_rat">
+                    <p>Yeah uhh... just heads up this dragon will look pretty horsy.
+                        </p></div>
+                    <page_controls></page_controls>`
+                }
+            }
+        }
+
+    let paths = {
+        a:knightPath,
+        b:{
+            response:`
+            <div class="textbox knight">
+                    <p>And why might I care about a mere "Magic Rat"?</p></div>
+            <div class="textbox magic_rat choices">
+                <div path="a"><p>Because I am a wizard. Hence the "Magic" in "Magic Rat".</p></div>
+                <div path="b"><p>Actually, I'm a knight.</p></div>
+            </div>
+            `,
+            a:{
+                response:`
+                <div class="textbox knight">
+                    <p>A wizard! Forgive me for my insolence Rat one.</p></div>
+                <div class="textbox magic_rat choices">
+                    <div path="a"><p>Don't worry about it, do ya wanta help me fight Chef?</p></div>
+                    <div path="a"><p>Yeah you better be. Now help me fight Chef before I turn you into a newt</p></div>
+                </div>
+                `,
+                a:{
+                    response:`
+                    <div class="textbox knight">
+                        <p>Yes, most certainly oh wizardly one.</p></div>
+                    <page_controls></page_controls>
+                    `
+                }
+            },
+            b:knightPath
+            
+        }
+    }
+</script>
