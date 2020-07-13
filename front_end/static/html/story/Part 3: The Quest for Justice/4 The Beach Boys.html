@@ -1,0 +1,81 @@
+<main> 
+    <div class="border_left"></div>
+    <div class="border_right"></div>
+    <div class="center">
+        <div class="textbox godfoot3">
+            <p>Next Niko came across a guild quite unique, the Beach Boys.
+                The Beach Boys are an American rock band formed in Hawthorne, California in 1961. 
+                The group's original lineup consisted of Brian, Dennis Carl Wilson, Mike Love, and Al Jardine.
+                No relation to these Beach Boys though..
+        </div>
+        <hr class="narration_break">
+        <div class="textbox beach">
+            <p>Ahahaha whos over there?</p>
+        </div>
+        <div class="textbox niko choices">
+            <div path="a"><p>Hello Beach boys, I love your song "Surfn' USA"</p></div>
+            <div path="b"><p>Hey could ya'll help us. There's a horse we need to Kill.</p></div>
+        </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    let killPath ={
+        response:`
+            <div class="textbox beach">
+                <p>Bruh, killing a horse-dude sounds hella nar.
+                    But I don't know man, we were going to shed some 
+                    waves, whats in it for us?</p>
+            </div>
+            <div class="textbox niko choices">
+                <div path="a"><p>Oh actually I have this. *hands Corona</p></div>
+                <div path="b"><p>Good vibes.</p></div>
+            </div>`,
+            a:{
+                response:`
+                    <div class="textbox beach">
+                        <p>*sips Corona</p>
+                    </div>
+                    <div class="textbox beach">
+                        <p>Ah, what an infectious taste. Simply to die for.
+                            Alright we'll join ya.</p>
+                    </div>
+                    <page_controls></page_controls>
+                `},
+            b:{
+                response:`
+                    <div class="textbox beach">
+                        <p>Can't argue with vibes. We'll join ya.</p>
+                    </div>
+                    <page_controls></page_controls>
+                `},
+            }
+    let paths ={
+        a:{
+            response:`
+                <div class="textbox beach">
+                    <p>Bruh, didn't you read the narration text?
+                        No relation to those Beach Boys.</p>
+                </div>
+                <div class="textbox niko choices">
+                    <div path="a"><p>Oh yeah sorry about that.</p></div>
+                    <div path="a"><p>Wait, what?</p></div>
+                </div>
+            `,
+            a:{
+                response:`
+                    <div class="textbox beach">
+                        <p>Never mind, what'd you even come to us for anyway?</p>
+                    </div>
+                    <div class="textbox niko choices">
+                        <div path="a"><p>Can you help us kill this horse-dude named Chef?</p></div>
+                        <div path="a"><p>Can you shed on this horse guy named Chef?</p></div>
+                    </div>
+                `,
+                a:killPath
+            }
+        },
+        b:killPath
+    }
+</script>
