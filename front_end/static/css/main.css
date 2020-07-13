@@ -86,6 +86,23 @@
     }
 }
 
+@keyframes duesBackground{
+    0%{
+
+        background-color: pink;
+    }20%{
+        background-color: yellow;
+    }40%{
+        background-color: lightgreen;
+    }60%{
+        background-color: lightblue;
+    }80%{
+        background-color: violet;
+    }100%{
+        background-color: pink;
+    }
+}
+
 h1{
     font-size: xx-large;
     font-family: Platinum; 
@@ -329,8 +346,11 @@ input[type=submit]:active {
 }
 
 .dues{
-    background-image: linear-gradient(to right, pink,yellow,lightyellow,lightgreen,lightblue,violet);
+    animation-iteration-count: infinite;
+    animation-duration: 1s;
+    animation-name: duesBackground;
 }
+    
 
 .suffering{
     background-color: grey;
