@@ -1,0 +1,86 @@
+<main> 
+    <div class="border_left"></div>
+    <div class="border_right"></div>
+    <div class="center">
+        <div class="textbox godfoot3">
+            <p>Subsequently Magic Rat met up with the mightiest of all the clans
+                the Macho Men...
+        </div>
+        <hr class="narration_break">
+        <div class="textbox macho">
+            <p>*Grunt *grunt</p>
+        </div>
+        <div class="textbox magic_rat choices">
+            <div path="a"><p>Helloooooo boys!</p></div>
+            <div path="a"><p>Those are some fine muscles boys.</p></div>
+        </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    let proteinPath = {
+        response:`
+            <div class="textbox macho">
+                <p>Whata you got smalls?</p>
+            </div>
+            <div class="textbox magic_rat choices">
+                <div path="a"><p>Steak</p></div>
+                <div path="a"><p>Muscle Milk</p></div>
+                <div path="b"><p>Soy Milk</p></div>
+            </div>
+        `,
+        a:{
+            response:`
+            <div class="textbox macho">
+                            <p>Hell yes! Well join ya gang.</p>
+                        </div>
+                        <page_controls></page_controls>`
+        },
+        b:{
+            response:`
+            <div class="textbox macho">
+                            <p>Yes! To be honest, I never wanted to be a Macho Man.
+                                I would much rather be a Soy Boy. We'll join ya.</p>
+                        </div>
+                        <page_controls></page_controls>`
+        },
+
+    }
+    let paths ={
+        a:{
+            response:`
+            <div class="textbox macho">
+                <p>Hey there shrimp, what do you want?</p>
+            </div>
+            <div class="textbox magic_rat choices">
+                <div path="a"><p>We could use those big muscles of ours in our big fight.</p></div>
+                <div path="b"><p>Could I interest you boys in some protein?</p></div>
+            </div>
+            `,
+            a:{
+                response:`
+                    <div class="textbox macho">
+                        <p>Yeah I can understand why a wimp like you would need
+                            a macho macho man to fight his battles, but why should we care?</p>
+                    </div>
+                    <div class="textbox magic_rat choices">
+                        <div path="a"><p>It could put those big muscles of yours to the test!</p></div>
+                        <div path="b"><p>Protein!</p></div>
+                    </div>
+                    `,
+                    a:{
+                        response:`
+                        <div class="textbox macho">
+                            <p>Fair point, I've been looking to test these babies out. 
+                                *kisses bicep</p>
+                        </div>
+                        <page_controls></page_controls>
+                        `
+                    },
+                    b:proteinPath
+            },
+            b:proteinPath
+        }   
+    }
+</script>
