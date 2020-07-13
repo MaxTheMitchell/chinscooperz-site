@@ -1,0 +1,54 @@
+<main> 
+    <div class="border_left"></div>
+    <div class="border_right"></div>
+    <div class="center">
+        <div class="textbox godfoot3">
+            <p>Finally we come to our last clan, well I don't really know
+                if I can call it a clan. Its just an old man.
+            </p>
+        </div>
+        <hr class="narration_break">
+        <div class="textbox oldman">
+            <p>...</p>
+        </div>
+        <div class="textbox justice choices">
+            <div path="a"><p>Hey there old man you just might be pathetic enough to be useful to us.</p></div>
+            <div path="a"><p>Hello there old man. How would you like to join us in our crusade against Chef?</p></div>
+        </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    let paths = {
+        a:{
+            response: `
+                <div class="textbox oldman">
+                    <p>...</p>
+                </div>
+                <div class="textbox justice choices">
+                    <div path="a"><p>Well what do you say? Are you with us?</p></div>
+                    <div path="a"><p>Hey are you doing alright?</p></div>
+                </div>
+                `,
+            a:{
+                response: `
+                <div class="textbox oldman">
+                    <p>...</p>
+                </div>
+                <div class="textbox justice choices">
+                    <div path="a"><p>Uh, I'll take that as a yes.</p></div>
+                    <div path="a"><p>Eh, whatever.</p></div>
+                </div>
+                `,
+                a:{
+                    response: `
+                    <div class="textbox oldman">
+                        <p>...</p>
+                    </div>
+                    <page_controls></page_controls>`
+                }
+            }
+        }
+    }
+</script>
