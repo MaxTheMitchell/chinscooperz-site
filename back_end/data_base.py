@@ -4,6 +4,15 @@ class DataBase():
     def __init__(self,url):
         self.url = url
 
+    def get_story_names(self):
+        def func(cursor):
+            cursor.execute(""" 
+                SELECT DISTINCT storyName 
+                FROM storyTextboxes
+                """)
+            return cursor.fetchall()
+        return self._connect_to_db(func)
+
     def insert_story(self,story_name,position,animation,character,dialogue):
         self._connect_to_db(
             lambda cursor : cursor.execute(""" 
