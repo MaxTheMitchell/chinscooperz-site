@@ -1,5 +1,5 @@
 import http.server,re,urllib.parse,copy,json,os
-from back_end import htmlFactory,gameHandlers,custom_story_handlers,story_handlers
+from back_end import htmlFactory,gameHandlers,custom_story_handlers,story_handlers,data_base
 
 class MyHandlers(http.server.SimpleHTTPRequestHandler):
 
@@ -11,8 +11,9 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
         open(HTML_PATH + "/footer.html").read()
     )
     BYTE_FORMAT = 'utf-8'
+    DATA_BASE = data_base.DataBase(os.getenv("DATABASE_URL"))
     GAME = gameHandlers.GameHandler()
-    CUSTOM_STORY = custom_story_handlers.CustomStoryHandler()
+    CUSTOM_STORY = custom_story_handlers.CustomStoryHandler(HTML_FAC,DATA_BASE)
     STORY = story_handlers.StoryHandlers(HTML_FAC,HTML_PATH)
 
     def do_GET(self):
