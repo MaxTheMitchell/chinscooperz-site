@@ -33,6 +33,8 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
             return self._root_resp()
         elif self._is_story(url):
             return self._story_resp(url)
+        elif self._is_custom_story(url):
+            return self._custom_story_resp(url)
         elif self._is_game(url):
             return self.GAME.handle_get_req(url,query_vals,self._cookies())
         return
@@ -118,6 +120,10 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
                 )
         )
 
+    def _custom_story_resp(self,url):
+        # TODO finish this
+        return ""
+
     def _pages_in_part(self,directory):
         return """
             <a href="#"><h3 onClick="toggelDisplay('{}')">{}</h3></a>
@@ -135,6 +141,8 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
                         )
                     )
             )
+    def _is_custom_story(self,path):
+        return re.match("^/customStories.*",path)
 
     def _is_game(self,path):
         return re.match("^/game.*",path)
