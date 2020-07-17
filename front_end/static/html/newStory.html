@@ -2,16 +2,18 @@
     <div class="border_left"></div>
     <div class="border_right"></div>
     <div class="center">
-        <form>
+        <form onsubmit="createTextBox(this)">
             <select id="character" name="character"></select>
             <select id="animation" name="animation"><option value="none">none</option></select>
             <textarea id="dialog" name="dialog" maxlength="160"></textarea>
+            <input type="submit">
         </form>
     </div>
 </main>
 
 <script>
     let animations = ['foo','appear','disappear','run_left','run_right']
+
     function makeOptions(id,array){
         document.getElementById(id).innerHTML += array.reduce(
             (total,addon)=>{
@@ -19,6 +21,20 @@
             },""
         )
     }
+
+    function createTextBox(form){
+        event.preventDefault()
+        form = new FormData(form)
+        document.getElementsByClassName("center")[0].innerHTML += makeTextbox(
+            form.get("character"),form.get("animation"),form.get("dialog")
+        )
+        makeStuff()
+    }
+
+    function makeTextbox(character,animation,dialog){
+        return `<div class="textbox ${character} ${animation}"><p>${dialog}</p></div>`
+    }
+
     makeOptions('character',characters)
     makeOptions('animation',animations)
 </script>

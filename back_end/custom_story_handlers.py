@@ -10,7 +10,7 @@ class CustomStoryHandler():
         return re.match("^/customStories.*",path)
 
     def custom_story_resp(self,url):
-        if url == "/customStories/new":
+        if re.match(r"/customStories/new.*",url):
             return self._new_resp()
         return self._index_resp()
 
