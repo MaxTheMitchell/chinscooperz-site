@@ -3,16 +3,22 @@
     <div class="border_right"></div>
     <div class="center">
         <form>
-            <select id="characters">
-              </select>
+            <select id="character" name="character"></select>
+            <select id="animation" name="animation"><option value="none">none</option></select>
+            <textarea id="dialog" name="dialog" maxlength="160"></textarea>
         </form>
     </div>
 </main>
 
 <script>
-    document.getElementById("characters").innerHTML = characters.reduce(
-        (total,character)=>{
-            return total+`<option value="${character}">${character}</option>`
-        }
-    )
+    let animations = ['foo','appear','disappear','run_left','run_right']
+    function makeOptions(id,array){
+        document.getElementById(id).innerHTML += array.reduce(
+            (total,addon)=>{
+                return total+`<option value="${addon}">${addon}</option>`
+            },""
+        )
+    }
+    makeOptions('character',characters)
+    makeOptions('animation',animations)
 </script>

@@ -24,7 +24,7 @@ class CustomStoryHandler():
                 list(
                     map(
                         lambda img: img.split('.')[0],
-                        os.listdir("./front_end/static/imgs/faces")
+                        sorted(os.listdir("./front_end/static/imgs/faces"))
                     )
                 )
             ) + open("./front_end/static/html/newStory.html").read()
