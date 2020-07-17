@@ -2,17 +2,21 @@
     <div class="border_left"></div>
     <div class="border_right"></div>
     <div class="center">
-        <form onsubmit="createTextBox(this)">
+        <form class="create_textbox" onsubmit="createTextBox(this)">
+            <label id="character_label" for="character">Character:</label>
             <select id="character" name="character"></select>
-            <select id="animation" name="animation"><option value="none">none</option></select>
+            <label id="animation_label" for="animation">Animation:</label>
+            <select id="animation" name="animation"></select>
+            <label for="dialog" id="dialog_label">Dialog:</label>
             <textarea id="dialog" name="dialog" maxlength="160"></textarea>
-            <input type="submit">
+            <input type="submit" id="submit" value="Create Text Box">
         </form>
     </div>
 </main>
 
 <script>
-    let animations = ['foo','appear','disappear','run_left','run_right']
+    let textboxes = []
+    let animations = ['none','appear','disappear','run_left','run_right']
 
     function makeOptions(id,array){
         document.getElementById(id).innerHTML += array.reduce(
@@ -27,6 +31,14 @@
         form = new FormData(form)
         document.getElementsByClassName("center")[0].innerHTML += makeTextbox(
             form.get("character"),form.get("animation"),form.get("dialog")
+        )
+        textboxes.push(
+            {
+                position: textboxes.length,
+                character: form.get("character"),
+                animation: form.get("animation"),
+                dialog: form.get("dialog")
+            }
         )
         makeStuff()
     }

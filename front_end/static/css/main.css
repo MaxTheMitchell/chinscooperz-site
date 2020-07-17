@@ -230,7 +230,7 @@ input[type=submit]:active {
     animation-name: run_right;
 }
 
-.textbox, .animation_box{
+.textbox, .animation_box,.create_textbox{
     position: relative;
     font-family: small_pixel;
     border-style: double;
@@ -238,6 +238,48 @@ input[type=submit]:active {
     margin-bottom: 5px;
     overflow: hidden;
     flex-grow: .5;
+}
+
+.create_textbox{
+    background-color: tan;
+}
+
+.create_textbox #submit{
+    position: absolute;
+    left:80%;
+    width:15%;
+}
+
+.create_textbox #dialog{
+    height: 90%;
+    left: 50%;
+    position: absolute;
+}
+
+.create_textbox #dialog_label{
+    left:40%;
+    position: absolute;
+}
+
+.create_textbox #character,.create_textbox #animation,.create_textbox #character_label,.create_textbox #animation_label{
+    left: 5%;
+    position: absolute;
+}
+
+.create_textbox #character_label{
+    top:5%;
+}
+
+.create_textbox #character{
+    top:25%;
+}
+
+.create_textbox #animation_label{
+    top:55%;
+}
+
+.create_textbox #animation{
+    top:75%;
 }
 
 .horizonal{
@@ -279,6 +321,7 @@ input[type=submit]:active {
     background-color: rgba(150, 150, 150, 0)
 }
 
+
 .godfoot1{
     background-color: #E9E2D7;
 }
@@ -316,7 +359,7 @@ input[type=submit]:active {
     background-color: #FF9AA2;
 }
 
-.sheriff{
+.sheriff, .stalin{
     background-color: #E2F0CB;
 }
 
