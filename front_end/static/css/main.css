@@ -8,6 +8,10 @@ h2{
     font-size: 30px;
 }
 
+h3{
+    font-size: 25px;
+}
+
 p{
     line-height: 200%;
     font-size: 20px;
@@ -31,7 +35,7 @@ nav{
     font-size: large;
 }
 
-input[type=submit]{
+input[type=submit],button{
     width: 80px;
     height: 30px;
     display: inline-block;
@@ -43,9 +47,9 @@ input[type=submit]{
     box-shadow: 0 3px #999;
 }
 
-input[type=submit]:hover {background-color:lightskyblue}
+input[type=submit]:hover,button:hover {background-color:lightskyblue}
 
-input[type=submit]:active {
+input[type=submit]:active,button:active {
   box-shadow: 0 0px #666;
   transform: translateY(3px);
 }
@@ -134,6 +138,7 @@ input[type=submit]:active {
     margin-bottom: 5px;
     overflow: hidden;
     flex-grow: .5;
+    word-wrap: break-word;
 }
 
 .horizonal{

@@ -37,7 +37,7 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
         elif self.STORY.is_story(url):
             return self.STORY.story_resp(url)
         elif self.CUSTOM_STORY.is_custom_story(url):
-            return self.CUSTOM_STORY.custom_story_resp(url)
+            return self.CUSTOM_STORY.get_resp(url)
         elif self._is_game(url):
             return self.GAME.handle_get_req(url,query_vals,self._cookies())
         return
@@ -45,6 +45,8 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
     def _post_resp(self):
         if self._is_game(self.path):
             return self.GAME.handle_post_req(self.path,self._post_body(),self._cookies())
+        elif self.CUSTOM_STORY.is_custom_story(self.path):
+            return self.CUSTOM_STORY.post_resp(self.path,self._post_body())
         return
 
     def _post_body(self):

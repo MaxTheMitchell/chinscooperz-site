@@ -9,10 +9,17 @@ class CustomStoryHandler():
     def is_custom_story(self,path):
         return re.match("^/customStories.*",path)
 
-    def custom_story_resp(self,url):
+    def get_resp(self,url):
         if re.match(r"/customStories/new.*",url):
             return self._new_resp()
-        return self._index_resp()
+        elif url == "/customStories":
+            return self._index_resp()
+        return self._custom_story_resp(url)
+    
+    def post_resp(self,url,body):
+        if url == "/customStories/new":
+            self._make_story(body)
+        return
 
     def _new_resp(self):
         return self.HTML_FAC.get_html_sting(
@@ -31,6 +38,9 @@ class CustomStoryHandler():
             self.HTML_FAC.head + '<link rel="stylesheet" type="text/css" media="all" href="/front_end/static/css/createTextBox.css">'
         )
 
+    def _make_story(self,data):
+        self.DATA_BASE.insert_story(data)
+
     def _index_resp(self):
         return self.HTML_FAC.get_html_sting("""
             <main> 
@@ -39,14 +49,38 @@ class CustomStoryHandler():
                 <div class="center">
                     <h2>Custom Stories:</h2>
                         {}
-                    <h3><a href="/customStories/new">Create a Story</a></h3>
+                    <a href="/customStories/new"><button style="width:20%;">Create a New Story!</button></a>
                 </div>
             </main>
             """.format(
                 "".join(map(
-                    lambda story_name: """
-                        <h4><a href="/customStories/{}">{}</a></h4>
-                        """.format(story_name,story_name),
+                    lambda table: """
+                        <h3><a href="/customStories/{}">{}</a></h3>
+                        """.format(table[0],table[0]),
                     self.DATA_BASE.get_story_names()
                 ))
+            ))
+
+    def _custom_story_resp(self,url):
+        return self.HTML_FAC.get_html_sting("""
+            <main> 
+                <div class="border_left"></div>
+                <div class="border_right"></div>
+                <div class="center">
+                    {}
+                    <a href="/customStories">
+                    <button style="width:100%">Back</button>
+                    </a>
+                </div>
+            </main>
+            <script>setPageTitle('{}')</script>
+            """.format(
+                "".join(map(
+                    lambda table:"""
+                    <div class="textbox {} {}"><p>{}</p></div>
+                    """.format(table[3],table[2],table[4]),
+                    sorted(
+                        self.DATA_BASE.get_story(url.split("/")[-1]),
+                        key=lambda t:t[1]
+            ))),url.split("/")[-1]
             ))

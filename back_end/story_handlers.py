@@ -21,7 +21,7 @@ class StoryHandlers:
 
     def _set_page_title(self,url):
         return "<script>setPageTitle('{}')</script>".format(
-            url.upper().split('/')[-1]
+            url.split('/')[-1]
         )
 
     def _fix_story_url(self,url):

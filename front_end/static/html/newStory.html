@@ -8,8 +8,9 @@
             <label id="animation_label" for="animation">Animation:</label>
             <select id="animation" name="animation"></select>
             <label for="dialog" id="dialog_label">Dialog:</label>
-            <textarea id="dialog" name="dialog" maxlength="160"></textarea>
-            <input type="submit" id="submit" value="Create Text Box">
+            <textarea id="dialog" name="dialog" maxlength="175"></textarea>
+            <input type="submit" id="submit_textbox" value="Create Text Box">
+            <button type="button" id="submit_story" onclick="publishStory()">Publish Story</button>
         </form>
     </div>
 </main>
@@ -29,15 +30,18 @@
     function createTextBox(form){
         event.preventDefault()
         form = new FormData(form)
-        document.getElementsByClassName("center")[0].innerHTML += makeTextbox(
-            form.get("character"),form.get("animation"),form.get("dialog").replace(/(^"|"$)/gm,"")
-        )
+        let center = document.getElementsByClassName("center")[0]
+        let textbox_maker = center.getElementsByClassName("create_textbox")[0]
+        center.removeChild(textbox_maker)
+        center.innerHTML += makeTextbox(form.get("character"),form.get("animation"),form.get("dialog"))
+        textbox_maker.getElementsByTagName("textarea")[0].value = ""
+        center.appendChild(textbox_maker)
         textboxes.push(
             {
                 position: textboxes.length,
                 character: form.get("character"),
                 animation: form.get("animation"),
-                dialog: form.get("dialog").replace(/(^"|"$)/gm,"")
+                dialog: form.get("dialog")
             }
         )
         makeStuff()
@@ -45,6 +49,19 @@
 
     function makeTextbox(character,animation,dialog){
         return `<div class="textbox ${character} ${animation}"><p>${dialog}</p></div>`
+    }
+
+    function publishStory(){
+        let storyName = ""
+        while(storyName.search(/^\s*$|\//)>-1)storyName = prompt("What will you name your story?")
+        sendPostRequest(
+            "/customStories/new",
+            ()=>window.location.href = "/customStories",
+            JSON.stringify({
+                storyName: storyName,
+                textboxes : textboxes
+            })
+        )
     }
 
     makeOptions('character',characters)

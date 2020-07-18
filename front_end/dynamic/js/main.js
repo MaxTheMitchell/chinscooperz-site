@@ -72,7 +72,7 @@ function bindChoices(){
 }
 
 function setPageTitle(titleName){
-  document.getElementById("pageTitle").innerHTML = titleName
+  document.getElementById("pageTitle").innerHTML = titleName.toUpperCase()
 }
 
 function makeChoice(element){

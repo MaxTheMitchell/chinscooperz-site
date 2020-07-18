@@ -1,15 +1,23 @@
 .create_textbox{
-    background-color: #f4acb7;;
+    background-color: #ecffe9;
 }
 
-.create_textbox #submit{
+#submit_textbox, #submit_story{
     position: absolute;
     left:80%;
-    width:15%;
+    width:17%;
     font-family: small_pixel;
 }
 
-.create_textbox #dialog{
+#submit_textbox{
+    top:15%
+}
+
+#submit_story{
+    top:55%;
+}
+
+#dialog{
     height: 60%;
     left:15%;
     width:60%;
@@ -17,34 +25,34 @@
     position: absolute;
     font-family: small_pixel;
     resize: none;
-    background-color: #ffe5d9;
+    background-color: #fbf4f9;
 }
 
-.create_textbox #dialog_label{
+#dialog_label{
     left:15%;
     position: absolute;
 }
 
-.create_textbox #character,.create_textbox #animation,.create_textbox #character_label,.create_textbox #animation_label{
-    left: 5%;
+#character,#animation,#character_label,#animation_label{
+    left: 3%;
     position: absolute;
     font-family: small_pixel;
 }
 
-.create_textbox #character_label,.create_textbox #dialog_label{
+#character_label,#dialog_label{
     top:5%;
 }
 
-.create_textbox #character{
+#character{
     top:25%;
-    background-color: #ffe5d9;
+    background-color: #f6e7e6;
 }
 
-.create_textbox #animation_label{
+#animation_label{
     top:55%;
 }
 
-.create_textbox #animation{
+#animation{
     top:75%;
-    background-color: #ffe5d9;
+    background-color: #f6e7e6;
 }
