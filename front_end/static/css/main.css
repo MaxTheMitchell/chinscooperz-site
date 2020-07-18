@@ -35,6 +35,10 @@ nav{
     font-size: large;
 }
 
+nav a{
+    padding-right: 1%;
+}
+
 input[type=submit],button{
     width: 80px;
     height: 30px;
@@ -89,6 +93,8 @@ input[type=submit]:active,button:active {
     font-size: 20px;
     padding: 5px;
     background-color: lightgreen;
+    border-radius:0px;
+    margin-bottom: 10px;
 }
 
 .next_button:hover,.previous_button:hover,.table_contents_button:hover{
