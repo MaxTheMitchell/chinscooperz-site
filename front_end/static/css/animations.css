@@ -1,0 +1,74 @@
+@keyframes border_left{
+    0% {
+        background-image: url("/front_end/static/imgs/borders/down0_border.png");
+    }
+    50% {background-image: url("/front_end/static/imgs/borders/down2_border.png")
+    }
+    100% {background-image: url("/front_end/static/imgs/borders/down0_border.png")
+    }
+}
+
+@keyframes border_right{
+    0% {
+        background-image: url("/front_end/static/imgs/borders/up0_border.png");
+    }
+    50% {background-image: url("/front_end/static/imgs/borders/up2_border.png")
+    }
+    100% {background-image: url("/front_end/static/imgs/borders/up0_border.png")
+    }
+}
+
+@keyframes disappear {
+    from {opacity: 1;}
+    to {opacity: 0;}
+}
+
+@keyframes appear {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes run_left {
+    0%{
+        margin-left: 0%;
+        margin-right: 0%;
+    }50%{
+        margin-left: 0%;
+        margin-right: 0%;
+    }
+    100%{
+        margin-left: 150%;
+        margin-right: -150%;
+    }
+}
+
+@keyframes run_right {
+    0%{
+        margin-right: 0%;
+        margin-left: 0%;
+    }50%{
+        margin-right: 0%;
+        margin-left: 0%;
+    }
+    100%{
+        margin-right: 150%;
+        margin-left: -150%;
+    }
+}
+
+@keyframes duesBackground{
+    0%{
+
+        background-color: pink;
+    }20%{
+        background-color: yellow;
+    }40%{
+        background-color: lightgreen;
+    }60%{
+        background-color: lightblue;
+    }80%{
+        background-color: violet;
+    }100%{
+        background-color: pink;
+    }
+}

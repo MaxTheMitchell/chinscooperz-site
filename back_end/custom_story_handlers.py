@@ -27,7 +27,8 @@ class CustomStoryHandler():
                         sorted(os.listdir("./front_end/static/imgs/faces"))
                     )
                 )
-            ) + open("./front_end/static/html/newStory.html").read()
+            ) + open("./front_end/static/html/newStory.html").read(),
+            self.HTML_FAC.head + '<link rel="stylesheet" type="text/css" media="all" href="/front_end/static/css/createTextBox.css">'
         )
 
     def _index_resp(self):

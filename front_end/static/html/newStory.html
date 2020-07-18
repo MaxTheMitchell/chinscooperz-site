@@ -30,14 +30,14 @@
         event.preventDefault()
         form = new FormData(form)
         document.getElementsByClassName("center")[0].innerHTML += makeTextbox(
-            form.get("character"),form.get("animation"),form.get("dialog")
+            form.get("character"),form.get("animation"),form.get("dialog").replace(/(^"|"$)/gm,"")
         )
         textboxes.push(
             {
                 position: textboxes.length,
                 character: form.get("character"),
                 animation: form.get("animation"),
-                dialog: form.get("dialog")
+                dialog: form.get("dialog").replace(/(^"|"$)/gm,"")
             }
         )
         makeStuff()

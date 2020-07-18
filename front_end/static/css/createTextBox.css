@@ -1,0 +1,50 @@
+.create_textbox{
+    background-color: #f4acb7;;
+}
+
+.create_textbox #submit{
+    position: absolute;
+    left:80%;
+    width:15%;
+    font-family: small_pixel;
+}
+
+.create_textbox #dialog{
+    height: 60%;
+    left:15%;
+    width:60%;
+    top:25%;
+    position: absolute;
+    font-family: small_pixel;
+    resize: none;
+    background-color: #ffe5d9;
+}
+
+.create_textbox #dialog_label{
+    left:15%;
+    position: absolute;
+}
+
+.create_textbox #character,.create_textbox #animation,.create_textbox #character_label,.create_textbox #animation_label{
+    left: 5%;
+    position: absolute;
+    font-family: small_pixel;
+}
+
+.create_textbox #character_label,.create_textbox #dialog_label{
+    top:5%;
+}
+
+.create_textbox #character{
+    top:25%;
+    background-color: #ffe5d9;
+}
+
+.create_textbox #animation_label{
+    top:55%;
+}
+
+.create_textbox #animation{
+    top:75%;
+    background-color: #ffe5d9;
+}

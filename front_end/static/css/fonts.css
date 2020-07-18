@@ -1,0 +1,29 @@
+@font-face{
+    font-family: pixel;
+    src: url('../fonts/pixel.TTF');
+}
+
+@font-face{
+    font-family: Roboto-Thin;
+    src: url('../fonts/Roboto-Thin.ttf');
+}
+
+@font-face{
+    font-family: Roboto-Regular;
+    src: url('../fonts/Roboto-Regular.ttf');
+}
+
+@font-face{
+    font-family: Platinum;
+    src: url('../fonts/Platinum.ttf');
+}
+
+@font-face{
+    font-family: alien;
+    src: url('../fonts/alien.ttf');
+}
+
+@font-face{
+    font-family: small_pixel;
+    src: url('../fonts/small_pixel.ttf')
+}
