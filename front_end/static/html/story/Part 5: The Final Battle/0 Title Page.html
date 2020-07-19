@@ -1,0 +1,23 @@
+<main style="background: url('/front_end/static/imgs/misc/background5_1.png');"> 
+</main>
+
+<style>
+    @keyframes rotate{
+        0%{
+            background: url('/front_end/static/imgs/misc/background5_1.png');
+        }25%{
+            background: url('/front_end/static/imgs/misc/background5_2.png');
+        }50%{
+            background: url('/front_end/static/imgs/misc/background5_3.png');
+        }75%{
+            background: url('/front_end/static/imgs/misc/background5_4.png');
+        }100%{
+            background: url('/front_end/static/imgs/misc/background5_1.png');
+        }
+    }
+    main{
+        animation-name: rotate;
+        animation-duration: .5s;
+        animation-iteration-count: infinite;
+    }
+</style>
