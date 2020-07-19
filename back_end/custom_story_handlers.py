@@ -19,6 +19,8 @@ class CustomStoryHandler():
     def post_resp(self,url,body):
         if url == "/customStories/new":
             self._make_story(body)
+        elif url == "/customStories/finalBattle":
+            return self.DATA_BASE.add_finally_textbox(body["img"],body["dialog"])
         return
 
     def _new_resp(self):
@@ -34,8 +36,7 @@ class CustomStoryHandler():
                         sorted(os.listdir("./front_end/static/imgs/faces"))
                     )
                 )
-            ) + open("./front_end/static/html/newStory.html").read(),
-            self.HTML_FAC.head + '<link rel="stylesheet" type="text/css" media="all" href="/front_end/static/css/createTextBox.css">'
+            ) + open("./front_end/static/html/newStory.html").read()
         )
 
     def _make_story(self,data):

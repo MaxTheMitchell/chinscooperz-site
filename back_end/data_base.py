@@ -1,9 +1,12 @@
-import psycopg2
-import psycopg2.extras
+import psycopg2,psycopg2.extras,requests,base64
 
 class DataBase():
-    def __init__(self,url):
+
+    IMG_HOSTING_URL = "https://api.imgbb.com/1/upload"
+
+    def __init__(self,url,img_hosing_key):
         self.url = url
+        self.img_hosing_key = img_hosing_key
 
     def get_story_names(self):
         def func(cursor):
@@ -43,6 +46,15 @@ class DataBase():
                 WHERE storyName = '{}'
             """.format(story_name))
         )
+
+    def add_finally_textbox(self,img,dialog):
+        return requests.post(
+            url=self.IMG_HOSTING_URL+"?key="+self.img_hosing_key,
+            data={
+                "image" : img
+            }
+        ).json()["data"]["url"]
+
         
     def _connect_to_db(self,func):
         conn = psycopg2.connect(self.url, sslmode='require')

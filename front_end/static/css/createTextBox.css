@@ -39,7 +39,7 @@
     font-family: small_pixel;
 }
 
-#character_label,#dialog_label{
+#character_label,#dialog_label,#img_label{
     top:5%;
 }
 
@@ -55,4 +55,14 @@
 #animation{
     top:75%;
     background-color: #f6e7e6;
+}
+
+#img{
+    position: absolute;
+    top:25%;
+}
+
+#img_label{
+    position: absolute;
+    top:3%
 }
