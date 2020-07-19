@@ -14,7 +14,7 @@ function loadTextBoxes(){
 }
 
 function loadTextBox(textbox){
-  textbox.innerHTML = `<img src="/front_end/static/imgs/faces/${textbox.getAttribute("class").split(' ')[1]}.jpg">${textbox.innerHTML}`
+  textbox.innerHTML = `<img class="face" src="/front_end/static/imgs/faces/${textbox.getAttribute("class").split(' ')[1]}.jpg">${textbox.innerHTML}`
 }
 
 function sendGetRequest(url,callback=()=>{}){
@@ -82,4 +82,14 @@ function makeChoice(element){
     += paths[path].response
   paths = paths[path]
   makeStuff()
+}
+
+const CHARACTER_WIDTH_PERCENT = 5
+function createCharacterImg(src){
+  let img = document.createElement("img")
+  img.setAttribute("src",src)
+  img.style.position = "absolute"
+  img.style.width = `${CHARACTER_WIDTH_PERCENT}%`
+  img.style.bottom = "0%"
+  return img
 }

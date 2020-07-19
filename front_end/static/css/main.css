@@ -151,7 +151,7 @@ input[type=submit]:active,button:active {
     display: flex;
 }
 
-.textbox img{
+.textbox .face{
     float:left;
     border-style: solid;
     border-width: 2px;

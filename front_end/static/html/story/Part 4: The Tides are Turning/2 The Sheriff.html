@@ -1,0 +1,148 @@
+<style>
+    .animation_box{
+        background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapercave.com%2Fwp%2F3ruMITV.jpg&f=1&nofb=1");
+        background-size: 100% 100%;
+    }
+</style>
+
+<main> 
+    <div class="border_left"></div>
+    <div class="border_right"></div>
+    <div class="center">
+        <div class="textbox godfoot4">
+            <p>Magic Rat and Niko ready up for their fight with the manic Sheriff...</p>
+        </div>
+        <hr class="narration_break">
+        <div class="textbox sheriff">
+            <p>Well well well, whata we got here, a little rat and bird.
+                Make a mighty fine meal if I do say so myself.
+            </p>
+        </div>
+        <div class="textbox niko">
+            <p>You going down Sheriff!</p>
+        </div>
+        <div class="textbox magic_rat">
+            <p>ACAB!</p>
+        </div>
+        <div class="textbox sheriff">
+            <p>Time to reel yall in!</p>
+        </div>
+        <div class="textbox magic_rat">
+            <p>Oh shit he got me hooked!</p>
+        </div>
+        <div class="animation_box" id="reel_in"></div>
+        <div class="textbox niko">
+            <p>BROTHER! Are you ok!?</p>
+        </div>
+        <div class="textbox magic_rat">
+            <p>I'm doing alright, in fact we've just got the Sheriff flanked!</p>
+        </div>
+        <div class="textbox niko">
+            <p>That's right! Lets get him!</p>
+        </div>
+        <div class="animation_box" id="flanked"></div>
+        <div style="display: flex;">
+            <div class="textbox magic_rat">
+                <p>Oochie!</p>
+            </div>
+            <div class="textbox niko">
+                <p>Oof!</p>
+            </div>
+        </div>
+        <div class="textbox sheriff ptsd">
+            <p>My oh my are you boys silly. You make it too easy,
+                you just like those villagers back on Tatwon.
+            </p>
+        </div>
+        <page_controls></page_controls>
+    </div>
+</main>
+
+<script>
+     document.addEventListener("DOMContentLoaded", ()=>{
+        reelInAnimation()
+        flankedAnimation()
+        ptsdAnimation()
+    })
+    
+    function reelInAnimation(){
+        let niko_img = createCharacterImg("/front_end/static/imgs/character_sheets/niko/right1.png")
+        let rat_img = createCharacterImg("/front_end/static/imgs/character_sheets/magic_rat/right1.png")
+        let sheriff_img = createCharacterImg("/front_end/static/imgs/character_sheets/sheriff/left1.png")
+        let canvas = document.getElementById("reel_in")
+        niko_img.style.left = '10%'
+        sheriff_img.style.left = '47.5%'
+        canvas.appendChild(rat_img)
+        canvas.appendChild(niko_img)
+        canvas.appendChild(sheriff_img)
+        let i = 0
+        setInterval(function(){
+            if(i<30){
+                rat_img.style.left = `${15+i*2}%`
+                rat_img.style.bottom = `${10*i}%`
+                rat_img.style.transform = "rotate(0deg)"
+            }else if(i<36){
+                rat_img.style.left = `$85%`
+                rat_img.style.transform = "rotate(180deg)"
+                rat_img.style.bottom = `${100-20*(i-30)}%`
+            }else if(i<40){
+                rat_img.style.transform = `rotate(${180+20*(i-35)}deg)`
+                rat_img.style.bottom = `${20+-10*(i-35)}%`
+            }else{i=0}i++
+        },70)
+    }
+
+    function flankedAnimation(){
+        let niko_img = createCharacterImg("/front_end/static/imgs/character_sheets/niko/right0.png")
+        let rat_img = createCharacterImg("/front_end/static/imgs/character_sheets/magic_rat/left0.png")
+        let sheriff_img = createCharacterImg("/front_end/static/imgs/character_sheets/sheriff/down1.png")
+        let canvas = document.getElementById("flanked")
+        niko_img.style.left = '10%'
+        sheriff_img.style.left = '47.5%'
+        rat_img.style.left = `85%`
+        canvas.appendChild(rat_img)
+        canvas.appendChild(niko_img)
+        canvas.appendChild(sheriff_img)
+        let i = 0
+        setInterval(function(){
+            if(i<15){
+                sheriff_img.style.bottom ="0%"
+                rat_img.style.left = `${85-i*2.5}%`
+                rat_img.style.bottom = `0%`
+                rat_img.style.transform = "rotate(0deg)"
+                niko_img.style.left = `${10+i*2.5}%`
+                niko_img.style.bottom = `0%`
+                niko_img.style.transform = "rotate(0deg)"
+                niko_img.src = `/front_end/static/imgs/character_sheets/niko/right${i%3}.png`
+                rat_img.src = `/front_end/static/imgs/character_sheets/magic_rat/left${i%3}.png`
+                if(i>10){
+                    sheriff_img.style.bottom = `${25*(i-10)}%`
+                }
+            }else if(i<20){
+                rat_img.style.transform = `rotate(${20*(i-15)}deg)`
+                rat_img.style.bottom = `${20+-10*(i-15)}%`
+                rat_img.style.left = `${48+2*(i-15)}%`
+                niko_img.style.transform = `rotate(${-20*(i-15)}deg)`
+                niko_img.style.bottom = `${20+-10*(i-15)}%`
+                niko_img.style.left = `${48-2*(i-15)}%`
+                sheriff_img.style.bottom = `${100-25*(i-15)}%`
+            }else{i=0}i++
+        },70)
+    }
+
+    function ptsdAnimation(){
+        let backgroundImage = document.createElement("img")
+        // backgroundImage.class = ""
+        backgroundImage.style = "width:100%;height:100%;position:absolute;top:0px;"
+        backgroundImage.src = "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.iainfisher.com%2Frussell%2Fapocalypse-now!.jpg&f=1&nofb=1"
+        Array.from(document.getElementsByClassName("ptsd")).forEach((e)=>{
+            e.appendChild(backgroundImage)
+        })
+        let i = 0
+        setInterval(function(){
+            backgroundImage.style.opacity = `${(100-i)/100}`
+            i++
+        },10)
+    }
+    
+</script>
