@@ -1,4 +1,4 @@
-import re,os
+import re,os,json
 
 class CustomStoryHandler():
 
@@ -14,6 +14,8 @@ class CustomStoryHandler():
             return self._new_resp()
         elif url == "/customStories":
             return self._index_resp()
+        elif url == "/customStories/finalBattle":
+            return json.dumps(self.DATA_BASE.get_finally_textboxes())
         return self._custom_story_resp(url)
     
     def post_resp(self,url,body):

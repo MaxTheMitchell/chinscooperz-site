@@ -39,6 +39,7 @@
                 Even <b>YOU!</b>
             </p>
         </div>
+        <div id="help"></div>
         <div id="formHolder">
             <form class="create_textbox" enctype="multipart/form-data" onsubmit="createHelpBox(this)">
                 <label for="img" id="img_label">Your Face:</label>
@@ -48,12 +49,25 @@
                 <input type="submit" style="width: 22%;left:77%" id="submit_textbox" value="Help The Chinscooperz!">
             </form>
         </div>
-        <div id="help"></div>
         <page_controls id="page_controls" style="display: none;"></page_controls>
     </div>
 </main>
 
 <script>
+
+    document.addEventListener('DOMContentLoaded', getHelpBoxes)
+
+    function makeHelpBox(url,dialog){
+        return `
+        <div class="textbox"
+        style="background-color:rgb(${Math.floor(Math.random()*255)},
+        ${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)});">
+            <img class="face" src="${url}">
+            <p>${dialog}</p>
+        </div>
+    `
+    }
+
     function createHelpBox(form){
         event.preventDefault()
         form = new FormData(form)
@@ -63,14 +77,7 @@
             sendPostRequest(
                 "/customStories/finalBattle",
                 (url)=>{
-                    document.getElementById("formHolder").innerHTML = `
-                        <div class="textbox"
-                         style="background-color:rgb(${Math.floor(Math.random()*255)},
-                         ${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)});">
-                            <img class="face" src="${url}">
-                            <p>${form.get("dialog")}</p>
-                        </div>
-                    `
+                    document.getElementById("formHolder").innerHTML = makeHelpBox(url,form.get("dialog"))
                     toggelDisplay("page_controls")
                 },
                 JSON.stringify({
@@ -80,4 +87,15 @@
             )
         }
     }
+
+    function getHelpBoxes(){
+        sendGetRequest(
+            "/customStories/finalBattle",
+            (resp)=>
+            JSON.parse(resp).forEach((helpBox)=>{
+                document.getElementById("help").innerHTML += makeHelpBox(helpBox[0],helpBox[1])
+            })
+        )
+    }
+
 </script>

@@ -48,13 +48,26 @@ class DataBase():
         )
 
     def add_finally_textbox(self,img,dialog):
-        return requests.post(
+        url = requests.post(
             url=self.IMG_HOSTING_URL+"?key="+self.img_hosing_key,
             data={
                 "image" : img
             }
         ).json()["data"]["url"]
+        self._connect_to_db(lambda cursor: cursor.execute("""
+            Insert into helpBoxes
+            VALUES('{}','{}')
+        """.format(url,dialog)))
+        return url
 
+    def get_finally_textboxes(self):
+        def func(cursor):
+            cursor.execute(""" 
+                SELECT * 
+                FROM helpBoxes
+                """)
+            return cursor.fetchall()
+        return self._connect_to_db(func)
         
     def _connect_to_db(self,func):
         conn = psycopg2.connect(self.url, sslmode='require')
