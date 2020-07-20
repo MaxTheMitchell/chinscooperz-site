@@ -1,0 +1,52 @@
+<main> 
+    <h1 class="epolog">EPILOGUE</h1>
+    <div class="links" style="left: 10%;"></div>
+    <div class="links" style="left: 20%;"></div>
+    <div class="links" style="left: 30%;"></div>
+    <div class="links" style="left: 40%;"></div>
+    <div class="links" style="left: 50%;"></div>
+    <div class="links" style="left: 60%;"></div>
+    <div class="links" style="left: 70%;"></div>
+    <div class="links" style="left: 80%;"></div>
+</main>
+
+<style>
+    main{
+        background-image: url("/front_end/static/imgs/misc/epolog.gif");
+    }
+    .epolog{
+        color: blue;
+        font-size: 9vw;
+        text-align: center;
+    }
+    .myA{
+        color: orange;
+        font-size: 4vw;
+        position: absolute;
+    }
+    .links{
+        height: 100%;
+        position: absolute;
+        top:35%;
+
+    }
+</style>
+
+<script>
+   document.addEventListener('DOMContentLoaded', ()=>{
+        let i = 0
+        let links = 10
+        Array.from(document.getElementsByClassName("links")).forEach((e)=>{
+            setInterval(
+                ()=>{
+                    
+                    let text = ""
+                    for(let x=0;x<links;x++){text += `
+                        <a class="myA" href="/story/Epilogue/1" style="top:${(i+x*100/links)%100}%">END</a>`}
+                    e.innerHTML = text
+                    i++
+                },100
+            )
+        })
+    }) 
+</script>
