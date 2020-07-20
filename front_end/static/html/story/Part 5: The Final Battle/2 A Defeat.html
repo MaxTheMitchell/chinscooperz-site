@@ -1,0 +1,44 @@
+<main> 
+    <div class="border_left"></div>
+    <div class="border_right"></div>
+    <div class="center">
+        <div style="display:flex">
+            <div class="textbox godfoot1"><p>Just</p></div>
+            <div class="textbox godfoot2"><p>Who</p></div>
+            <div class="textbox godfoot3"><p>Will</p></div>
+            <div class="textbox godfoot4"><p>Win?</p></div>
+        </div>
+        <hr class="narration_break">
+        <div class="textbox justice">
+            <p>Yes, yes I've got so much power from so many sources!</p></div>
+        <div class="textbox dues">
+            <p>Err ah ah!</p></div>
+        <h1>TODO</h1>
+        <div class="textbox justice">
+            <p>YES! We defeated Dues!</p></div>
+        <div class="textbox magic_rat">
+            <p>YES!</p></div>
+        <div class="textbox niko">
+            <p>YES!</p></div>
+        <div class="textbox chef">
+            <p>YES!</p></div>
+        <div id="die" class="textbox dues">
+            <p>YES! You all teamed up to defeat me! This is what I dreamed
+                of, the most satisfing ending!
+            </p></div>
+        <page_controls></page_controls>
+    </div>
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', ()=>{
+        let i = 0
+        setInterval(
+            ()=>{
+                document.getElementById("die").style.opacity = `${1-i/10}`
+                i++
+                if(i>10){i=0}
+            },300
+        )
+    })
+</script>
