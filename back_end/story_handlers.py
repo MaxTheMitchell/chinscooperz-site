@@ -34,6 +34,11 @@ class StoryHandlers:
                 url)
 
     def _table_of_contents(self):
+        folders = list(map(
+                        lambda directory: self._pages_in_part(directory),
+                        filter(lambda f: not '.' in f , sorted(os.listdir(self.HTML_PATH+'/story')))
+                    ))
+        folders[0],folders[-1] = folders[-1],folders[0]
         return self.HTML_FAC.get_html_sting("""
             <main> 
                 <div class="border_left"></div>
@@ -43,11 +48,7 @@ class StoryHandlers:
                     {}
                 </div>
             </main>
-            """.format("".join(
-                    map(
-                        lambda directory: self._pages_in_part(directory),
-                        filter(lambda f: not '.' in f , sorted(os.listdir(self.HTML_PATH+'/story')))
-                    ))
+            """.format("".join(folders)
                 )
         )
 
