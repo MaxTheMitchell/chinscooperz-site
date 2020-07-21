@@ -63,7 +63,7 @@
         style="background-color:rgb(${Math.floor(Math.random()*255)},
         ${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)});">
             <img class="face" src="${url}">
-            <p>${dialog}</p>
+            <p>${unescape(dialog)}</p>
         </div>
     `
     }
@@ -82,7 +82,7 @@
                 },
                 JSON.stringify({
                     img: reader.result.replace(/^data:.+;base64,/, ''),
-                    dialog : form.get("dialog")
+                    dialog : escape(form.get("dialog"))
                 })
             )
         }
