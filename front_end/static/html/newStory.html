@@ -41,7 +41,7 @@
                 position: textboxes.length,
                 character: form.get("character"),
                 animation: form.get("animation"),
-                dialog: form.get("dialog")
+                dialog: escape(form.get("dialog"))
             }
         )
         makeStuff()
@@ -58,7 +58,7 @@
             "/customStories/new",
             ()=>window.location.href = "/customStories",
             JSON.stringify({
-                storyName: storyName,
+                storyName: escape(storyName),
                 textboxes : textboxes
             })
         )

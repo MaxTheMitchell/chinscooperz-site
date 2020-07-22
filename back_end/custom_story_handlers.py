@@ -1,4 +1,4 @@
-import re,os,json
+import re,os,json,urllib
 
 class CustomStoryHandler():
 
@@ -59,7 +59,7 @@ class CustomStoryHandler():
                 "".join(map(
                     lambda table: """
                         <h3><a href="/customStories/{}">{}</a></h3>
-                        """.format(table[0],table[0]),
+                        """.format(urllib.parse.quote(table[0]),urllib.parse.unquote(table[0])),
                     self.DATA_BASE.get_story_names()
                 ))
             ))
@@ -76,12 +76,12 @@ class CustomStoryHandler():
                     </a>
                 </div>
             </main>
-            <script>setPageTitle('{}')</script>
+            <script>setPageTitle(unescape('{}'))</script>
             """.format(
                 "".join(map(
                     lambda table:"""
                     <div class="textbox {} {}"><p>{}</p></div>
-                    """.format(table[3],table[2],table[4]),
+                    """.format(table[3],table[2],urllib.parse.unquote(table[4])),
                     sorted(
                         self.DATA_BASE.get_story(url.split("/")[-1]),
                         key=lambda t:t[1]
