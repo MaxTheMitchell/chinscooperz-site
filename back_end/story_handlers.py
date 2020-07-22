@@ -38,7 +38,7 @@ class StoryHandlers:
                         lambda directory: self._pages_in_part(directory),
                         filter(lambda f: not '.' in f , sorted(os.listdir(self.HTML_PATH+'/story')))
                     ))
-        folders[0],folders[-1] = folders[-1],folders[0]
+        folders.append(folders.pop(0))
         return self.HTML_FAC.get_html_sting("""
             <main> 
                 <div class="border_left"></div>

@@ -147,6 +147,18 @@ input[type=submit]:active,button:active {
     word-wrap: break-word;
 }
 
+.long_textbox{
+    height: auto;
+}
+
+.long_textbox p{
+    margin-left: 100px;
+}
+
+.long_textbox h2{
+    margin-left: 120px;
+}
+
 .horizonal{
     display: flex;
 }
