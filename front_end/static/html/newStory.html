@@ -53,14 +53,23 @@
 
     function publishStory(){
         let storyName = ""
-        while(storyName.search(/^\s*$|\//)>-1)storyName = prompt("What will you name your story?")
-        sendPostRequest(
-            "/customStories/new",
-            ()=>window.location.href = "/customStories",
-            JSON.stringify({
-                storyName: escape(storyName),
-                textboxes : textboxes
-            })
+        sendGetRequest("/customStories/names",
+            (names)=>{
+                names = JSON.parse(names)
+                storyName = prompt("What will you name your story?")
+                while(storyName.search(/^\s*$|\//)>-1 || names.indexOf(escape(storyName))>=0){
+                    alert("Name is already taken or is empty!")
+                    storyName = prompt("What will you name your story?")
+                }
+                sendPostRequest(
+                    "/customStories/new",
+                    ()=>window.location.href = "/customStories",
+                    JSON.stringify({
+                        storyName: escape(storyName),
+                        textboxes : textboxes
+                    })
+                )
+            }
         )
     }
 

@@ -16,6 +16,8 @@ class CustomStoryHandler():
             return self._index_resp()
         elif url == "/customStories/finalBattle":
             return json.dumps(self.DATA_BASE.get_finally_textboxes())
+        elif url == "/customStories/names":
+            return json.dumps(self.DATA_BASE.get_story_names())
         return self._custom_story_resp(url)
     
     def post_resp(self,url,body):
@@ -57,9 +59,9 @@ class CustomStoryHandler():
             </main>
             """.format(
                 "".join(map(
-                    lambda table: """
+                    lambda name: """
                         <h3><a href="/customStories/{}">{}</a></h3>
-                        """.format(urllib.parse.quote(table[0]),urllib.parse.unquote(table[0])),
+                        """.format(urllib.parse.quote(name),urllib.parse.unquote(name)),
                     self.DATA_BASE.get_story_names()
                 ))
             ))

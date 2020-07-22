@@ -15,7 +15,7 @@ class DataBase():
                 FROM storyTextboxes
                 """)
             return cursor.fetchall()
-        return self._connect_to_db(func)
+        return [table[0] for table in self._connect_to_db(func)]
 
     def insert_story(self,data):
         self._connect_to_db(
