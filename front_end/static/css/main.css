@@ -197,3 +197,17 @@ input[type=submit]:active,button:active {
 .choices div:hover{
     background-color: rgba(150, 150, 150, 0)
 }
+
+.dues_battle{
+    background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.unilad.co.uk%2Fwp-content%2Fuploads%2F2015%2F09%2Fspace55.jpg&f=1&nofb=1");
+    background-size: 100% 100%;
+}
+
+.beam{
+    height: 20px;
+    top: 60%;
+    position: absolute;
+    box-shadow: 0 0 5px 10px rgba(255, 150, 255, .5);
+    border-radius: 5px;
+    /* backdrop_filter: blur */
+}

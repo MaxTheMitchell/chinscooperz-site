@@ -15,7 +15,8 @@
         <div class="textbox dues">
             <p>Do you really think you have the power to defeat a god?</p>
         </div>
-        <h1>TODO</h1>
+        <div class="animation_box dues_battle" id="battle0">
+        </div>
         <div class="textbox justice">
             <p>Dam, he's too powerful for me!</p>
         </div>
@@ -34,6 +35,7 @@
         <div class="textbox chef">
             <p>I WILL HELP YOU AS WELL!</p>
         </div>
+        <div class="animation_box dues_battle" id="battle1"></div>
         <div class="textbox justice">
             <p>My lord it's still not enough. I'm going to need some energy from every one!
                 Even <b>YOU!</b>
@@ -56,6 +58,8 @@
 <script>
 
     document.addEventListener('DOMContentLoaded', getHelpBoxes)
+    document.addEventListener('DOMContentLoaded', shootBeams)
+    document.addEventListener('DOMContentLoaded', shootBeamsAgain)
 
     function makeHelpBox(url,dialog){
         return `
@@ -96,6 +100,36 @@
                 document.getElementById("help").innerHTML += makeHelpBox(helpBox[0],helpBox[1])
             })
         )
+    }
+
+    function shootBeams(){
+        let beam = makeBeam()
+        beam.style.left = `${BEAM_SPACING+3}%`
+        beam.style.width = `${100-BEAM_SPACING*2-8}%`
+        canvas = duesBattleSetup("battle0",BEAM_SPACING)
+        canvas.appendChild(beam)
+        let i = 0
+        let center =50
+        setInterval(()=>{
+            if(i<25){
+                beam.style.background = `
+                        linear-gradient(to right, red ${i*4-50}%,
+                            rgba(0,0,0,0) 50%, blue ${150-i*4}%)`
+            }else if(i<200){
+                center = 50-(i%20)+Math.floor((i%20)/10)*(i%20)*2-i/6
+                beam.style.background = `
+                    linear-gradient(to right, red ${center-10}%,
+                         blue ${center+10}%)`
+            }else{
+                i=0
+            }
+            i++
+        },20
+        )
+    }
+
+    function shootBeamsAgain(){
+        fightWithBeams("battle1",35)
     }
 
 </script>
