@@ -11,9 +11,19 @@
         <hr class="narration_break">
         <div class="textbox justice">
             <p>Yes, yes I've got so much power from so many sources!</p></div>
+        <div class="animation_box dues_battle" id="battle0"></div>
         <div class="textbox dues">
             <p>Err ah ah!</p></div>
-        <h1>TODO</h1>
+        <div class="textbox justice">
+            <p>ARRRAGUUUUUUU!</p></div>
+        <div class="animation_box dues_battle" id="battle1"></div>
+        <div class="textbox justice">
+            <p>Not looking so good for you now Deus!</p></div>
+        <div class="textbox dues">
+            <p>Is that so?!</p></div>
+        <div class="textbox dues">
+            <p>AAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHH!</p></div>
+        <div class="animation_box dues_battle" id="battle2"></div>
         <div class="textbox justice">
             <p>YES! We defeated Dues!</p></div>
         <div class="textbox magic_rat">
@@ -41,4 +51,38 @@
             },300
         )
     })
+    document.addEventListener('DOMContentLoaded',()=>fightWithBeams("battle0",50))
+    document.addEventListener('DOMContentLoaded',()=>fightWithBeams("battle1",75))
+    document.addEventListener('DOMContentLoaded',finalBattle)
+
+    function finalBattle(){
+        let beam = makeBeam()
+        beam.style.left = `${BEAM_SPACING+3}%`
+        beam.style.width = `${100-BEAM_SPACING*2-8}%`
+        canvas = duesBattleSetup("battle2",BEAM_SPACING)
+        canvas.appendChild(beam)
+        let dues = canvas.children[1]
+        let center = 85
+        let i = 0
+        setInterval(()=>{
+            if(i<40)center-= 2
+            else if(center<100){
+                center+=4
+            }else if(center<200){
+                center+=4
+                dues.style.left=`${Number(dues.style.left.slice(0,dues.style.left.length-1))+4}%`
+                beam.style.width=`${Number(beam.style.width.slice(0,beam.style.width.length-1))+4}%`
+            }
+            else {
+                i=0
+                center=75
+                beam.style.width=`${100-BEAM_SPACING*2-8}%`
+                dues.style.left = "85%"
+            }
+            beam.style.background = `
+                linear-gradient(to right, red ${center-10}%,
+                        blue ${center+10}%)`
+            i++
+        },10)
+    }
 </script>

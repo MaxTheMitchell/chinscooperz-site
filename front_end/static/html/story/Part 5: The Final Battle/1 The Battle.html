@@ -59,7 +59,7 @@
 
     document.addEventListener('DOMContentLoaded', getHelpBoxes)
     document.addEventListener('DOMContentLoaded', shootBeams)
-    document.addEventListener('DOMContentLoaded', shootBeamsAgain)
+    document.addEventListener('DOMContentLoaded', ()=>fightWithBeams("battle1",35))
 
     function makeHelpBox(url,dialog){
         return `
@@ -127,9 +127,4 @@
         },20
         )
     }
-
-    function shootBeamsAgain(){
-        fightWithBeams("battle1",35)
-    }
-
 </script>
