@@ -12,12 +12,12 @@
         <img  src='/front_end/static/imgs/character_sheets/ryan/up0.png'>
         <img  src='/front_end/static/imgs/character_sheets/ryan/up1.png'>
         <img  src='/front_end/static/imgs/character_sheets/ryan/up2.png'>
-        <img  src='/front_end/static/imgs/character_sheets/magic_rat/left0.png'>
-        <img  src='/front_end/static/imgs/character_sheets/magic_rat/left1.png'>
-        <img  src='/front_end/static/imgs/character_sheets/magic_rat/left2.png'>
-        <img  src='/front_end/static/imgs/character_sheets/chef/left0.png'>
-        <img  src='/front_end/static/imgs/character_sheets/chef/left1.png'>
-        <img  src='/front_end/static/imgs/character_sheets/chef/left2.png'>
+        <img  src='/front_end/static/imgs/character_sheets/magic_rat/right0.png'>
+        <img  src='/front_end/static/imgs/character_sheets/magic_rat/right1.png'>
+        <img  src='/front_end/static/imgs/character_sheets/magic_rat/right2.png'>
+        <img  src='/front_end/static/imgs/character_sheets/chef/right0.png'>
+        <img  src='/front_end/static/imgs/character_sheets/chef/right1.png'>
+        <img  src='/front_end/static/imgs/character_sheets/chef/right2.png'>
     </div>
     <div class="border_left"></div>
     <div class="border_right"></div>
@@ -32,12 +32,31 @@
             <p>HAULGUUUU RRRUP KIKI!</p>
         </div>
         <div class="textbox justice">
-            <p>Damn, I can here that freak a mile away! So why can't we find him!?</p>
+            <p>I can here that freak a mile away! So why can't we find him!?</p>
         </div>
         <div class="textbox chef">
             <p>I CANT EXPLAIN IT EITHER.</p>
         </div>
         <div class="animation_box" id="sneak"></div>
+        <div class="textbox justice">
+            <p>Damn it! How can he just sneak up on us like that?</p>
+        </div>
+        <div class="textbox chef">
+            <p>WAIT I"VE GOT AN IDEA.</p>
+        </div>
+        <div class="textbox justice">
+            <p>Good idea Chef! If we just stand back to back he can't sneak up on us.</p>
+        </div>
+        <div class="textbox chef">
+            <p>LETS TRY IT OUT.</p>
+        </div>
+        <div class="animation_box" id="air_force"></div>
+        <div class="textbox ryan">
+            <p>Kuuuurrp Kek Kooog!</p>
+        </div>
+        <div class="textbox justice">
+            <p>Ugg! Everything we do and everything we try, it just never works out!</p>
+        </div>
         <page_controls></page_controls>
     </div>
 </main>
@@ -58,6 +77,7 @@
 
 <script>
     document.addEventListener("DOMContentLoaded",sneak)
+    document.addEventListener("DOMContentLoaded",airForce)
 
     function sneak(){
         let canvas = document.getElementById("sneak")
@@ -126,6 +146,42 @@
                 ron.src = `/front_end/static/imgs/character_sheets/ryan/left${i%3}.png`
                 ron.style.left = `${20-2*(i-120)}%`
             }else i =0
+            i++
+        },70)
+    }
+
+    function airForce(){
+        let canvas = document.getElementById("air_force")
+        let ron = createCharacterImg("/front_end/static/imgs/character_sheets/ryan/down1.png")
+        let chef = createCharacterImg("/front_end/static/imgs/character_sheets/chef/right1.png")
+        let justice = createCharacterImg("/front_end/static/imgs/character_sheets/magic_rat/left1.png")
+        canvas.appendChild(ron)
+        canvas.appendChild(chef)
+        canvas.appendChild(justice)
+        let i = 0
+        setInterval(()=>{
+            if(i<20){
+                ron.src = "/front_end/static/imgs/character_sheets/ryan/down1.png"
+                chef.style.left = "50%"
+                justice.style.left = "45%"
+                ron.style.bottom = "200%"
+                chef.style.transform = `rotate(0deg)`
+                justice.style.transform = `rotate(0deg)`
+                chef.style.bottom = `0%`
+                justice.style.bottom = `0%`
+            }else if(i<26){
+                ron.style.left = "48%"
+                ron.style.bottom = `${110-(i-20)*20}%`
+                chef.style.transform = `rotate(${(i-20)*18}deg)`
+                chef.style.bottom = `${-(i-20)*8}%`
+                justice.style.transform = `rotate(${-(i-20)*18}deg)`
+                justice.style.bottom = `${-(i-20)*8}%`
+            }else if(i<35){
+                ron.src = "/front_end/static/imgs/character_sheets/ryan/left1.png"
+                ron.style.bottom = `${((i-26)*20)}%`
+                ron.style.left = `${48-2*(i-26)}%`
+            }else i=0
+
             i++
         },70)
     }
