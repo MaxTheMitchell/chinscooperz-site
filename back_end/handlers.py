@@ -11,7 +11,7 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
         open(HTML_PATH + "/footer.html").read()
     )
     BYTE_FORMAT = 'utf-8'
-    DATA_BASE = data_base.DataBase(os.getenv("DATABASE_URL"))
+    DATA_BASE = data_base.DataBase(os.getenv("DATABASE_URL"),os.getenv("IMG_HOSTING_KEY"))
     GAME = gameHandlers.GameHandler()
     CUSTOM_STORY = custom_story_handlers.CustomStoryHandler(HTML_FAC,DATA_BASE)
     STORY = story_handlers.StoryHandlers(HTML_FAC,HTML_PATH)
@@ -37,7 +37,7 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
         elif self.STORY.is_story(url):
             return self.STORY.story_resp(url)
         elif self.CUSTOM_STORY.is_custom_story(url):
-            return self.CUSTOM_STORY.custom_story_resp(url)
+            return self.CUSTOM_STORY.get_resp(url)
         elif self._is_game(url):
             return self.GAME.handle_get_req(url,query_vals,self._cookies())
         return
@@ -45,6 +45,8 @@ class MyHandlers(http.server.SimpleHTTPRequestHandler):
     def _post_resp(self):
         if self._is_game(self.path):
             return self.GAME.handle_post_req(self.path,self._post_body(),self._cookies())
+        elif self.CUSTOM_STORY.is_custom_story(self.path):
+            return self.CUSTOM_STORY.post_resp(self.path,self._post_body())
         return
 
     def _post_body(self):

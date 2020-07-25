@@ -28,7 +28,7 @@
     to {opacity: 1;}
 }
 
-@keyframes run_left {
+@keyframes run_right {
     0%{
         margin-left: 0%;
         margin-right: 0%;
@@ -42,7 +42,7 @@
     }
 }
 
-@keyframes run_right {
+@keyframes run_left {
     0%{
         margin-right: 0%;
         margin-left: 0%;

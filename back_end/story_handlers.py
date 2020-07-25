@@ -21,7 +21,7 @@ class StoryHandlers:
 
     def _set_page_title(self,url):
         return "<script>setPageTitle('{}')</script>".format(
-            url.upper().split('/')[-1]
+            url.split('/')[-1]
         )
 
     def _fix_story_url(self,url):
@@ -34,6 +34,11 @@ class StoryHandlers:
                 url)
 
     def _table_of_contents(self):
+        folders = list(map(
+                        lambda directory: self._pages_in_part(directory),
+                        filter(lambda f: not '.' in f , sorted(os.listdir(self.HTML_PATH+'/story')))
+                    ))
+        folders.append(folders.pop(0))
         return self.HTML_FAC.get_html_sting("""
             <main> 
                 <div class="border_left"></div>
@@ -43,11 +48,7 @@ class StoryHandlers:
                     {}
                 </div>
             </main>
-            """.format("".join(
-                    map(
-                        lambda directory: self._pages_in_part(directory),
-                        filter(lambda f: not '.' in f , sorted(os.listdir(self.HTML_PATH+'/story')))
-                    ))
+            """.format("".join(folders)
                 )
         )
 

@@ -1,0 +1,130 @@
+<main> 
+    <div class="border_left"></div>
+    <div class="border_right"></div>
+    <div class="center">
+        <div class="textbox godfoot1"><p>It's time for..</p></div>
+        <div style="display:flex">
+            <div class="textbox godfoot2"><p>The</p></div>
+            <div class="textbox godfoot3"><p>Final</p></div>
+            <div class="textbox godfoot4"><p>Battle</p></div>
+        </div>
+        <hr class="narration_break">
+        <div class="textbox justice">
+            <p>This is it Dues you going down!</p>
+        </div>
+        <div class="textbox dues">
+            <p>Do you really think you have the power to defeat a god?</p>
+        </div>
+        <div class="animation_box dues_battle" id="battle0">
+        </div>
+        <div class="textbox justice">
+            <p>Dam, he's too powerful for me!</p>
+        </div>
+        <div class="textbox fadora" style="opacity: .5;">
+            <p>Brother, remember you don't have to do this all on your own!</p>
+        </div>
+        <div class="textbox justice">
+            <p>That's right! You all lend me your energy!</p>
+        </div>
+        <div class="textbox magic_rat">
+            <p>Here you goooooooo!</p>
+        </div>
+        <div class="textbox niko">
+            <p>ERRRRR I'm giving you all I can!</p>
+        </div>
+        <div class="textbox chef">
+            <p>I WILL HELP YOU AS WELL!</p>
+        </div>
+        <div class="animation_box dues_battle" id="battle1"></div>
+        <div class="textbox justice">
+            <p>My lord it's still not enough. I'm going to need some energy from every one!
+                Even <b>YOU!</b>
+            </p>
+        </div>
+        <div id="help"></div>
+        <div id="formHolder">
+            <form class="create_textbox" enctype="multipart/form-data" onsubmit="createHelpBox(this)">
+                <label for="img" id="img_label">Your Face:</label>
+                <input type="file" name="img" id="img" accept="image/*" value="Your Face" required>
+                <label for="dialog" id="dialog_label">Your Help Text:</label>
+                <textarea id="dialog" name="dialog" maxlength="175" required></textarea>
+                <input type="submit" style="width: 22%;left:77%" id="submit_textbox" value="Help The Chinscooperz!">
+            </form>
+        </div>
+        <page_controls id="page_controls" style="display: none;"></page_controls>
+    </div>
+</main>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', getHelpBoxes)
+    document.addEventListener('DOMContentLoaded', shootBeams)
+    document.addEventListener('DOMContentLoaded', ()=>fightWithBeams("battle1",35))
+
+    function makeHelpBox(url,dialog){
+        return `
+        <div class="textbox"
+        style="background-color:rgb(${Math.floor(Math.random()*255)},
+        ${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)});">
+            <img class="face" src="${url}">
+            <p>${unescape(dialog)}</p>
+        </div>
+    `
+    }
+
+    function createHelpBox(form){
+        event.preventDefault()
+        form = new FormData(form)
+        let reader = new FileReader();
+        reader.readAsDataURL(form.get("img"));
+        reader.onload = ()=>{
+            sendPostRequest(
+                "/customStories/finalBattle",
+                (url)=>{
+                    document.getElementById("formHolder").innerHTML = makeHelpBox(url,form.get("dialog"))
+                    toggelDisplay("page_controls")
+                },
+                JSON.stringify({
+                    img: reader.result.replace(/^data:.+;base64,/, ''),
+                    dialog : escape(form.get("dialog"))
+                })
+            )
+        }
+    }
+
+    function getHelpBoxes(){
+        sendGetRequest(
+            "/customStories/finalBattle",
+            (resp)=>
+            JSON.parse(resp).forEach((helpBox)=>{
+                document.getElementById("help").innerHTML += makeHelpBox(helpBox[0],helpBox[1])
+            })
+        )
+    }
+
+    function shootBeams(){
+        let beam = makeBeam()
+        beam.style.left = `${BEAM_SPACING+3}%`
+        beam.style.width = `${100-BEAM_SPACING*2-8}%`
+        canvas = duesBattleSetup("battle0",BEAM_SPACING)
+        canvas.appendChild(beam)
+        let i = 0
+        let center =50
+        setInterval(()=>{
+            if(i<25){
+                beam.style.background = `
+                        linear-gradient(to right, red ${i*4-50}%,
+                            rgba(0,0,0,0) 50%, blue ${150-i*4}%)`
+            }else if(i<200){
+                center = 50-(i%20)+Math.floor((i%20)/10)*(i%20)*2-i/6
+                beam.style.background = `
+                    linear-gradient(to right, red ${center-10}%,
+                         blue ${center+10}%)`
+            }else{
+                i=0
+            }
+            i++
+        },20
+        )
+    }
+</script>

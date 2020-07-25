@@ -1,0 +1,68 @@
+<main> 
+    <h1 class="part" >PART FIVE</h1>
+    <h1 class="final" >THE FINAL BATTLE</h1>
+    <b><a class="myA" style="left:11%;" href="/story/Part 5: The Final Battle/1">START</a></b>
+    <b><a class="myA" style="left:21%;" href="/story/Part 5: The Final Battle/1">START</a></b>
+    <b><a class="myA" style="left:31%;" href="/story/Part 5: The Final Battle/1">START</a></b>
+    <b><a class="myA" style="left:41%;" href="/story/Part 5: The Final Battle/1">START</a></b>
+    <b><a class="myA" style="left:51%;"href="/story/Part 5: The Final Battle/1">START</a></b>
+    <b><a class="myA" style="left:61%;" href="/story/Part 5: The Final Battle/1">START</a></b>
+    <b><a class="myA" style="left:71%;" href="/story/Part 5: The Final Battle/1">START</a></b>
+    <b><a class="myA" style="left:81%;" href="/story/Part 5: The Final Battle/1">START</a></b>
+    <b><a class="myA" style="left:91%;" href="/story/Part 5: The Final Battle/1">START</a></b>
+    <b><a class="myA" style="left:1%;"href="/story/Part 5: The Final Battle/1">START</a></b>
+</main>
+
+<style>
+    @keyframes rotate{
+        0%{
+            background: url('/front_end/static/imgs/misc/background5_1.png');
+        }25%{
+            background: url('/front_end/static/imgs/misc/background5_2.png');
+        }50%{
+            background: url('/front_end/static/imgs/misc/background5_3.png');
+        }75%{
+            background: url('/front_end/static/imgs/misc/background5_4.png');
+        }100%{
+            background: url('/front_end/static/imgs/misc/background5_1.png');
+        }
+    }
+
+    @keyframes Arotate{
+        from{
+            transform: rotate(0deg);
+        }to{
+            transform: rotate(360deg);
+        }
+    }
+    main{
+        animation-name: rotate;
+        animation-duration: .5s;
+        animation-iteration-count: infinite;
+        background: url('/front_end/static/imgs/misc/background5_1.png')
+    }
+    .part{
+        text-align: center;
+        font-size: 5vw;
+        color: greenyellow;
+    }
+
+    .final{
+        text-align: center;
+        font-size: 7vw;
+        color: red;
+    }
+
+    .myA{
+        animation-name: Arotate;
+        animation-duration: .5s;
+        animation-iteration-count: infinite;
+        position: absolute;
+        color: yellow;
+        font-size: 2vw;
+    }
+</style>
+
+<script>
+    
+</script>

@@ -69,21 +69,12 @@
 </main>
 
 <script>
-    const CHARACTER_WIDTH_PERCENT = 5
 
     document.addEventListener("DOMContentLoaded", ()=>{
         magicRatAnimation()
         nikoAnimation()
     })
 
-    function createCharacterImg(src){
-        let img = document.createElement("img")
-        img.setAttribute("src",src)
-        img.style.position = "absolute"
-        img.style.width = `${CHARACTER_WIDTH_PERCENT}%`
-        img.style.bottom = "0%"
-        return img
-    }
 
     function createBullet(){
         let bullet = document.createElement("div")

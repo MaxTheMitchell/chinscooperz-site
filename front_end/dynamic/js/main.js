@@ -14,7 +14,7 @@ function loadTextBoxes(){
 }
 
 function loadTextBox(textbox){
-  textbox.innerHTML = `<img src="/front_end/static/imgs/faces/${textbox.getAttribute("class").split(' ')[1]}.jpg">${textbox.innerHTML}`
+  textbox.innerHTML = `<img class="face" src="/front_end/static/imgs/faces/${textbox.getAttribute("class").split(' ')[1]}.jpg">${textbox.innerHTML}`
 }
 
 function sendGetRequest(url,callback=()=>{}){
@@ -72,7 +72,7 @@ function bindChoices(){
 }
 
 function setPageTitle(titleName){
-  document.getElementById("pageTitle").innerHTML = titleName
+  document.getElementById("pageTitle").innerHTML = titleName.toUpperCase()
 }
 
 function makeChoice(element){
@@ -82,4 +82,48 @@ function makeChoice(element){
     += paths[path].response
   paths = paths[path]
   makeStuff()
+}
+
+const CHARACTER_WIDTH_PERCENT = 5
+const BEAM_SPACING = 10
+function createCharacterImg(src){
+  let img = document.createElement("img")
+  img.setAttribute("src",src)
+  img.style.position = "absolute"
+  img.style.width = `${CHARACTER_WIDTH_PERCENT}%`
+  img.style.bottom = "0%"
+  return img
+}
+
+function duesBattleSetup(id,spacing){
+  let canvas = document.getElementById(id)
+  let justice = createCharacterImg("/front_end/static/imgs/character_sheets/fadora/right1.png")
+  let dues = createCharacterImg("/front_end/static/imgs/character_sheets/ryan/left1.png")
+  justice.style.left = `${spacing}%`
+  dues.style.left = `${95-spacing}%`
+  canvas.appendChild(justice)
+  canvas.appendChild(dues)
+  return canvas
+}
+
+function fightWithBeams(id,static_center){
+  let beam = makeBeam()
+  beam.style.left = `${BEAM_SPACING+3}%`
+  beam.style.width = `${100-BEAM_SPACING*2-8}%`
+  canvas = duesBattleSetup(id,BEAM_SPACING)
+  canvas.appendChild(beam)
+  let i = 0
+  setInterval(()=>{
+      center = static_center-(i%20)+Math.floor((i%20)/10)*(i%20)*2
+      beam.style.background = `
+          linear-gradient(to right, red ${center-10}%,
+                blue ${center+10}%)`
+      i++
+  },20)
+}
+
+function makeBeam(){
+  let beam = document.createElement("div")
+  beam.setAttribute("class","beam")
+  return beam
 }
