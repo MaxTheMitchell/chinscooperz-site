@@ -8,6 +8,105 @@
             </p>
         </div>
         <hr class="narration_break">
+        <div class="textbox ryan">
+            <p>HAULGUUUU RRRUP KIKI!</p>
+        </div>
+        <div class="textbox justice">
+            <p>Damn, I can here that freak a mile away! So why can't we find him!?</p>
+        </div>
+        <div class="textbox chef">
+            <p>I CANT EXPLAIN IT EITHER.</p>
+        </div>
+        <div class="animation_box" id="sneak"></div>
         <page_controls></page_controls>
     </div>
 </main>
+
+<style>
+    .animation_box{
+        background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.fineartamerica.com%2Fimages-medium-large-5%2Fsan-francisco-red-brick-building-brian-orlovich.jpg&f=1&nofb=1");
+        background-size: 100% 100%;
+    }
+    .exclimation{
+        position: absolute;
+        color: red;
+        font-size: 3vw;
+        bottom: 2%;
+        display: none;
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded",sneak)
+
+    function sneak(){
+        let canvas = document.getElementById("sneak")
+        let ron = createCharacterImg("/front_end/static/imgs/character_sheets/ryan/up1.png")
+        let chef = createCharacterImg("/front_end/static/imgs/character_sheets/chef/right1.png")
+        let justice = createCharacterImg("/front_end/static/imgs/character_sheets/magic_rat/right1.png")
+        let exclimation1 = document.createElement("h2")
+        exclimation1.setAttribute("class","exclimation")
+        exclimation1.innerText = "!"
+        let exclimation2 = exclimation1.cloneNode()
+        exclimation2.innerText = "!"
+        exclimation1.style.left = "61%"
+        exclimation2.style.left = "66%"
+        ron.style.bottom = "-70%"
+        canvas.appendChild(ron)
+        canvas.appendChild(chef)
+        canvas.appendChild(justice)
+        canvas.appendChild(exclimation1)
+        canvas.appendChild(exclimation2)
+        let i = 0
+        setInterval(()=>{
+            if(i<60){
+                chef.src = `/front_end/static/imgs/character_sheets/chef/right${i%3}.png`
+                justice.src = `/front_end/static/imgs/character_sheets/magic_rat/right${i%3}.png`
+                chef.style.left = `${0+i}%`
+                justice.style.left = `${5+i}%`
+                chef.style.bottom = `0%`
+                justice.style.bottom = `0%`
+                chef.style.transform = `rotate(0deg)`
+                justice.style.transform = `rotate(0deg)`
+                if(i>20 && i<40){
+                    ron.style.left = "10%"
+                    ron.src = `/front_end/static/imgs/character_sheets/ryan/up${i%3}.png`
+                    ron.style.bottom = `${(i-20)*10-70}%`
+                }else if(i>50){
+                    ron.style.left = `${100-(i-50)*2}%`
+                    ron.src = `/front_end/static/imgs/character_sheets/ryan/left1.png`
+                    ron.style.bottom = `0%`
+                }
+            }else if(i<70){
+                exclimation1.style.display = "inline"
+                exclimation2.style.display = "inline"
+                ron.src = `/front_end/static/imgs/character_sheets/ryan/left2.png`
+                chef.src = `/front_end/static/imgs/character_sheets/chef/right1.png`
+                justice.src = `/front_end/static/imgs/character_sheets/magic_rat/right1.png`
+                ron.style.bottom = `${((i-60)*16-(Math.floor((i-60)/6)*(32*(i-60)-160)))}%`
+                ron.style.left = `${80-2*(i-60)}%`
+                if(i>64){
+                    exclimation1.style.display = "none"
+                    exclimation2.style.display = "none"
+                    chef.style.transform = `rotate(${-(i-64)*18}deg)`
+                    chef.style.bottom = `${-(i-64)*8}%`
+                    justice.style.transform = `rotate(${-(i-64)*18}deg)`
+                    justice.style.bottom = `${-(i-64)*8}%`
+                }
+            }else if(i<80){
+                ron.style.bottom = `${((i-70)*16-(Math.floor((i-70)/5)*(32*(i-70)-160)))}%`
+                ron.style.left = `${60-2*(i-70)}%`
+            }else if(i<90){
+                ron.style.bottom = `${((i-80)*16-(Math.floor((i-80)/5)*(32*(i-80)-160)))}%`
+                ron.style.left = `${40-2*(i-80)}%`
+            }else if(i<120){
+                ron.style.bottom = "0%"
+                ron.src = `/front_end/static/imgs/character_sheets/ryan/down${i%3}.png`
+            }else if(i<140){
+                ron.src = `/front_end/static/imgs/character_sheets/ryan/left${i%3}.png`
+                ron.style.left = `${20-2*(i-120)}%`
+            }else i =0
+            i++
+        },70)
+    }
+</script>
