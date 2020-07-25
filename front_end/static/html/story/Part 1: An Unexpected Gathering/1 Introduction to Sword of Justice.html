@@ -3,17 +3,19 @@
     <div class="border_right"></div>
     <div class="center">
         <div class="textbox godfoot1">
-            <p>We start our story within the Sword of Justice timeline.</p>
+            <p>We start our story within the Sword of Justice timeline...</p>
         </div>
         <hr class="narration_break">
         <div class="textbox justice">
             <p>Move aside! There is justice to be had!</p>
         </div>
         <div class="textbox fadora">
-            <p>No brother. How many times must I remind you, its dangerous out there. Your gonna get hurt!</p>
+            <p>No brother, you must think before you act. justice is a fickle thing. What may seem like justice in the
+                moment may just be vengeance.
+            </p>
         </div>
         <div class="textbox justice">
-            <p>Ha! My personal safety is nothing when compared to the virtue of removing the tyranny of injustice!</p>
+            <p>Ha! Please, if anyone knows justice, it's me! Move aside!</p>
         </div>
         <div class="textbox fadora">
             <p>Fine! If thats how it is, your going to have to fight me before you can fight injustice!</p>
@@ -21,21 +23,15 @@
         <div class="textbox justice">
             <p>Nice, an easy warm up!</p>
         </div>
+        <div class="textbox justice">
+            <p>Too slow!</p>
+        </div>
+        <div class="animation_box" id="too_slow"></div>
         <div class="textbox fadora">
-            <p>Heya!</p>
+            <p>No brother, it is you that is too slow.</p>
         </div>
         <div class="textbox justice">
-            <p>YA!</p>
-        </div>
-        <div class="textbox fadora">
-            <p>Oof!</p>
-        </div>
-        <div class="textbox justice">
-            <p>Ouchie!</p>
-        </div>
-        <!--TODO: animation-->
-        <div class="textbox justice">
-            <p>Huh, I guess your not all that bad.</p>
+            <p>Please, you just caught me off guard.</p>
         </div>
         <div class="textbox dues">
             <p>*snap</p>
@@ -51,3 +47,49 @@
     </div>
 
 </main>
+
+<style>
+    .animation_box{
+        background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2F1yearframes.files.wordpress.com%2F2010%2F11%2F1035_parking-lot.jpg&f=1&nofb=1");
+        background-size: 100% 100%;
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded",tooSlow)
+
+    function tooSlow(){
+        let canvas = document.getElementById("too_slow")
+        let justice = createCharacterImg("/front_end/static/imgs/character_sheets/magic_rat/right1.png")
+        let fadora = createCharacterImg("/front_end/static/imgs/character_sheets/fadora/left1.png")
+        let oldJustices = []
+        justice.style.left = `20%`
+        justice.style.opacity = "1"
+        canvas.appendChild(justice)
+        canvas.appendChild(fadora)
+        let i = 0
+        let filpStart = 15
+        setInterval(()=>{
+            if(i==0){
+                fadora.style.left = `75%`
+                fadora.style.bottom = "0%"
+                fadora.style.transform = `rotate(0deg)`
+                oldJustices= []
+            }
+            oldJustices.push(justice.cloneNode())
+            canvas.appendChild(oldJustices[oldJustices.length-1])
+            justice.style.left = `${20+i*2}%`
+            justice.src = `/front_end/static/imgs/character_sheets/magic_rat/right${i%3}.png`
+            oldJustices.forEach(j=>{
+                j.style.opacity = `${Number(j.style.opacity)-.1}`
+            })
+            if(i<filpStart+25 && i>filpStart){
+                fadora.style.bottom = `${(i-filpStart)*8-(Math.floor((i-filpStart)/13)*((i-filpStart)*16-192))}%`
+                fadora.style.left = `${75-(i-filpStart)}%`
+                fadora.style.transform = `rotate(${-(i-filpStart)*15}deg)`
+            }
+            i++
+            if(i>52)i=0
+        },50)
+    }
+</script>
