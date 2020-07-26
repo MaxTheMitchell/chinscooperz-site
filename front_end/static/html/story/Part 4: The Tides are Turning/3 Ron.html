@@ -57,6 +57,30 @@
         <div class="textbox justice">
             <p>Ugg! Everything we do and everything we try, it just never works out!</p>
         </div>
+        <div class="textbox chef">
+            <p>WAIT I HAVE ANOTHER IDEA THIS IS IT THE IDEA HERE IT IS</p>
+        </div>
+        <div class="textbox justice">
+            <p>Wait a sec, you might be on to something. 
+                Ron just acts on violent impulse. 
+                So maybe we don't need to defeat him, just distract him! </p>
+        </div>
+        <div class="textbox justice">
+            <p>Hey Ron! Go attack that independent reform minded doctor over there!</p>
+        </div>
+        <div class="textbox knute">
+            <p>Who me?</p>
+        </div>
+        <div class="animation_box" id="knute"></div>
+        <div class="textbox knute">
+            <p>NO PLEASE! I"M WILLING TO CROSS PARTY LINES!<p>
+        </div>
+        <div class="textbox ryan">
+            <p>REEEEEEEEEEE!</p>
+        </div>
+        <div class="textbox justice">
+            <p>Yes! We beat Ron.. more or less.</p>
+        </div>
         <page_controls></page_controls>
     </div>
 </main>
@@ -78,6 +102,7 @@
 <script>
     document.addEventListener("DOMContentLoaded",sneak)
     document.addEventListener("DOMContentLoaded",airForce)
+    document.addEventListener("DOMContentLoaded",knute)
 
     function sneak(){
         let canvas = document.getElementById("sneak")
@@ -182,6 +207,44 @@
                 ron.style.left = `${48-2*(i-26)}%`
             }else i=0
 
+            i++
+        },70)
+    }
+
+    function knute(){
+        let canvas = document.getElementById("knute")
+        let ron = createCharacterImg("/front_end/static/imgs/character_sheets/ryan/down1.png")
+        let chef = createCharacterImg("/front_end/static/imgs/character_sheets/chef/left1.png")
+        let justice = createCharacterImg("/front_end/static/imgs/character_sheets/magic_rat/left1.png")
+        let knute = createCharacterImg("/front_end/static/imgs/character_sheets/knute/right1.png")
+        canvas.appendChild(ron)
+        canvas.appendChild(chef)
+        canvas.appendChild(justice)
+        canvas.appendChild(knute)
+        justice.style.left = "75%"
+        chef.style.left = "80%"
+        let i = 0
+        setInterval(()=>{
+            if(i<40){
+                ron.style.bottom = "0%"
+                ron.style.left = "48%"
+                knute.style.left = "15%"
+                knute.src = `/front_end/static/imgs/character_sheets/knute/right1.png`
+                ron.src = `/front_end/static/imgs/character_sheets/ryan/${Math.floor(i/6)%2==0?"left":"right"}1.png`
+            }else if(i<50){
+                knute.src = `/front_end/static/imgs/character_sheets/knute/left${i%3}.png`
+                ron.style.bottom = `${((i-40)*16-(Math.floor((i-40)/5)*(32*(i-40)-160)))}%`
+                ron.style.left = `${48-2*(i-40)}%`
+                knute.style.left = `${15-(i-40)}%`
+            }else if(i<60){
+                knute.src = `/front_end/static/imgs/character_sheets/knute/left${i%3}.png`
+                ron.style.bottom = `${((i-50)*16-(Math.floor((i-50)/5)*(32*(i-50)-160)))}%`
+                ron.style.left = `${48-2*(i-40)}%`
+                knute.style.left = `${15-(i-40)}%`
+            }else if(i<70){
+                ron.style.bottom = `${((i-60)*16-(Math.floor((i-60)/5)*(32*(i-60)-160)))}%`
+                ron.style.left = `${48-2*(i-40)}%`
+            }else i=0
             i++
         },70)
     }
