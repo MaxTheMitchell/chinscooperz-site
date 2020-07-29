@@ -60,7 +60,7 @@
 
     function tooSlow(){
         let canvas = document.getElementById("too_slow")
-        let justice = createCharacterImg("/front_end/static/imgs/character_sheets/magic_rat/right1.png")
+        let justice = createCharacterImg("/front_end/static/imgs/character_sheets/justice/right1.png")
         let fadora = createCharacterImg("/front_end/static/imgs/character_sheets/fadora/left1.png")
         let oldJustices = []
         justice.style.left = `20%`
@@ -79,7 +79,7 @@
             oldJustices.push(justice.cloneNode())
             canvas.appendChild(oldJustices[oldJustices.length-1])
             justice.style.left = `${20+i*2}%`
-            justice.src = `/front_end/static/imgs/character_sheets/magic_rat/right${i%3}.png`
+            justice.src = `/front_end/static/imgs/character_sheets/justice/right${i%3}.png`
             oldJustices.forEach(j=>{
                 j.style.opacity = `${Number(j.style.opacity)-.1}`
             })

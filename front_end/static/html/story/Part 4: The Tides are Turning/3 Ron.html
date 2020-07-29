@@ -12,9 +12,9 @@
         <img  src='/front_end/static/imgs/character_sheets/ryan/up0.png'>
         <img  src='/front_end/static/imgs/character_sheets/ryan/up1.png'>
         <img  src='/front_end/static/imgs/character_sheets/ryan/up2.png'>
-        <img  src='/front_end/static/imgs/character_sheets/magic_rat/right0.png'>
-        <img  src='/front_end/static/imgs/character_sheets/magic_rat/right1.png'>
-        <img  src='/front_end/static/imgs/character_sheets/magic_rat/right2.png'>
+        <img  src='/front_end/static/imgs/character_sheets/justice/right0.png'>
+        <img  src='/front_end/static/imgs/character_sheets/justice/right1.png'>
+        <img  src='/front_end/static/imgs/character_sheets/justice/right2.png'>
         <img  src='/front_end/static/imgs/character_sheets/chef/right0.png'>
         <img  src='/front_end/static/imgs/character_sheets/chef/right1.png'>
         <img  src='/front_end/static/imgs/character_sheets/chef/right2.png'>
@@ -108,7 +108,7 @@
         let canvas = document.getElementById("sneak")
         let ron = createCharacterImg("/front_end/static/imgs/character_sheets/ryan/up1.png")
         let chef = createCharacterImg("/front_end/static/imgs/character_sheets/chef/right1.png")
-        let justice = createCharacterImg("/front_end/static/imgs/character_sheets/magic_rat/right1.png")
+        let justice = createCharacterImg("/front_end/static/imgs/character_sheets/justice/right1.png")
         let exclimation1 = document.createElement("h2")
         exclimation1.setAttribute("class","exclimation")
         exclimation1.innerText = "!"
@@ -126,7 +126,7 @@
         setInterval(()=>{
             if(i<60){
                 chef.src = `/front_end/static/imgs/character_sheets/chef/right${i%3}.png`
-                justice.src = `/front_end/static/imgs/character_sheets/magic_rat/right${i%3}.png`
+                justice.src = `/front_end/static/imgs/character_sheets/justice/right${Math.floor(i/1.5)%3}.png`
                 chef.style.left = `${0+i}%`
                 justice.style.left = `${5+i}%`
                 chef.style.bottom = `0%`
@@ -147,7 +147,7 @@
                 exclimation2.style.display = "inline"
                 ron.src = `/front_end/static/imgs/character_sheets/ryan/left2.png`
                 chef.src = `/front_end/static/imgs/character_sheets/chef/right1.png`
-                justice.src = `/front_end/static/imgs/character_sheets/magic_rat/right1.png`
+                justice.src = `/front_end/static/imgs/character_sheets/justice/right1.png`
                 ron.style.bottom = `${((i-60)*16-(Math.floor((i-60)/6)*(32*(i-60)-160)))}%`
                 ron.style.left = `${80-2*(i-60)}%`
                 if(i>64){
@@ -179,7 +179,7 @@
         let canvas = document.getElementById("air_force")
         let ron = createCharacterImg("/front_end/static/imgs/character_sheets/ryan/down1.png")
         let chef = createCharacterImg("/front_end/static/imgs/character_sheets/chef/right1.png")
-        let justice = createCharacterImg("/front_end/static/imgs/character_sheets/magic_rat/left1.png")
+        let justice = createCharacterImg("/front_end/static/imgs/character_sheets/justice/left1.png")
         canvas.appendChild(ron)
         canvas.appendChild(chef)
         canvas.appendChild(justice)
@@ -215,7 +215,7 @@
         let canvas = document.getElementById("knute")
         let ron = createCharacterImg("/front_end/static/imgs/character_sheets/ryan/down1.png")
         let chef = createCharacterImg("/front_end/static/imgs/character_sheets/chef/left1.png")
-        let justice = createCharacterImg("/front_end/static/imgs/character_sheets/magic_rat/left1.png")
+        let justice = createCharacterImg("/front_end/static/imgs/character_sheets/justice/left1.png")
         let knute = createCharacterImg("/front_end/static/imgs/character_sheets/knute/right1.png")
         canvas.appendChild(ron)
         canvas.appendChild(chef)

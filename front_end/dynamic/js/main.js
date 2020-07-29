@@ -97,7 +97,7 @@ function createCharacterImg(src){
 
 function duesBattleSetup(id,spacing){
   let canvas = document.getElementById(id)
-  let justice = createCharacterImg("/front_end/static/imgs/character_sheets/fadora/right1.png")
+  let justice = createCharacterImg("/front_end/static/imgs/character_sheets/justice/right1.png")
   let dues = createCharacterImg("/front_end/static/imgs/character_sheets/ryan/left1.png")
   justice.style.left = `${spacing}%`
   dues.style.left = `${95-spacing}%`
