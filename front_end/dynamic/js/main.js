@@ -95,14 +95,25 @@ function createCharacterImg(src){
   return img
 }
 
-function duesBattleSetup(id,spacing){
+function duesBattleSetup(id,spacing,allCharacters=true){
   let canvas = document.getElementById(id)
   let justice = createCharacterImg("/front_end/static/imgs/character_sheets/justice/right1.png")
   let dues = createCharacterImg("/front_end/static/imgs/character_sheets/ryan/left1.png")
+  let magicRat = createCharacterImg("/front_end/static/imgs/character_sheets/magic_rat/right1.png")
+  let niko = createCharacterImg("/front_end/static/imgs/character_sheets/niko/right1.png")
+  let chef = createCharacterImg("/front_end/static/imgs/character_sheets/chef/right1.png")
   justice.style.left = `${spacing}%`
+  magicRat.style.left = `${spacing-7.5}%`
+  niko.style.left = `${spacing-10}%`
+  chef.style.left = `${spacing-3}%`
   dues.style.left = `${95-spacing}%`
   canvas.appendChild(justice)
   canvas.appendChild(dues)
+  if(allCharacters){
+    canvas.appendChild(magicRat)
+    canvas.appendChild(niko)
+    canvas.appendChild(chef)
+  }
   return canvas
 }
 
