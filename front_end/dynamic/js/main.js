@@ -98,7 +98,7 @@ function createCharacterImg(src){
 function duesBattleSetup(id,spacing,allCharacters=true){
   let canvas = document.getElementById(id)
   let justice = createCharacterImg("/front_end/static/imgs/character_sheets/justice/right1.png")
-  let dues = createCharacterImg("/front_end/static/imgs/character_sheets/ryan/left1.png")
+  let dues = createCharacterImg("/front_end/static/imgs/character_sheets/dues/left1.png")
   let magicRat = createCharacterImg("/front_end/static/imgs/character_sheets/magic_rat/right1.png")
   let niko = createCharacterImg("/front_end/static/imgs/character_sheets/niko/right1.png")
   let chef = createCharacterImg("/front_end/static/imgs/character_sheets/chef/right1.png")
@@ -120,7 +120,7 @@ function duesBattleSetup(id,spacing,allCharacters=true){
 function fightWithBeams(id,static_center){
   let beam = makeBeam()
   beam.style.left = `${BEAM_SPACING+3}%`
-  beam.style.width = `${100-BEAM_SPACING*2-8}%`
+  beam.style.width = `${100-BEAM_SPACING*2-6.5}%`
   canvas = duesBattleSetup(id,BEAM_SPACING)
   canvas.appendChild(beam)
   let i = 0

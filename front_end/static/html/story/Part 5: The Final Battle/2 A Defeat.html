@@ -58,7 +58,7 @@
     function finalBattle(){
         let beam = makeBeam()
         beam.style.left = `${BEAM_SPACING+3}%`
-        beam.style.width = `${100-BEAM_SPACING*2-8}%`
+        beam.style.width = `${100-BEAM_SPACING*2-6.5}%`
         canvas = duesBattleSetup("battle2",BEAM_SPACING)
         canvas.appendChild(beam)
         let dues = canvas.children[1]
@@ -68,7 +68,7 @@
             if(i<40)center-= 2
             else if(center<100){
                 center+=4
-            }else if(center<200){
+            }else if(center<300){
                 center+=4
                 dues.style.left=`${Number(dues.style.left.slice(0,dues.style.left.length-1))+4}%`
                 beam.style.width=`${Number(beam.style.width.slice(0,beam.style.width.length-1))+4}%`
@@ -76,13 +76,13 @@
             else {
                 i=0
                 center=75
-                beam.style.width=`${100-BEAM_SPACING*2-8}%`
+                beam.style.width=`${100-BEAM_SPACING*2-6.5}%`
                 dues.style.left = "85%"
             }
             beam.style.background = `
                 linear-gradient(to right, red ${center-10}%,
                         blue ${center+10}%)`
             i++
-        },10)
+        },15)
     }
 </script>
