@@ -68,14 +68,17 @@
     document.addEventListener('DOMContentLoaded', ()=>fightWithBeams("battle1",35))
 
     function makeHelpBox(url,dialog){
-        return `
-        <div class="textbox"
-        style="background-color:rgb(${Math.floor(Math.random()*255)},
-        ${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)});">
-            <img class="face" src="${url}">
-            <p>${unescape(dialog)}</p>
-        </div>
-    `
+        let textbox = document.createElement("div")
+        textbox.setAttribute("class","textbox")
+        textbox.style.backgroundColor = `rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`
+        let img = document.createElement("img")
+        img.setAttribute("class","face")
+        img.setAttribute("src",url)
+        let p = document.createElement("p")
+        p.appendChild(document.createTextNode(unescape(dialog)))
+        textbox.appendChild(img)
+        textbox.appendChild(p)
+        return textbox
     }
 
     function createHelpBox(form){
@@ -87,7 +90,9 @@
             sendPostRequest(
                 "/customStories/finalBattle",
                 (url)=>{
-                    document.getElementById("formHolder").innerHTML = makeHelpBox(url,form.get("dialog"))
+                    document.getElementById("formHolder").replaceChild(
+                        makeHelpBox(url,form.get("dialog")),
+                        document.getElementsByClassName("create_textbox")[0])
                     toggelDisplay("page_controls")
                 },
                 JSON.stringify({
@@ -103,7 +108,7 @@
             "/customStories/finalBattle",
             (resp)=>
             JSON.parse(resp).forEach((helpBox)=>{
-                document.getElementById("help").innerHTML += makeHelpBox(helpBox[0],helpBox[1])
+                document.getElementById("help").appendChild(makeHelpBox(helpBox[0],helpBox[1]))
             })
         )
     }
